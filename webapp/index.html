@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Call Analysis - Call #39472</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1>Service Call Recording Analysis</h1>
+            <div class="header-meta">
+                <span class="call-id">Call #39472_N_Darner_Dr_2</span>
+                <span class="divider">|</span>
+                <span class="overall-score">
+                    Overall: <strong id="overall-score">--</strong>/100
+                </span>
+                <span class="overall-rating" id="overall-rating">--</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container main-content">
+        <!-- Left Sidebar: Stage Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-sticky">
+                <h2>Stages</h2>
+                <nav class="stage-nav" id="stage-nav">
+                    <!-- Populated by JavaScript -->
+                </nav>
+
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <h3>Call Type</h3>
+                        <p id="call-type">--</p>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Sales Rating</h3>
+                        <p id="sales-rating">--</p>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Stages Evaluated</h3>
+                        <p id="stages-evaluated">--</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Center: Transcript -->
+        <main class="transcript-container">
+            <div class="transcript-header">
+                <h2>Call Transcript</h2>
+                <div class="legend">
+                    <span class="legend-item"><span class="icon">✓</span> Success</span>
+                    <span class="legend-item"><span class="icon">❌</span> Warning</span>
+                    <span class="legend-item"><span class="icon">⚠️</span> Partial</span>
+                    <span class="legend-item"><span class="icon">💡</span> Opportunity</span>
+                    <span class="legend-item"><span class="icon">👤</span> Customer Signal</span>
+                    <span class="legend-item"><span class="icon">ℹ️</span> Info</span>
+                </div>
+            </div>
+            
+            <div class="transcript" id="transcript">
+                <!-- Populated by JavaScript -->
+            </div>
+        </main>
+
+        <!-- Right Sidebar: Stage Analysis -->
+        <aside class="analysis-panel" id="analysis-panel">
+            <div class="analysis-sticky">
+                <h2 id="analysis-title">Select a stage</h2>
+                <div id="analysis-content">
+                    <p class="analysis-placeholder">Click on a stage in the left sidebar to view detailed analysis.</p>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Sales Insights Section -->
+    <section class="sales-section container">
+        <h2>Sales Insights</h2>
+        <div class="sales-grid" id="sales-insights">
+            <!-- Populated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Annotation Detail Modal -->
+    <div class="modal" id="annotation-modal">
+        <div class="modal-content">
+            <span class="modal-close" id="modal-close">&times;</span>
+            <div id="modal-body">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+

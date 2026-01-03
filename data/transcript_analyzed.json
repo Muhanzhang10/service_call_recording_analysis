@@ -1,0 +1,2354 @@
+{
+  "id": "85732026-189f-43fb-9cc0-35ed69c784a2",
+  "status": "completed",
+  "utterances": [
+    {
+      "speaker": "A",
+      "text": "Hello.",
+      "start": 12.16,
+      "end": 12.48,
+      "confidence": 0.69677734,
+      "primary_stage": "introduction",
+      "stage_tags": [
+        "introduction"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer greets the technician, indicating the start of the conversation.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Hey, Luis. Got you all done. The reason that took so long is I. I just kind of also built all your equipment options when I was out there too.",
+      "start": 12.8,
+      "end": 19.36,
+      "confidence": 0.9384169,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation",
+        "upsell_attempts"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician explains the work done and mentions building equipment options, hinting at upselling.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Okay, sure.",
+      "start": 19.36,
+      "end": 20.32,
+      "confidence": 0.9786784,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer acknowledges the technician's statement without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "I'd love to wrap up with you here.",
+      "start": 20.96,
+      "end": 23.36,
+      "confidence": 0.98461914,
+      "primary_stage": "closing",
+      "stage_tags": [
+        "closing"
+      ],
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The technician indicates a desire to wrap up the conversation.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Of course, of course.",
+      "start": 23.36,
+      "end": 24.32,
+      "confidence": 0.94921875,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer agrees to proceed without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "So what are you up to for the rest of the day?",
+      "start": 25.84,
+      "end": 27.68,
+      "confidence": 0.9926351,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician engages in small talk unrelated to the service call stages.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Oh, keep working. Yeah, yeah, most of the. Most of the day. Sometimes I go through.",
+      "start": 28.08,
+      "end": 38.78,
+      "confidence": 0.89163715,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The customer responds to small talk, not related to service stages.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "I literally can't work from anywhere else but your home.",
+      "start": 39.26,
+      "end": 43.02,
+      "confidence": 0.97316897,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician continues with small talk, unrelated to service stages.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "I know.",
+      "start": 43.1,
+      "end": 43.74,
+      "confidence": 0.9484863,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer acknowledges the technician's statement without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Yeah. AI is a big thing, man. But so just to. Let's go right to just the differences here. I just wanted to show you. So remember before how we had that before that below freezing temperature at 41. It's good to see. And now we have that 20 degree difference as well. Did a really fancy charge there for you and got you in good shape. All that to say. Definitely. Bandaid. Sure.",
+      "start": 50.14,
+      "end": 82.92,
+      "confidence": 0.9270613,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician explains the technical details of the work done, including temperature adjustments.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Yeah.",
+      "start": 82.92,
+      "end": 83.36,
+      "confidence": 0.96272784,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer acknowledges the technician's explanation without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "It is old.",
+      "start": 83.68,
+      "end": 84.72,
+      "confidence": 0.8146159,
+      "primary_stage": "problem_diagnosis",
+      "stage_tags": [
+        "problem_diagnosis"
+      ],
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The technician comments on the age of the unit, which relates to diagnosing potential issues.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "It's an old unit.",
+      "start": 84.72,
+      "end": 85.76,
+      "confidence": 0.99171954,
+      "primary_stage": "problem_diagnosis",
+      "stage_tags": [
+        "problem_diagnosis"
+      ],
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer confirms the unit's age, which is relevant to diagnosing issues.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Right. So when it comes to just what to expect here in the future, I would say month to two months. I think we'll start to see. Or even sooner we'll start to see the efficiency drop again. And we still have those mold issues. I did just want to show you some different equipment options.",
+      "start": 85.99,
+      "end": 108.03,
+      "confidence": 0.963873,
+      "primary_stage": "upsell_attempts",
+      "stage_tags": [
+        "upsell_attempts",
+        "problem_diagnosis"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician discusses future efficiency and mold issues, leading into equipment options.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Of course.",
+      "start": 108.03,
+      "end": 108.55,
+      "confidence": 0.75634766,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer acknowledges the technician's statement without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Oh, my goodness. Who is this?",
+      "start": 109.27,
+      "end": 111.19,
+      "confidence": 0.93375653,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician makes a personal comment unrelated to the service stages.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Yeah, this is Michelangelo.",
+      "start": 112.75,
+      "end": 114.11,
+      "confidence": 0.96448773,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The customer responds to the personal comment, unrelated to service stages.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Michelangelo. I love cats. Get out of here. Aww. I have two cats and three dogs at home. So we have quite the chaos household.",
+      "start": 114.35,
+      "end": 126.99,
+      "confidence": 0.947972,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician continues with personal comments about pets, unrelated to service stages.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "We have two cats.",
+      "start": 127.15,
+      "end": 128.11,
+      "confidence": 0.85302734,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The customer continues the personal conversation about pets.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "There you go. Yeah. So the two equipment options, or there's a total of four that I built. There's either we replace like for like, which will naturally be more efficient, even though it's just going to be the updated version of what you have. It's going to be a new furnace, new coil, new condenser, higher sear rating, better efficiency, but still like the same type of equipment. The next step beyond that is maintaining gas heating, electric cooling, but upgrading efficiency. And the interesting thing about that is that actually ends up being the most expensive one of the four that I've built. Are you familiar with natural gas phase outs?",
+      "start": 128.11,
+      "end": 179.59,
+      "confidence": 0.96266305,
+      "primary_stage": "upsell_attempts",
+      "stage_tags": [
+        "upsell_attempts"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician discusses equipment options and upgrades, indicating an upsell attempt.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "No.",
+      "start": 179.67,
+      "end": 180.07,
+      "confidence": 0.8286133,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer responds with a simple acknowledgment, not adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Okay. So it is something like, let's say, for instance, we have stove tops being phased out. We do have gas water heaters being phased out. We have gas furnaces being phased out. Are you familiar with what California's goal is in every.",
+      "start": 180.55,
+      "end": 197.5,
+      "confidence": 0.95975274,
+      "primary_stage": "upsell_attempts",
+      "stage_tags": [
+        "upsell_attempts"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician explains the phase-out of gas appliances, leading into equipment options.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Yeah, some of that.",
+      "start": 197.5,
+      "end": 198.54,
+      "confidence": 0.9404704,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer acknowledges the technician's statement without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Yeah, I like the idea. It's just kind of a lot. They want every house to have a 200amp panel, have a bathtub generator. They want every house to have solar, and they want every house to have a heat pump. And so heat Pumps are the next option. Yeah, heat pumps are actually just got introduced some more rebates. So even though those are the best possible system to install, weirdly enough, those actually are getting quite affordable at the moment. I'm used to them being actually our most expensive option. But rebates have been introduced that have made it a lot more reasonable. And then when it comes to the. The two different heating options, I just have two different types of heat pumps that I'm building for you. So let's just look at.",
+      "start": 198.54,
+      "end": 251.75,
+      "confidence": 0.9756221,
+      "primary_stage": "upsell_attempts",
+      "stage_tags": [
+        "upsell_attempts"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician discusses heat pumps and rebates, indicating an upsell attempt.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "I like to like higher efficiency and then two different. Still same technology and then two heat pumps.",
+      "start": 251.75,
+      "end": 258.07,
+      "confidence": 0.88075536,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer acknowledges the technician's statement without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Exactly. And so to start off with, it's always important to realize these are more expensive than investments than your normal investment into a home. So I just wanted you to understand that a lot of our clients do use different monthly options to take care of them. But let's just break down what we do. So let's start off with the like for like we always come with our guarantees. We have some really, really excellent guarantees that really just show you that we're going to do a great job for you. We then start off with our first cost. This is a newest nest thermostat. We can switch this up. I just wanted to just simplify it, put something in that you guys are used to. It will be just the most modern version. And then we credit this back towards replacement at the very end. So this 549 will be credited back towards you. Then we talk about steps like what we need to do. AC removal, hall away and disposal, heater and removal. This is a really lengthy section. This is like typically roughly one day, this amount of work we remove, safely, demolish and dispose of your furnace, remove safely, remove the refrigerant, demolish and dispose of your ac. And that's I think like a pretty lengthy section.",
+      "start": 258.07,
+      "end": 344.73,
+      "confidence": 0.9726978,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician explains the installation process and guarantees, detailing the solution.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Got it.",
+      "start": 344.73,
+      "end": 345.21,
+      "confidence": 0.90478516,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer acknowledges the technician's explanation without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "This next one may or may not come up, but I am including it as a line item just in case it becomes relevant. Sometimes when we have water damage, I do see decayed plywood in sections where there could be like mold growth or anything like that. If we're seeing anything like that, we just cut that plywood out and put new plywood in.",
+      "start": 345.29,
+      "end": 367.53,
+      "confidence": 0.9634152,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician explains potential additional work related to water damage.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Okay.",
+      "start": 367.53,
+      "end": 368.01,
+      "confidence": 0.8308919,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer acknowledges the technician's statement without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "That's in the inside.",
+      "start": 368.01,
+      "end": 369.25,
+      "confidence": 0.9930827,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician continues explaining the installation process.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Oh yeah.",
+      "start": 369.25,
+      "end": 369.85,
+      "confidence": 0.9576009,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer acknowledges the technician's statement without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Next. The new system is not going to be the same dimensions. It's going to be a little bit smaller or a little bit wider, a little bit taller or something around there. And we do have to make sure the sheet metal connections fit to it. We do any sheet metal necessary.",
+      "start": 371.13,
+      "end": 388.82,
+      "confidence": 0.99059,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician explains the need for sheet metal adjustments during installation.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Of course.",
+      "start": 388.9,
+      "end": 389.46,
+      "confidence": 0.9538574,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer acknowledges the technician's statement without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Outside we have A fuse box. That's where I remove it and work on it safely. We just put a new one in for you. All the new electrical. There will be some new electrical in there. Currently there's a little on off switch in there called a safety shut off. We always come with a new one. Any new thermostat, wiring or connections, any new electrical whips, we install that for you. We have circuit breakers on the ac. We just prefer to have a brand new circuit breaker. So we just include that with it. Thermostat wire, communication wire. This just means if there is a need to rerun a thermostat wire, we absolutely would. And then H Vac permanent. We always pull permits. There is a caveat for permit pulling. Usually they like to do a HERS test as well. Have you ever heard of that before?",
+      "start": 389.86,
+      "end": 446.1,
+      "confidence": 0.9679393,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician explains electrical work and permits involved in the installation.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "No, I don't know what the HERS test is. It's like an efficiency.",
+      "start": 447.38,
+      "end": 450.38,
+      "confidence": 0.9386644,
+      "primary_stage": "problem_diagnosis",
+      "stage_tags": [
+        "problem_diagnosis"
+      ],
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer inquires about the HERS test, which relates to diagnosing home efficiency.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "It's a home efficiency test. And I do know right now your home would not pass a HERS test because of the condition of the ducting and a little bit of your insulation too. So we love to do HERS tests. But in order for us to feel confident in doing that, we would need to do a little bit with your ducting or consider modifying it. What that would look like is something. We do have a promotion going on currently is sealing your ductwork, which just means no replacement. But we go to every single connection and seal it thoroughly and then we can include a test. If we do that next. This is the total cost of four R&E discounts. I do have a fair amount of discounts that I've included. This is again the like for like option. And just to explain what it comes with, I explained R410A. The refrigerant got phased out. We have the newest style here, R32. This is basically just the new standard for refrigerant. It is considered to be better for the environment. It's just much less harmful to ozone layers in general. 35% cooling savings, 30% heating savings. It is going to be the same similar type of technology. The sear rating is up. You currently have a 12 seer. We install a 15 and then we always include standard filtration for you as basic. The motor is an improvement. So the fan motor inside of the system is an improvement. Way more reliable and way quieter. That's basically what this comes with now. A really cool thing. 10 year manufacturer warranty, 10 year compressor warranties. If you're on this maintenance program with us, we actually completely match the manufacturer warranties. It's essentially 10 years parts and 10 year manufacturer warranty. And then moving on, we'll just get to the first heat pump. Really very similar line items. I'm not going to go through every single one this time. I wanted to pause at this one though. The technology we're talking about with this heat pump is called an inverter. Have you ever heard of an inverter before?",
+      "start": 450.38,
+      "end": 586.5,
+      "confidence": 0.9671594,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician explains the HERS test and ducting issues, detailing the solution.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "I have, yeah.",
+      "start": 586.5,
+      "end": 587.46,
+      "confidence": 0.91807723,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer acknowledges the technician's statement without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Actually, you know what? I saw your mini split. It actually mimics that technology, but in a ducted sense. So that's a ductless heating and cooling system. This one we have that same type of inverter technology where it ramps up and ramps down, except we're just attaching it to the ductwork. So the main difference here just important to realize that it's going to heat and cool a little bit differently. In general, everything is going to be an improvement. Cooling will be significantly better. Usually we're talking like 60% utility bill savings. The thing about heating side, it's just important to note usually they don't absolutely kill it the same way old furnaces do. Old furnaces have flames. So obviously we're going to get really intense temperature coming out. These do heat a little bit less extreme, but still are totally capable of.",
+      "start": 587.54,
+      "end": 643.98,
+      "confidence": 0.9547168,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician explains inverter technology and its benefits, detailing the solution.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "I'm familiar with the heat pump.",
+      "start": 643.98,
+      "end": 645.22,
+      "confidence": 0.8507012,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer acknowledges familiarity with the heat pump technology.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "You know about these?",
+      "start": 645.22,
+      "end": 645.78,
+      "confidence": 0.97436523,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician confirms the customer's familiarity with the technology.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Okay, perfect.",
+      "start": 645.78,
+      "end": 646.58,
+      "confidence": 0.86311847,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer confirms understanding without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Everything else is the same. AC removal, hallway disposal, heater removal, plywood circuit breaker, thermostat permit. And there's the price before any discounts or rebates. We then have our discounts and rebates, which I realize I didn't include on the other option here. But starting off, this existed on your other estimate too is $1,800 off because we're able to reuse the copper line set. Very resilient to timing corrosion. If my install crew does determine that your H Vac leak that you have right now is in your copper line, we just still take care of it. But even with this savings in place, next we have the thermostat credit back towards you and this where we have some rebates. So Silicon Valley Clean Energy. I did just want to confirm, did you opt out of this program? You would have to manually opt out of it.",
+      "start": 646.9,
+      "end": 706.2,
+      "confidence": 0.9759314,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician continues explaining the installation process and discounts.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Yeah, I didn't.",
+      "start": 706.2,
+      "end": 707.04,
+      "confidence": 0.97960067,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer confirms not opting out of a program, not adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Okay, so you're good. So Silicon Valley Clean energy is a $2,500 off towards heat pump updates. Next we have tech which is one that just barely got reintroduced like yesterday. So that's, that's really cool that it got introduced. And 1500 off here. What this is, is the fact that we're removing both a furnace and AC qualifies you for this higher end one. So we handle what we need to handle. There are things that you need to physically go in and do. The only one for the SVCE is you do. And this will be in a contract that you can just click on easily. You do need to submit a full PG and E bill. Like every bit, every page off a PG and E bill, and then we do the rest. What they need from us is proof that we've installed a inverter system and the manufacturer label. We take care of that.",
+      "start": 707.04,
+      "end": 769.85,
+      "confidence": 0.9612019,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician explains rebates and the process for obtaining them.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Got it.",
+      "start": 769.85,
+      "end": 770.33,
+      "confidence": 0.6936035,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer acknowledges the technician's explanation without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "For tech. Let's see. I think we just take care of this one for you, so. Oh, you know what? This one does require a HERS test to be done. So for this area, I would love to include one of our promotions for you, which is where we just include a duct seal, and that would be something I can definitely do. So if that passes a HERS test, I think you're all good. Mm. So your client has clear record with the city. Yeah. As long as you have no failed permits, then it should pass.",
+      "start": 770.33,
+      "end": 807.71,
+      "confidence": 0.9624256,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician explains the requirements for a HERS test and promotions.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Failed permits, meaning like, you tried to.",
+      "start": 808.27,
+      "end": 810.11,
+      "confidence": 0.97713214,
+      "primary_stage": "problem_diagnosis",
+      "stage_tags": [
+        "problem_diagnosis"
+      ],
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer inquires about failed permits, which relates to diagnosing potential issues.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Pull a permit and it didn't work or passed. It didn't pass inspection.",
+      "start": 810.11,
+      "end": 813.31,
+      "confidence": 0.97505385,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician explains what failed permits mean, detailing the solution.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "I see. I see. For this. For your homework. For your homework. Because there was something. Okay, no problem.",
+      "start": 813.31,
+      "end": 818.87,
+      "confidence": 0.9192665,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer acknowledges the explanation and adds a personal note.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Okay. So it looks like you would qualify for this. The next option will go to.",
+      "start": 818.87,
+      "end": 824.59,
+      "confidence": 0.96676636,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician continues discussing qualification for options.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "And what was that option?",
+      "start": 824.59,
+      "end": 825.63,
+      "confidence": 0.90961915,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer asks for clarification on the options discussed.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Oh, total price.",
+      "start": 825.63,
+      "end": 826.51,
+      "confidence": 0.9831543,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician provides clarification on the total price.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "No, no. What was that option that you showed me? I. Yep.",
+      "start": 826.51,
+      "end": 829.85,
+      "confidence": 0.8815918,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer seeks further clarification on the options.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "So you can actually see what's kind of funny is it's relatively around the same price as a gap and actually a little bit less expensive, weirdly. And what's really cool, I was actually talking to Alex that I was really impressed. I just built your best possible heat pump. This is like our branded unit. It's a daikin. Daikin we love to work with because they really like us. If you ever look up daikin products on Google and you look up, like, install videos, you'll actually see my company installing them because we do the worldwide training for how to install daikin, so we just have a great partnership with them. So we like to install them. But what's interesting is Bryant does have a corner on a type of technology. Heat pumps, on occasion, enter a defrost cycle, which is where it briefly stops heating and it just runs itself alone to heat itself back up. These are known to not really enter that. And the brilliant. And it's just because of the way their coils are built. They have a better type of metal derivative in it that is better at dissipating its own heat and keeping itself warm.",
+      "start": 830.01,
+      "end": 910.57,
+      "confidence": 0.96775156,
+      "primary_stage": "upsell_attempts",
+      "stage_tags": [
+        "upsell_attempts"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician discusses the benefits of a specific heat pump brand, indicating an upsell attempt.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Warm.",
+      "start": 910.72,
+      "end": 911.04,
+      "confidence": 0.6616211,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer acknowledges the technician's statement without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "The only time these ever enter defrost, which we won't ever get to here in California, Is when they enter 18 degrees Fahrenheit. So it just won't happen. And it's just really funny if we look at like the really high end furnace, it's just like. We really climbed the cost. I just. It's substantial.",
+      "start": 911.84,
+      "end": 928.64,
+      "confidence": 0.9779748,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician explains the defrost cycle and its relevance to the installation.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "None of this option is moving the unit to the top.",
+      "start": 929.04,
+      "end": 931.44,
+      "confidence": 0.9304199,
+      "primary_stage": "problem_diagnosis",
+      "stage_tags": [
+        "problem_diagnosis"
+      ],
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer inquires about moving the unit, which relates to diagnosing installation challenges.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "No. Currently I haven't built that. We do have an attic package. I would actually have to modify these estimates to do that. The reason I'm starting like this is just. I just wanted you to understand what it would look like to keep it in the closet. So when it comes to keeping it in the closet, we are completely fine moving it to your attic. Completely fine. The thing I like to make sure my clients understand is serviceability, maintenance and efficiency. That is the best location.",
+      "start": 931.44,
+      "end": 963.82,
+      "confidence": 0.9711306,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician explains the implications of moving the unit to the attic.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Yeah, because it's too hot up there.",
+      "start": 963.82,
+      "end": 965.1,
+      "confidence": 0.9594959,
+      "primary_stage": "problem_diagnosis",
+      "stage_tags": [
+        "problem_diagnosis"
+      ],
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer comments on the attic's temperature, which relates to diagnosing installation challenges.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Precisely.",
+      "start": 965.1,
+      "end": 965.7,
+      "confidence": 0.975708,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician acknowledges the customer's comment without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "What about moving it to the garage?",
+      "start": 965.7,
+      "end": 967.18,
+      "confidence": 0.9918504,
+      "primary_stage": "problem_diagnosis",
+      "stage_tags": [
+        "problem_diagnosis"
+      ],
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer inquires about moving the unit to the garage, which relates to diagnosing installation challenges.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "That would be way harder. Harder.",
+      "start": 967.18,
+      "end": 970.14,
+      "confidence": 0.9930013,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician explains the challenges of moving the unit to the garage.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Harder.",
+      "start": 970.14,
+      "end": 970.7,
+      "confidence": 0.89941406,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer repeats the technician's statement for confirmation.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "So much more work. And we would actually be forced to replace your ductwork entirely. And. And with this. The benefit of moving out to the attic, though, is you do get a full closet. In general, it is a pretty. In regards to airflow that enters the home, It's a pretty nice spot. It's just. We do have to do some modifications. So just to explain an attic install, that intake would no longer be used. We would add one probably close to the center of the house. And our systems are very quiet. But it is just something that we will have airflow here now. And then we do have to run some new electrical. If we're not doing a new gas line, that's great. But we do have to install. We would have to install the intake here. And yeah, closet systems, in regards to what the system itself likes is the best location. But at the end of the day, the systems are built for you. So if we're moving it to the attic, completely fine. I kind of forget at the top of my head how much it adds to the project. It is depending on the severity of necessary. I do think it adds at least 4,000 to it. But on the highest end, it would involve new ductwork. And then we add a fair amount to it.",
+      "start": 971.74,
+      "end": 1060.55,
+      "confidence": 0.9612475,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician explains the benefits and challenges of moving the unit to the attic.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Okay. Okay. Yeah. What we don't like about it there is not so much the cabinet is the noise.",
+      "start": 1061.43,
+      "end": 1066.31,
+      "confidence": 0.8816432,
+      "primary_stage": "problem_diagnosis",
+      "stage_tags": [
+        "problem_diagnosis"
+      ],
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer comments on noise issues, which relates to diagnosing installation challenges.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "So the sway client or any of.",
+      "start": 1066.31,
+      "end": 1068.31,
+      "confidence": 0.87629044,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician begins a statement but does not complete it.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Our units, that noise would be better.",
+      "start": 1068.31,
+      "end": 1071.98,
+      "confidence": 0.9738421,
+      "primary_stage": "problem_diagnosis",
+      "stage_tags": [
+        "problem_diagnosis"
+      ],
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer comments on noise issues, which relates to diagnosing installation challenges.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "And what I can even do as an extra way to make that noise even better is if we swap the grill. So the grill right now has louvers. Right. So when an airflow is pulled in and it does this, that naturally creates noise. We can install an egg carton version that has a square squares instead. And it's much, much, much, much better for airflow. And when that happens, it makes it a lot quieter, too. I did do a test one time on no change other than the grill, and it did decrease noise by 20% when I did that. So 20% quieter, it would still get on the noise. Not. It would be much less noisy than this. But if we did do the basic furnace, that's not going to be as quiet. But if we talk about inverters, those actually can sometimes be hard, at least even on type of thing. Do you even hear it running?",
+      "start": 1073.5,
+      "end": 1138.11,
+      "confidence": 0.94730407,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician explains how to reduce noise with a different grill design.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "That makes sense. I can hear it with the split unit.",
+      "start": 1139.95,
+      "end": 1145.19,
+      "confidence": 0.9405333,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer acknowledges the technician's explanation without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Yeah. So, yeah, that technology gets introduced here. All that to say if there's an inclusive, incredible cooling demand, it still will pull a lot of airflow into itself. But that won't happen that consistently. It would happen when it breaks 100 or when it's 105. Then it might be. It'll still be quieter than that, but it will get to, like equivalent air pressure going across itself.",
+      "start": 1145.19,
+      "end": 1170.68,
+      "confidence": 0.9551537,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician explains the impact of cooling demand on noise levels.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Okay, okay. All right. So the options I have are. Can I see the prices again? Yeah, so.",
+      "start": 1170.68,
+      "end": 1176.0,
+      "confidence": 0.9497296,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer requests to see the prices again, not adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "So all of these are going to be great options for you. I do have to take this call. Feel free to review this. Hello? Okay, I'm still talking to our client here about different options, so I don't know. Yeah.",
+      "start": 1176.08,
+      "end": 1205.92,
+      "confidence": 0.96812874,
+      "primary_stage": "closing",
+      "stage_tags": [
+        "closing"
+      ],
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The technician indicates they need to take a call, suggesting a pause or end to the conversation.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "I see that all these are. This one bent to the side.",
+      "start": 1215.76,
+      "end": 1220.8,
+      "confidence": 0.96500653,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer comments on the equipment, not adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Yes. That's a big difference too, is amount of room taken up outside. These are going to be taller systems. So it is actually, you know what, it'll be very, very, really, really close to the same height, but they're like this thin. But they go. They go wide, though.",
+      "start": 1221.6,
+      "end": 1238.78,
+      "confidence": 0.9540739,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician explains the physical dimensions of the systems.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Yeah, yeah, yeah. But my experience with the other one is that it vents to the side, so it's kind of windy.",
+      "start": 1238.78,
+      "end": 1244.5,
+      "confidence": 0.9553556,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer comments on their experience with the equipment, not adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "It still will. It still will.",
+      "start": 1244.58,
+      "end": 1246.18,
+      "confidence": 0.9777832,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician confirms the equipment's venting direction.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Yeah. And what I like about this one is that it vents to the top.",
+      "start": 1246.42,
+      "end": 1249.94,
+      "confidence": 0.9662001,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer comments on their preference for venting direction, not adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "I. I can build a form of inverter that does do that.",
+      "start": 1250.82,
+      "end": 1255.7,
+      "confidence": 0.96466744,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician offers to build an inverter that vents upwards.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Yeah.",
+      "start": 1255.86,
+      "end": 1256.42,
+      "confidence": 0.9479167,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer acknowledges the technician's offer without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "If that's a.",
+      "start": 1258.46,
+      "end": 1258.94,
+      "confidence": 0.71972656,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician begins a statement but does not complete it.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "So they have these unit that bends upwards.",
+      "start": 1259.1,
+      "end": 1262.54,
+      "confidence": 0.9170329,
+      "primary_stage": "problem_diagnosis",
+      "stage_tags": [
+        "problem_diagnosis"
+      ],
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer inquires about units that vent upwards, which relates to diagnosing installation preferences.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Yep. The brand is Bosch. Very highly reviewed. Mostly actually highly reviewed from technicians, which is very cool. Technicians love working on them because they're very reliable. But I don't know where the Bosch would end up. But I do think it would Be roughly in that same area. The only thing we can find out with Bosch in a second. But you see how this says Energy Star, high heat. Mm. Whenever you see Energy Star, that actually can qualify you for one further rebate that you have to deal with completely on your own. We can't help you. It's a tax cut rebate. And usually if you qualify for it, it's either a thousand dollars or $2,000. If we don't have Energy Star on it, you can't have that rebate.",
+      "start": 1262.54,
+      "end": 1308.91,
+      "confidence": 0.9784068,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician explains the brand and features of units that vent upwards.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "And Bosch doesn't have that.",
+      "start": 1308.91,
+      "end": 1309.99,
+      "confidence": 0.975944,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer inquires about a specific feature of the Bosch brand.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "I can find out.",
+      "start": 1309.99,
+      "end": 1310.71,
+      "confidence": 0.97802734,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician offers to find out more about the Bosch brand's features.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Okay, okay, okay. Got it, got it.",
+      "start": 1310.71,
+      "end": 1313.26,
+      "confidence": 0.921782,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer acknowledges the technician's offer without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Want me to just find out real quick?",
+      "start": 1313.42,
+      "end": 1314.86,
+      "confidence": 0.9890137,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician offers to find out more about the Bosch brand's features.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Sure, sure.",
+      "start": 1316.7,
+      "end": 1317.42,
+      "confidence": 0.9916992,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer agrees to the technician's offer without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Okay. Let me just modify this estimate to.",
+      "start": 1317.42,
+      "end": 1319.7,
+      "confidence": 0.9544881,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician explains the differences between Bosch and other brands.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Be a Bosch, but leave that one there.",
+      "start": 1319.7,
+      "end": 1321.1,
+      "confidence": 0.9637349,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer acknowledges the technician's explanation without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "I will. I'm just going to duplicate it and we'll switch it over to a Bosch. Okay. It does have Energy Star. So the difference is this one will have. It won't have the high heat feature. So let me just get. Where did I put that estimate as this one? Right. There we go. It. Okay. So now we have. It's funny, they all end up being in the same price range. So it's again, in regards to technology, the only thing that the Bryant has over the other ones is that it doesn't enter defrost as often. In California, though, we really don't enter.",
+      "start": 1321.1,
+      "end": 1441.27,
+      "confidence": 0.95682317,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician continues explaining the differences between Bosch and other brands.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Are defrosting. I had a heat pump before in another place. Never had a problem with it. Yeah, 20 years ago.",
+      "start": 1441.5,
+      "end": 1447.5,
+      "confidence": 0.93321407,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer comments on their past experience with a heat pump.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "And it was here in California. Yeah. So I think it's just. It will just very rarely enter a defrost cycle. But this one just has that better feature. Yeah, exactly.",
+      "start": 1447.5,
+      "end": 1458.46,
+      "confidence": 0.983384,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician confirms the customer's past experience and explains the defrost cycle.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Yeah. Okay. Okay. And how long does it take to install the system?",
+      "start": 1458.46,
+      "end": 1463.34,
+      "confidence": 0.98322314,
+      "primary_stage": "problem_diagnosis",
+      "stage_tags": [
+        "problem_diagnosis"
+      ],
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer inquires about installation time, which relates to diagnosing installation logistics.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "If we are doing a heat pump, it's going to be roughly two or three days. Because there is a lot of work that goes into a heat pump. If it was a gas system to existing ac, I would say one to two days. And then there is still a promotion. I haven't even included any of these. And that would be duct sealing. And those that also can take close to a day too. But depending on time frames, we have an install crew or two out here for you. If you have two, it really speeds up things.",
+      "start": 1463.82,
+      "end": 1498.3,
+      "confidence": 0.95924264,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician explains the installation time for different systems.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Things up.",
+      "start": 1498.37,
+      "end": 1498.85,
+      "confidence": 0.9453125,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer repeats the technician's statement for confirmation.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "So that's either two guys or four guys.",
+      "start": 1498.85,
+      "end": 1501.17,
+      "confidence": 0.9564006,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician explains the crew size and its impact on installation time.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Okay. Okay. And. All right. I understand the options. That's fine. I'm not. I would be interested on. On, on the heat pump. Maybe these, these two. I'm not interested on the gas.",
+      "start": 1501.57,
+      "end": 1516.17,
+      "confidence": 0.9742592,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer expresses interest in specific options without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Sure.",
+      "start": 1516.17,
+      "end": 1516.53,
+      "confidence": 0.8491211,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician acknowledges the customer's interest without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "And I guess. And then the other thing I noticed is that you also have financing?",
+      "start": 1516.69,
+      "end": 1520.01,
+      "confidence": 0.95946246,
+      "primary_stage": "problem_diagnosis",
+      "stage_tags": [
+        "problem_diagnosis"
+      ],
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer inquires about financing options, which relates to diagnosing payment logistics.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "I do, yeah. You go.",
+      "start": 1520.01,
+      "end": 1523.01,
+      "confidence": 0.9728516,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician confirms the availability of financing options.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "So for financing, can you show me the monthly payment and for how long is that?",
+      "start": 1523.49,
+      "end": 1527.65,
+      "confidence": 0.98309326,
+      "primary_stage": "problem_diagnosis",
+      "stage_tags": [
+        "problem_diagnosis"
+      ],
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer requests details on financing terms, which relates to diagnosing payment logistics.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "So we have. We have. Let's go to the Bosch, since that's the one that you like the idea of having airflow up. We'll look at financing. So we'll look at wintime offers July. So these are just all of our options that we have. So we have 120 month, 8.99 interest with autopay. So you don't have to do anything. 180. So much longer term with 9.99. This is our most. These two are our most commonly used. Good leap, actually just barely just gave us access to this this month. It was supposed to end on the 15th, so I'm surprised it's still going on. But the 12 months, no interest just means that if you do pay it off in 12 months, you just pay the same as cash. Like there's no interest rate or anything. This is just a very common one because the low interest rate and it just goes on for a little bit of a longer term. And yeah, I think when it comes to this one that we're seeing.",
+      "start": 1527.81,
+      "end": 1600.29,
+      "confidence": 0.97263604,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician explains the financing options and terms available.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "When.",
+      "start": 1606.45,
+      "end": 1606.73,
+      "confidence": 0.99853516,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer begins a statement but does not complete it.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "It comes to this payment that we're seeing there, that's including the 5.991 for this, for the 60 months.",
+      "start": 1606.73,
+      "end": 1614.19,
+      "confidence": 0.9772231,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician continues explaining the financing terms.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "60 months.",
+      "start": 1614.91,
+      "end": 1615.63,
+      "confidence": 0.8840309,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer repeats the financing term for confirmation.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "5 years of.",
+      "start": 1616.11,
+      "end": 1616.99,
+      "confidence": 0.9526365,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician confirms the financing term without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "5 year 335. And that. That includes the promotions area.",
+      "start": 1617.15,
+      "end": 1626.51,
+      "confidence": 0.8939777,
+      "primary_stage": "problem_diagnosis",
+      "stage_tags": [
+        "problem_diagnosis"
+      ],
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer inquires about the monthly payment, which relates to diagnosing payment logistics.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Yeah, there's still some line items in regards to promotions I haven't included. But this is baseline equipment.",
+      "start": 1627.31,
+      "end": 1634.67,
+      "confidence": 0.99011457,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician explains the baseline equipment cost and promotions.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "And what is the monthly payment with the one that you showed me that I can pay off earlier in a.",
+      "start": 1635.83,
+      "end": 1641.23,
+      "confidence": 0.9753883,
+      "primary_stage": "problem_diagnosis",
+      "stage_tags": [
+        "problem_diagnosis"
+      ],
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer inquires about a specific financing option, which relates to diagnosing payment logistics.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Year, that type of one. So you don't need to pay anything for a full year if you don't want. You actually do have the ability to take a year off of payments entirely. But then if it goes to that, I think it's not a nasty interest rate. It's something around 10%.",
+      "start": 1641.23,
+      "end": 1659.91,
+      "confidence": 0.9744037,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician explains the terms of a specific financing option.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Oh, I see what you're saying.",
+      "start": 1659.99,
+      "end": 1661.19,
+      "confidence": 0.98083496,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer acknowledges the explanation without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "It's not a horrible, horrible interest rate, but there is an interest rate there, so.",
+      "start": 1661.51,
+      "end": 1664.89,
+      "confidence": 0.959158,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician continues explaining the financing terms.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Oh. So basically paying the full amount within the year and whatever.",
+      "start": 1665.04,
+      "end": 1669.36,
+      "confidence": 0.9335734,
+      "primary_stage": "problem_diagnosis",
+      "stage_tags": [
+        "problem_diagnosis"
+      ],
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer clarifies the payment terms, which relates to diagnosing payment logistics.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "But the nice thing is you don't need to pay anything for the year either. So if we did pay it off in 12 payments, let's say it would be. A little bit over 2,000amonth.",
+      "start": 1669.36,
+      "end": 1687.28,
+      "confidence": 0.9898309,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician explains the impact of partial payments on financing terms.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Because it's within a year.",
+      "start": 1688.08,
+      "end": 1689.36,
+      "confidence": 0.9794922,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer repeats the financing term for confirmation.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Within a year. But then I think the terms actually go really, really close. It's like four, five years of, I think 9.99 from there. But the nice thing, though is let's say you don't pay it off in full. Let's say you go to the year and maybe you put 18,000 down. So we still have a remaining balance of. Still remaining balance of 8,422. What then happens is that interest only applies to that remaining balance. So we only get the remaining balance. So that would then divide it by. Yeah, so we just get that remaining amount and then divide it by 60. That would be like your monthly payment.",
+      "start": 1689.44,
+      "end": 1742.33,
+      "confidence": 0.95506597,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician explains the impact of partial payments on financing terms.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "For five more years.",
+      "start": 1743.69,
+      "end": 1744.73,
+      "confidence": 0.9958496,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer repeats the financing term for confirmation.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "But yeah, but then you can pay it off early and it's no big deal.",
+      "start": 1744.97,
+      "end": 1748.17,
+      "confidence": 0.9733724,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician explains the flexibility of early payment options.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "Of course, I get it. Okay, so look, I like to speak with my wife about all the options. Email me these and then of course I'll. Let's cover the what you did today and then I'll just discuss this with my wife.",
+      "start": 1748.41,
+      "end": 1765.07,
+      "confidence": 0.9690585,
+      "primary_stage": "closing",
+      "stage_tags": [
+        "closing"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer indicates a desire to discuss options with their spouse, suggesting a pause or end to the conversation.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Sure. Yeah.",
+      "start": 1765.07,
+      "end": 1765.99,
+      "confidence": 0.94352216,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician acknowledges the customer's plan without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "I like the idea of the thing being quieter and more efficient.",
+      "start": 1766.15,
+      "end": 1770.63,
+      "confidence": 0.9924859,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer comments on their preference for quieter and more efficient options.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Yeah.",
+      "start": 1770.71,
+      "end": 1771.23,
+      "confidence": 0.86116534,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician acknowledges the customer's preference without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "And not having gas leaks in the future.",
+      "start": 1771.23,
+      "end": 1772.87,
+      "confidence": 0.9689636,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer comments on their preference for avoiding gas leaks.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Yeah. So how about this? Let me bring the estimates down to just two of them. I'll just eliminate this one, eliminate that one. And the only thing I just want to make sure is clear on my end it would be so much easier if I didn't have to charge for the repair today. And if we actually just basically considered it as a complimentary thing for you. So if we did feel comfortable with signing what that would just look like on your end would just be a $1,000 down payment. The other thing is we can see what options you qualify for in regards to financing. And if that's the case, if we have financing, then I don't even need a down payment today. We would just do just the financing side of it. And we do come with. Every contractor that's reputable comes with this guarantee here. So as you're talking to your wife, anything weird comes up, we even have this notice right here. So we always have a reputable three day right to cancel.",
+      "start": 1772.87,
+      "end": 1838.26,
+      "confidence": 0.96961397,
+      "primary_stage": "upsell_attempts",
+      "stage_tags": [
+        "upsell_attempts"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician offers a complimentary repair and financing options, indicating an upsell attempt.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "No, we won't do that today. Just send me the, I'll talk to her and then we'll make a decision.",
+      "start": 1838.82,
+      "end": 1845.7,
+      "confidence": 0.9461304,
+      "primary_stage": "closing",
+      "stage_tags": [
+        "closing"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer declines the offer and indicates a desire to discuss options with their spouse, suggesting a pause or end to the conversation.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Absolutely. And then within 15 days I will completely credit that back towards it. Okay. So I'm gonna pretty his estimates up a little bit more and I'll include, include the duct sealing promotion. And because tech is needing a hers test, we actually just kind of have to do that anyways. So I'm going to modify it a little bit. And what you'll see that's new when I send it to you is permit and hers test. You'll see a duct seal cost. But then if you keep scrolling down, you would see a it credited back as a promotion, so. So, great. We'll go ahead. I'll eliminate the both of the gas options and we'll stay with the Bryant and the Bosch. Yes, and very cool. And let me go ahead and get the $1,000 for today. 1,900. So do you need a Visa or MasterCard?",
+      "start": 1845.7,
+      "end": 1910.05,
+      "confidence": 0.95004976,
+      "primary_stage": "solution_explanation",
+      "stage_tags": [
+        "solution_explanation"
+      ],
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician explains the process of sending estimates and promotions.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "I think it's a MasterCard, If I can find it.",
+      "start": 1912.85,
+      "end": 1923.09,
+      "confidence": 0.97100866,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer searches for their payment card, not adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Always important.",
+      "start": 1924.29,
+      "end": 1924.93,
+      "confidence": 0.9995117,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician makes a light comment about the importance of finding the card.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "There you go.",
+      "start": 1926.45,
+      "end": 1927.09,
+      "confidence": 0.9991862,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer indicates they have found the card.",
+      "annotations": []
+    },
+    {
+      "speaker": "B",
+      "text": "Great.",
+      "start": 1927.09,
+      "end": 1927.49,
+      "confidence": 0.8959961,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician acknowledges the customer's action without adding new information.",
+      "annotations": []
+    },
+    {
+      "speaker": "A",
+      "text": "It's on the back.",
+      "start": 1927.97,
+      "end": 1928.77,
+      "confidence": 0.99125165,
+      "primary_stage": "other",
+      "stage_tags": [
+        "other"
+      ],
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The customer provides additional information about the card location.",
+      "annotations": []
+    }
+  ],
+  "speaker_identification": {
+    "A": "Customer",
+    "B": "Technician"
+  },
+  "labeling_metadata": {
+    "phase": "phase1_utterance_labeling",
+    "model": "gpt-4o",
+    "total_utterances": 131,
+    "stages_found": [
+      "solution_explanation",
+      "problem_diagnosis",
+      "closing",
+      "introduction",
+      "upsell_attempts",
+      "other"
+    ],
+    "overall_notes": "The call primarily focused on solution explanation and upsell attempts, with the technician providing detailed information about equipment options, installation processes, and financing. The conversation included several instances of small talk and personal comments, which were not directly related to the service stages. The customer showed interest in specific options and financing but wanted to discuss with their spouse before making a decision."
+  },
+  "stage_summary": {
+    "introduction": {
+      "name": "Introduction & Greeting",
+      "utterance_indices": [
+        0
+      ],
+      "utterance_count": 1,
+      "start_time": 12.16,
+      "end_time": 12.48,
+      "status": "present"
+    },
+    "problem_diagnosis": {
+      "name": "Problem Diagnosis",
+      "utterance_indices": [
+        11,
+        12,
+        34,
+        46,
+        56,
+        58,
+        60,
+        64,
+        66,
+        80,
+        92,
+        98,
+        100,
+        106,
+        108,
+        112
+      ],
+      "utterance_count": 16,
+      "start_time": 83.68,
+      "end_time": 1669.36,
+      "status": "present"
+    },
+    "solution_explanation": {
+      "name": "Solution Explanation",
+      "utterance_indices": [
+        1,
+        9,
+        25,
+        27,
+        29,
+        31,
+        33,
+        35,
+        37,
+        41,
+        43,
+        45,
+        47,
+        49,
+        51,
+        55,
+        57,
+        61,
+        63,
+        67,
+        69,
+        73,
+        75,
+        77,
+        81,
+        83,
+        87,
+        89,
+        91,
+        93,
+        95,
+        99,
+        101,
+        103,
+        107,
+        109,
+        111,
+        113,
+        115,
+        117,
+        125
+      ],
+      "utterance_count": 41,
+      "start_time": 12.8,
+      "end_time": 1910.05,
+      "status": "present"
+    },
+    "upsell_attempts": {
+      "name": "Upsell Attempts",
+      "utterance_indices": [
+        13,
+        19,
+        21,
+        23,
+        53,
+        123
+      ],
+      "utterance_count": 6,
+      "start_time": 85.99,
+      "end_time": 1838.26,
+      "status": "present"
+    },
+    "maintenance_plan": {
+      "name": "Maintenance Plan Offer",
+      "utterance_indices": [],
+      "utterance_count": 0,
+      "start_time": null,
+      "end_time": null,
+      "status": "absent"
+    },
+    "closing": {
+      "name": "Closing & Thank You",
+      "utterance_indices": [
+        3,
+        71,
+        118,
+        124
+      ],
+      "utterance_count": 4,
+      "start_time": 20.96,
+      "end_time": 1845.7,
+      "status": "present"
+    }
+  },
+  "stage_analyses": {
+    "introduction": {
+      "status": "present",
+      "questions": [
+        {
+          "id": "intro_greeting",
+          "question": "Did the technician properly greet the customer?",
+          "answer": "NO",
+          "score": 0,
+          "evidence": [],
+          "explanation": "There was no greeting from the technician in the provided utterances.",
+          "what_was_good": "N/A",
+          "what_was_missing": "A professional and friendly greeting that acknowledges the customer was missing."
+        },
+        {
+          "id": "intro_name",
+          "question": "Did the technician introduce their name?",
+          "answer": "NO",
+          "score": 0,
+          "evidence": [],
+          "explanation": "The technician did not introduce their name in the provided utterances.",
+          "what_was_good": "N/A",
+          "what_was_missing": "A clear statement of the technician's name was missing."
+        },
+        {
+          "id": "intro_company",
+          "question": "Did the technician introduce the company?",
+          "answer": "NO",
+          "score": 0,
+          "evidence": [],
+          "explanation": "The technician did not mention the company name in the provided utterances.",
+          "what_was_good": "N/A",
+          "what_was_missing": "A clear statement of the company name to establish credibility was missing."
+        }
+      ],
+      "overall_compliance": "NON-COMPLIANT",
+      "compliance_score": 0,
+      "quality_rating": "Poor",
+      "analysis": "The introduction stage was completely missing from the provided utterances. The technician did not greet the customer, introduce themselves, or mention the company, which are all critical components of a professional introduction.",
+      "key_strengths": [],
+      "critical_gaps": [
+        "No greeting provided",
+        "No name introduction",
+        "No company mention"
+      ],
+      "recommendations": [
+        "Ensure every call begins with a professional greeting.",
+        "Introduce yourself by name to establish a personal connection.",
+        "Mention the company name to build credibility and trust."
+      ]
+    },
+    "problem_diagnosis": {
+      "status": "present",
+      "questions": [
+        {
+          "id": "diag_inquiry",
+          "question": "Did the technician inquire about the customer's issue?",
+          "answer": "NO",
+          "score": 0,
+          "evidence": [],
+          "explanation": "There is no evidence of the technician asking any questions to understand the customer's issue. The only statement from the technician is 'It is old,' which does not constitute an inquiry.",
+          "what_was_good": "N/A",
+          "what_was_missing": "The technician did not ask any questions to understand the customer's problem."
+        },
+        {
+          "id": "diag_probing",
+          "question": "Did the technician ask probing/follow-up questions?",
+          "answer": "NO",
+          "score": 0,
+          "evidence": [],
+          "explanation": "There are no follow-up or probing questions from the technician to delve deeper into the customer's issue.",
+          "what_was_good": "N/A",
+          "what_was_missing": "The technician did not engage in any probing or follow-up questions to diagnose the issue thoroughly."
+        },
+        {
+          "id": "diag_understanding",
+          "question": "Did the technician demonstrate understanding of the issue?",
+          "answer": "NO",
+          "score": 0,
+          "evidence": [
+            {
+              "quote": "It is old.",
+              "timestamp": "[83.68s - 84.72s]",
+              "speaker": "Technician"
+            }
+          ],
+          "explanation": "The technician's statement 'It is old' does not demonstrate an understanding of the issue. It is a vague comment that does not reflect comprehension of the customer's specific concerns.",
+          "what_was_good": "N/A",
+          "what_was_missing": "The technician did not confirm understanding or show comprehension of the customer's problem."
+        }
+      ],
+      "overall_compliance": "NON-COMPLIANT",
+      "compliance_score": 0,
+      "quality_rating": "Poor",
+      "analysis": "The Problem Diagnosis stage was ineffective as the technician did not inquire about the customer's issue, ask probing questions, or demonstrate understanding. This lack of engagement and diagnostic effort resulted in a non-compliant evaluation.",
+      "key_strengths": [],
+      "critical_gaps": [
+        "No inquiry into the customer's issue",
+        "Lack of probing or follow-up questions",
+        "Failure to demonstrate understanding of the problem"
+      ],
+      "recommendations": [
+        "Train technicians to ask initial questions to identify the customer's issue.",
+        "Encourage the use of probing questions to gather detailed information.",
+        "Ensure technicians confirm their understanding of the problem with the customer.",
+        "Implement a checklist for technicians to follow during the diagnosis stage.",
+        "Provide role-playing exercises to improve diagnostic skills."
+      ]
+    },
+    "solution_explanation": {
+      "status": "present",
+      "questions": [
+        {
+          "id": "soln_clarity",
+          "question": "Did the technician clearly explain the solution or service performed?",
+          "answer": "PARTIAL",
+          "score": 60,
+          "evidence": [
+            {
+              "quote": "Exactly. And so to start off with, it's always important to realize these are more expensive than investments than your normal investment into a home.",
+              "timestamp": "[258.07s - 344.73s]",
+              "speaker": "Technician"
+            },
+            {
+              "quote": "So let's start off with the like for like we always come with our guarantees.",
+              "timestamp": "[258.07s - 344.73s]",
+              "speaker": "Technician"
+            }
+          ],
+          "explanation": "The technician provided a detailed explanation of the services and options available, but the clarity was somewhat compromised by the lengthy and complex nature of the explanation.",
+          "what_was_good": "The technician covered a wide range of topics and options, providing a comprehensive overview.",
+          "what_was_missing": "The explanation could have been more concise and focused on the specific solution provided."
+        },
+        {
+          "id": "soln_understanding",
+          "question": "Did the customer appear to understand the explanation?",
+          "answer": "PARTIAL",
+          "score": 50,
+          "evidence": [
+            {
+              "quote": "Have you ever heard of that before?",
+              "timestamp": "[389.86s - 446.10s]",
+              "speaker": "Technician"
+            },
+            {
+              "quote": "Did you opt out of this program?",
+              "timestamp": "[707.04s - 769.85s]",
+              "speaker": "Technician"
+            }
+          ],
+          "explanation": "The technician occasionally checked for understanding, but there was limited evidence of the customer's responses indicating comprehension.",
+          "what_was_good": "The technician asked questions to check for understanding.",
+          "what_was_missing": "There was a lack of clear confirmation from the customer that they understood the explanation."
+        },
+        {
+          "id": "soln_details",
+          "question": "Were technical details communicated in an accessible way?",
+          "answer": "PARTIAL",
+          "score": 55,
+          "evidence": [
+            {
+              "quote": "It's a home efficiency test. And I do know right now your home would not pass a HERS test because of the condition of the ducting and a little bit of your insulation too.",
+              "timestamp": "[450.38s - 586.50s]",
+              "speaker": "Technician"
+            },
+            {
+              "quote": "The technology we're talking about with this heat pump is called an inverter.",
+              "timestamp": "[587.54s - 643.98s]",
+              "speaker": "Technician"
+            }
+          ],
+          "explanation": "The technician attempted to explain technical details, but the use of jargon and complex terms without sufficient simplification made it less accessible.",
+          "what_was_good": "The technician made an effort to explain technical terms like 'HERS test' and 'inverter'.",
+          "what_was_missing": "More simplification and layman's terms could have been used to ensure the customer fully understood the technical details."
+        }
+      ],
+      "overall_compliance": "PARTIAL",
+      "compliance_score": 58,
+      "quality_rating": "Fair",
+      "analysis": "The solution explanation stage was detailed but lacked clarity and accessibility in some areas. The technician provided a comprehensive overview but could have improved by simplifying the explanation and ensuring customer understanding.",
+      "key_strengths": [
+        "Comprehensive coverage of options and services",
+        "Effort to check for customer understanding"
+      ],
+      "critical_gaps": [
+        "Lack of concise and clear explanation",
+        "Insufficient confirmation of customer understanding",
+        "Complex technical details not fully simplified"
+      ],
+      "recommendations": [
+        "Simplify explanations by breaking down complex concepts into simpler terms.",
+        "Actively seek confirmation from the customer to ensure understanding.",
+        "Use visual aids or analogies to make technical details more accessible.",
+        "Focus on the specific solution provided rather than overwhelming with options.",
+        "Encourage customer questions to clarify any doubts during the explanation."
+      ]
+    },
+    "upsell_attempts": {
+      "status": "present",
+      "questions": [
+        {
+          "id": "upsell_present",
+          "question": "Did the technician attempt to upsell additional services or products?",
+          "answer": "YES",
+          "score": 100,
+          "evidence": [
+            {
+              "quote": "I did just want to show you some different equipment options.",
+              "timestamp": "[85.99s - 108.03s]",
+              "speaker": "Technician"
+            },
+            {
+              "quote": "So the two equipment options, or there's a total of four that I built.",
+              "timestamp": "[128.11s - 179.59s]",
+              "speaker": "Technician"
+            }
+          ],
+          "explanation": "The technician clearly presented multiple equipment options, indicating an attempt to upsell additional products.",
+          "what_was_good": "Multiple options were presented, showing a range of products.",
+          "what_was_missing": "Nothing was missing in terms of presenting upsell options."
+        },
+        {
+          "id": "upsell_approach",
+          "question": "Was the upsell approach natural and customer-focused?",
+          "answer": "PARTIAL",
+          "score": 70,
+          "evidence": [
+            {
+              "quote": "And the interesting thing about that is that actually ends up being the most expensive one of the four that I've built.",
+              "timestamp": "[128.11s - 179.59s]",
+              "speaker": "Technician"
+            },
+            {
+              "quote": "So how about this? Let me bring the estimates down to just two of them.",
+              "timestamp": "[1772.87s - 1838.26s]",
+              "speaker": "Technician"
+            }
+          ],
+          "explanation": "The approach was somewhat customer-focused, offering to simplify options and discussing financing, but it occasionally felt more focused on selling than on customer needs.",
+          "what_was_good": "Attempted to simplify choices and discuss financing options.",
+          "what_was_missing": "Could have been more tailored to specific customer needs and less focused on cost."
+        },
+        {
+          "id": "upsell_value",
+          "question": "Did the technician explain the value/benefits?",
+          "answer": "YES",
+          "score": 90,
+          "evidence": [
+            {
+              "quote": "It's going to be a new furnace, new coil, new condenser, higher sear rating, better efficiency.",
+              "timestamp": "[128.11s - 179.59s]",
+              "speaker": "Technician"
+            },
+            {
+              "quote": "Heat pumps are actually just got introduced some more rebates.",
+              "timestamp": "[198.54s - 251.75s]",
+              "speaker": "Technician"
+            }
+          ],
+          "explanation": "The technician provided clear explanations of the benefits, such as improved efficiency and available rebates, which add value to the upsell.",
+          "what_was_good": "Highlighted efficiency improvements and financial incentives.",
+          "what_was_missing": "Could have included more personalized benefits for the customer."
+        }
+      ],
+      "overall_compliance": "COMPLIANT",
+      "compliance_score": 86,
+      "quality_rating": "Good",
+      "analysis": "The upsell stage was well-executed, with clear attempts to present additional products and explain their benefits. The approach was generally customer-focused, though it could have been more personalized.",
+      "key_strengths": [
+        "Clear presentation of multiple product options",
+        "Explanation of efficiency and financial benefits",
+        "Consideration of financing options"
+      ],
+      "critical_gaps": [
+        "Approach could be more tailored to individual customer needs",
+        "Occasional focus on cost rather than customer value"
+      ],
+      "recommendations": [
+        "Tailor upsell discussions to specific customer needs and preferences.",
+        "Balance cost discussions with a focus on long-term value and benefits.",
+        "Continue to highlight financial incentives and efficiency improvements.",
+        "Ensure the approach remains customer-focused and not overly sales-driven.",
+        "Provide more personalized examples of how the products can benefit the customer."
+      ]
+    },
+    "maintenance_plan": {
+      "status": "absent",
+      "overall_compliance": "NON-COMPLIANT",
+      "compliance_score": 0,
+      "quality_rating": "N/A",
+      "analysis": "The Maintenance Plan Offer stage was not identified in this call.",
+      "questions": [],
+      "key_strengths": [],
+      "critical_gaps": [
+        "Maintenance Plan Offer stage missing entirely"
+      ],
+      "recommendations": [
+        "Include a proper Maintenance Plan Offer in future calls"
+      ]
+    },
+    "closing": {
+      "status": "present",
+      "questions": [
+        {
+          "id": "close_thankyou",
+          "question": "Did the technician thank the customer?",
+          "answer": "NO",
+          "score": 0,
+          "evidence": [],
+          "explanation": "There was no expression of gratitude or thanks from the technician to the customer in the provided utterances.",
+          "what_was_good": "N/A",
+          "what_was_missing": "The technician did not thank the customer for their time or business."
+        },
+        {
+          "id": "close_professional",
+          "question": "Was the closing professional and courteous?",
+          "answer": "NO",
+          "score": 30,
+          "evidence": [
+            {
+              "quote": "I do have to take this call. Feel free to review this. Hello? Okay, I'm still talking to our client here about different options, so I don't know. Yeah.",
+              "timestamp": "[1176.08s - 1205.92s]",
+              "speaker": "Technician"
+            }
+          ],
+          "explanation": "The closing was interrupted by the technician taking another call, which is unprofessional and discourteous.",
+          "what_was_good": "The technician attempted to provide options to the customer.",
+          "what_was_missing": "The closing lacked professionalism due to the interruption and lack of a proper wrap-up."
+        },
+        {
+          "id": "close_nextsteps",
+          "question": "Were next steps or follow-up information provided if needed?",
+          "answer": "PARTIAL",
+          "score": 50,
+          "evidence": [
+            {
+              "quote": "Feel free to review this.",
+              "timestamp": "[1176.08s - 1205.92s]",
+              "speaker": "Technician"
+            }
+          ],
+          "explanation": "The technician mentioned reviewing options but did not clearly outline next steps or confirm follow-up actions.",
+          "what_was_good": "The technician encouraged the customer to review the options.",
+          "what_was_missing": "There was no clear confirmation of follow-up actions or detailed next steps."
+        }
+      ],
+      "overall_compliance": "NON-COMPLIANT",
+      "compliance_score": 32,
+      "quality_rating": "Poor",
+      "analysis": "The closing stage of the call was poorly handled, lacking professionalism and courtesy. The technician failed to thank the customer and did not provide clear next steps, which are critical for a satisfactory customer experience.",
+      "key_strengths": [
+        "Encouraged customer to review options"
+      ],
+      "critical_gaps": [
+        "No expression of gratitude",
+        "Unprofessional interruption",
+        "Lack of clear next steps"
+      ],
+      "recommendations": [
+        "Ensure to thank the customer at the end of every call to express appreciation.",
+        "Avoid taking other calls during a customer interaction to maintain professionalism.",
+        "Clearly outline next steps and confirm any follow-up actions with the customer."
+      ]
+    }
+  },
+  "overall_compliance": {
+    "score": 35.2,
+    "rating": "Poor",
+    "stages_evaluated": 5,
+    "stages_missing": 1
+  }
+}
