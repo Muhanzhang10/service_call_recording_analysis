@@ -19,34 +19,34 @@
           "utterance_index": 0,
           "type": "warning",
           "icon": "\u274c",
-          "title": "Missing: Proper Greeting",
-          "description": "The technician did not provide a greeting, which is essential for setting a positive tone at the start of the call.",
+          "title": "Missing: Technician Greeting",
+          "description": "The technician did not provide any greeting to the customer, which is essential for setting a professional tone.",
           "related_question_id": "intro_greeting",
           "severity": "high",
-          "impact": "Lack of greeting can make the interaction feel abrupt and unprofessional.",
-          "recommendation": "Begin calls with a friendly greeting such as 'Good morning/afternoon, how can I assist you today?'"
+          "impact": "Lack of greeting can make the interaction feel impersonal and unprofessional.",
+          "recommendation": "Start the call with a friendly and professional greeting to establish rapport."
         },
         {
           "utterance_index": 0,
           "type": "warning",
           "icon": "\u274c",
-          "title": "Missing: Name Introduction",
-          "description": "The technician did not introduce themselves by name, which is a key compliance requirement.",
+          "title": "Missing: Technician Name Introduction",
+          "description": "The technician did not introduce their name, which is important for personalizing the interaction.",
           "related_question_id": "intro_name",
           "severity": "high",
-          "impact": "Customer doesn't know who they're speaking with, reducing professionalism and trust.",
-          "recommendation": "Always start with: 'Hi, this is [Your Name] from [Company].'"
+          "impact": "Not introducing oneself can make the customer feel disconnected and unsure of who they are speaking with.",
+          "recommendation": "Always introduce yourself by name at the beginning of the call."
         },
         {
           "utterance_index": 0,
           "type": "warning",
           "icon": "\u274c",
-          "title": "Missing: Company Introduction",
-          "description": "The technician did not mention the company they represent, which is important for brand recognition and trust.",
+          "title": "Missing: Company Name Mention",
+          "description": "The technician did not mention the company name, which is crucial for brand representation and customer assurance.",
           "related_question_id": "intro_company",
           "severity": "high",
-          "impact": "Customer may be unsure of the legitimacy of the call.",
-          "recommendation": "Include the company name in the introduction: 'Hi, this is [Your Name] from [Company].'"
+          "impact": "Failing to mention the company can lead to confusion and reduce trust in the service.",
+          "recommendation": "Include the company name in the introduction to reinforce brand identity and customer confidence."
         }
       ]
     },
@@ -96,12 +96,12 @@
           "utterance_index": 3,
           "type": "warning",
           "icon": "\u274c",
-          "title": "Lack of Gratitude",
-          "description": "Technician does not thank the customer at any point during the closing.",
+          "title": "Missing: Thank You Statement",
+          "description": "The technician did not thank the customer at the end of the call, missing an opportunity to leave a positive final impression.",
           "related_question_id": "close_thankyou",
           "severity": "high",
-          "impact": "Missing gratitude can leave the customer feeling undervalued.",
-          "recommendation": "Always thank the customer for their time and consideration at the end of the call."
+          "impact": "Not expressing gratitude can make the interaction feel transactional and impersonal.",
+          "recommendation": "Always thank the customer at the end of the call to show appreciation and reinforce a positive relationship."
         }
       ]
     },
@@ -220,12 +220,12 @@
           "utterance_index": 11,
           "type": "warning",
           "icon": "\u274c",
-          "title": "Lack of Inquiry",
-          "description": "The technician fails to inquire about the specific issues the customer is experiencing with the old unit.",
+          "title": "Missing: Initial Inquiry",
+          "description": "The technician did not ask any initial questions to understand the customer's issue, which is crucial for effective problem diagnosis.",
           "related_question_id": "diag_inquiry",
           "severity": "high",
-          "impact": "Missed opportunity to understand the customer's problem, leading to ineffective diagnosis.",
-          "recommendation": "Ask specific questions about the unit's performance and any issues the customer has noticed."
+          "impact": "Without understanding the customer's issue, the technician cannot provide a tailored solution, leading to potential dissatisfaction.",
+          "recommendation": "Start the diagnosis stage by asking the customer to describe the issue they are experiencing."
         }
       ]
     },
@@ -261,12 +261,12 @@
           "utterance_index": 13,
           "type": "partial",
           "icon": "\u26a0\ufe0f",
-          "title": "General Upsell Approach",
-          "description": "The technician introduces equipment options but lacks personalization to the customer's specific needs.",
+          "title": "Partial: Customer-Focused Approach",
+          "description": "The technician introduces equipment options but does not tailor the discussion to the customer's specific needs or preferences.",
           "related_question_id": "upsell_approach",
           "severity": "medium",
-          "impact": "May not fully engage the customer or address their unique situation.",
-          "recommendation": "Tailor the upsell approach by asking questions to understand the customer's specific needs and preferences."
+          "impact": "May reduce customer engagement and perceived relevance of the upsell.",
+          "recommendation": "Ask questions to understand the customer's specific needs and tailor the upsell options accordingly."
         }
       ]
     },
@@ -357,11 +357,11 @@
           "utterance_index": 19,
           "type": "success",
           "icon": "\u2713",
-          "title": "Clear Explanation of Options",
-          "description": "Technician clearly explains the different equipment options and their benefits, including efficiency improvements.",
+          "title": "Strong Explanation of Benefits",
+          "description": "The technician clearly explains the benefits of upgrading to more efficient equipment, including higher SEER ratings and efficiency improvements.",
           "related_question_id": "upsell_value",
           "severity": "low",
-          "impact": "Helps the customer understand the value of each option, aiding decision-making.",
+          "impact": "Enhances customer understanding of the value proposition, potentially increasing acceptance of the upsell.",
           "recommendation": null
         }
       ]
@@ -423,14 +423,14 @@
       "annotations": [
         {
           "utterance_index": 23,
-          "type": "opportunity",
-          "icon": "\ud83d\udca1",
-          "title": "Missed Personalization Opportunity",
-          "description": "While discussing heat pumps and rebates, the technician could have linked these benefits to the customer's specific situation.",
-          "related_question_id": "upsell_approach",
-          "severity": "medium",
-          "impact": "Potentially misses engaging the customer by not connecting benefits to their personal context.",
-          "recommendation": "Ask the customer about their current energy usage or concerns to better align the benefits of heat pumps with their needs."
+          "type": "info",
+          "icon": "\u2139\ufe0f",
+          "title": "Informative: Industry Trends",
+          "description": "The technician provides context about industry trends, such as natural gas phase-outs and the push for solar and heat pumps.",
+          "related_question_id": null,
+          "severity": "low",
+          "impact": "Informs the customer about broader industry changes, which can support the rationale for the upsell.",
+          "recommendation": "Ensure the information is directly relevant to the customer's situation to maintain engagement."
         }
       ]
     },
@@ -463,14 +463,14 @@
       "annotations": [
         {
           "utterance_index": 25,
-          "type": "partial",
-          "icon": "\u26a0\ufe0f",
-          "title": "Complex Explanation of Costs",
-          "description": "The technician provides a detailed breakdown of costs and services, but the explanation is lengthy and may overwhelm the customer.",
-          "related_question_id": "soln_details",
-          "severity": "medium",
-          "impact": "Customer may not fully grasp the financial details, leading to confusion.",
-          "recommendation": "Simplify the explanation by summarizing key points and checking for understanding."
+          "type": "warning",
+          "icon": "\u274c",
+          "title": "Missing: Clear Explanation of Costs",
+          "description": "The technician provides a lengthy explanation of costs and services but fails to clearly break down the costs in a way that is easy for the customer to understand.",
+          "related_question_id": "soln_clarity",
+          "severity": "high",
+          "impact": "Customer may feel overwhelmed or confused about the financial aspects, leading to potential dissatisfaction or mistrust.",
+          "recommendation": "Use simpler language and break down costs into clear, digestible parts. Consider using visual aids or examples to illustrate the cost breakdown."
         }
       ]
     },
@@ -601,14 +601,14 @@
       "annotations": [
         {
           "utterance_index": 34,
-          "type": "customer_signal",
-          "icon": "\ud83d\udc64",
-          "title": "Customer Lacks Knowledge",
-          "description": "The customer indicates they do not understand what a HERS test is, suggesting a need for explanation.",
-          "related_question_id": null,
-          "severity": "medium",
-          "impact": "Opportunity to educate the customer and build trust.",
-          "recommendation": "Provide a brief explanation of the HERS test and its importance."
+          "type": "warning",
+          "icon": "\u274c",
+          "title": "Lack of Probing Questions",
+          "description": "The technician failed to ask follow-up questions when the customer mentioned not knowing what the HERS test is, missing an opportunity to clarify and educate.",
+          "related_question_id": "diag_probing",
+          "severity": "high",
+          "impact": "This can lead to misunderstandings and the customer feeling unsupported.",
+          "recommendation": "Ask clarifying questions to ensure the customer understands technical terms and processes."
         }
       ]
     },
@@ -627,14 +627,14 @@
       "annotations": [
         {
           "utterance_index": 35,
-          "type": "warning",
-          "icon": "\u274c",
-          "title": "Insufficient Simplification of Technical Details",
-          "description": "The technician discusses technical aspects like HERS tests and ductwork without simplifying for the customer.",
+          "type": "partial",
+          "icon": "\u26a0\ufe0f",
+          "title": "Partial: Explanation of Technical Details",
+          "description": "The technician explains the HERS test and ductwork modifications but uses technical jargon that may not be fully accessible to the customer.",
           "related_question_id": "soln_details",
-          "severity": "high",
-          "impact": "Customer may not understand the technical details, affecting their decision-making.",
-          "recommendation": "Use layman's terms and analogies to make technical details more accessible."
+          "severity": "medium",
+          "impact": "Customer may not fully grasp the importance or necessity of the modifications, affecting their decision-making.",
+          "recommendation": "Simplify technical terms and provide analogies or examples to make the information more relatable and understandable."
         }
       ]
     },
@@ -753,11 +753,11 @@
           "utterance_index": 43,
           "type": "success",
           "icon": "\u2713",
-          "title": "Clear Explanation of Rebates",
-          "description": "The technician clearly explains the rebates available and the steps the customer needs to take.",
+          "title": "Strong Explanation of Rebates",
+          "description": "The technician clearly explains the rebates available and the steps the customer needs to take, which helps in understanding the financial benefits.",
           "related_question_id": "soln_clarity",
           "severity": "low",
-          "impact": "Helps the customer understand potential savings, enhancing service value.",
+          "impact": "Enhances customer understanding of potential savings, contributing to a positive service experience.",
           "recommendation": null
         }
       ]
@@ -905,11 +905,11 @@
           "utterance_index": 53,
           "type": "success",
           "icon": "\u2713",
-          "title": "Building Trust with Brand Partnership",
-          "description": "Technician builds trust by explaining the company's partnership with Daikin and their expertise in installation.",
+          "title": "Effective Use of Brand Partnership",
+          "description": "The technician leverages the company's partnership with Daikin to build credibility and trust in the product being offered.",
           "related_question_id": "upsell_value",
           "severity": "low",
-          "impact": "Enhances credibility and reassures the customer of quality service.",
+          "impact": "Builds trust and confidence in the product, enhancing the likelihood of a successful upsell.",
           "recommendation": null
         }
       ]
@@ -957,14 +957,14 @@
       "annotations": [
         {
           "utterance_index": 56,
-          "type": "warning",
-          "icon": "\u274c",
-          "title": "Missed Probing Opportunity",
-          "description": "The technician does not follow up on the customer's comment about moving the unit.",
-          "related_question_id": "diag_probing",
-          "severity": "high",
-          "impact": "Failure to explore potential solutions or understand customer preferences.",
-          "recommendation": "Ask follow-up questions to explore why moving the unit is important to the customer."
+          "type": "opportunity",
+          "icon": "\ud83d\udca1",
+          "title": "Missed Opportunity: Explore Alternatives",
+          "description": "The customer mentioned that none of the options are moving the unit to the top, indicating dissatisfaction with current solutions.",
+          "related_question_id": null,
+          "severity": "medium",
+          "impact": "By not exploring alternative solutions, the technician missed a chance to better meet the customer's needs.",
+          "recommendation": "Engage the customer in a discussion about alternative solutions that could address their concerns."
         }
       ]
     },
@@ -1083,12 +1083,12 @@
           "utterance_index": 64,
           "type": "customer_signal",
           "icon": "\ud83d\udc64",
-          "title": "Customer Concern About Noise",
-          "description": "The customer expresses dissatisfaction with the noise level of the unit.",
+          "title": "Customer Concern: Noise Issue",
+          "description": "The customer expressed dissatisfaction with the noise level of the unit, which is a key concern that should be addressed.",
           "related_question_id": null,
           "severity": "medium",
-          "impact": "Indicates a specific issue that could be addressed with a targeted solution.",
-          "recommendation": "Discuss options for reducing noise or suggest quieter unit alternatives."
+          "impact": "Ignoring this concern could lead to customer dissatisfaction and potential loss of business.",
+          "recommendation": "Acknowledge the concern and discuss potential solutions to reduce noise."
         }
       ]
     },
@@ -1194,11 +1194,11 @@
           "type": "warning",
           "icon": "\u274c",
           "title": "Unprofessional Interruption",
-          "description": "Technician interrupts the call to take another call, which is unprofessional and disrupts the closing process.",
+          "description": "The technician interrupted the call to take another call, which is unprofessional and disrupts the closing process.",
           "related_question_id": "close_professional",
           "severity": "high",
-          "impact": "Creates a negative impression and disrupts customer engagement.",
-          "recommendation": "Avoid taking other calls during a customer interaction. If necessary, politely inform the customer and reschedule."
+          "impact": "This behavior can make the customer feel undervalued and negatively affect their perception of the service.",
+          "recommendation": "Ensure all attention is on the customer during the call and avoid taking other calls until the current one is properly concluded."
         }
       ]
     },
@@ -1497,14 +1497,14 @@
       "annotations": [
         {
           "utterance_index": 92,
-          "type": "opportunity",
-          "icon": "\ud83d\udca1",
-          "title": "Customer Inquires About Installation Time",
-          "description": "The customer asks about the installation time, showing readiness to proceed.",
+          "type": "info",
+          "icon": "\u2139\ufe0f",
+          "title": "Customer Inquiry: Installation Time",
+          "description": "The customer asked about the installation time, indicating interest in the service timeline.",
           "related_question_id": null,
-          "severity": "medium",
-          "impact": "Potential to close the sale by providing clear and reassuring information.",
-          "recommendation": "Provide a detailed timeline and highlight any benefits of quick installation."
+          "severity": "low",
+          "impact": "Understanding the timeline can help set customer expectations and improve satisfaction.",
+          "recommendation": "Provide a clear and accurate estimate of the installation time to manage customer expectations."
         }
       ]
     },
@@ -1635,14 +1635,14 @@
       "annotations": [
         {
           "utterance_index": 101,
-          "type": "info",
-          "icon": "\u2139\ufe0f",
-          "title": "Discussion of Financing Options",
-          "description": "The technician outlines various financing options, providing flexibility for the customer.",
+          "type": "opportunity",
+          "icon": "\ud83d\udca1",
+          "title": "Missed Opportunity: Simplifying Financing Options",
+          "description": "The explanation of financing options is detailed but could be simplified to ensure the customer fully understands their choices.",
           "related_question_id": null,
           "severity": "medium",
-          "impact": "Offers the customer multiple payment options, potentially easing financial concerns.",
-          "recommendation": "Ensure clarity by summarizing the most popular options and their benefits."
+          "impact": "Customer might feel overwhelmed by the complexity, potentially leading to indecision or reluctance to proceed.",
+          "recommendation": "Present financing options in a simplified manner, highlighting key differences and benefits of each option."
         }
       ]
     },
@@ -1887,12 +1887,12 @@
           "utterance_index": 118,
           "type": "partial",
           "icon": "\u26a0\ufe0f",
-          "title": "Partial Next Steps Provided",
-          "description": "Customer requests an email with options, indicating a need for follow-up, but the technician does not confirm this action.",
+          "title": "Partial: Next Steps Clarity",
+          "description": "The customer requested an email with options, but the technician did not confirm this action or provide a timeline.",
           "related_question_id": "close_nextsteps",
           "severity": "medium",
-          "impact": "Lack of confirmation may lead to customer uncertainty about follow-up.",
-          "recommendation": "Confirm the action by saying, 'I will email you the options shortly.'"
+          "impact": "Lack of clear next steps can lead to customer confusion and delay in decision-making.",
+          "recommendation": "Clearly confirm the next steps and provide a timeline for when the customer can expect the follow-up email."
         }
       ]
     },
@@ -1967,14 +1967,14 @@
       "annotations": [
         {
           "utterance_index": 123,
-          "type": "success",
-          "icon": "\u2713",
-          "title": "Flexible Financing Options",
-          "description": "Technician offers flexible financing options, making the purchase more accessible to the customer.",
-          "related_question_id": "upsell_value",
-          "severity": "low",
-          "impact": "Increases likelihood of customer commitment by reducing financial barriers.",
-          "recommendation": null
+          "type": "opportunity",
+          "icon": "\ud83d\udca1",
+          "title": "Missed Opportunity: Customer Engagement",
+          "description": "The technician could have engaged the customer more by asking for their thoughts or concerns about the options presented.",
+          "related_question_id": "upsell_approach",
+          "severity": "medium",
+          "impact": "Potentially missed deeper customer engagement and understanding of their specific needs.",
+          "recommendation": "In future calls, actively solicit customer feedback and address any concerns to enhance engagement."
         }
       ]
     },
@@ -1995,12 +1995,12 @@
           "utterance_index": 124,
           "type": "customer_signal",
           "icon": "\ud83d\udc64",
-          "title": "Customer Decision Pending",
-          "description": "Customer indicates they need to discuss with their spouse before making a decision.",
+          "title": "Customer Decision-Making Process",
+          "description": "The customer indicated they need to discuss options with their spouse before making a decision.",
           "related_question_id": null,
           "severity": "medium",
-          "impact": "Opportunity to schedule a follow-up call to assist in decision-making.",
-          "recommendation": "Offer to schedule a follow-up call to discuss any questions after they have reviewed the options."
+          "impact": "Understanding the customer's decision-making process can help tailor follow-up communications effectively.",
+          "recommendation": "Acknowledge the customer's need for discussion and offer to be available for any further questions they might have."
         }
       ]
     },
@@ -2019,14 +2019,14 @@
       "annotations": [
         {
           "utterance_index": 125,
-          "type": "opportunity",
-          "icon": "\ud83d\udca1",
-          "title": "Missed Opportunity for Confirmation",
-          "description": "The technician concludes with a summary of actions but does not confirm the customer's understanding or agreement.",
+          "type": "warning",
+          "icon": "\u274c",
+          "title": "Missing: Confirmation of Customer Understanding",
+          "description": "The technician does not actively check if the customer understands the explanation of the service and costs.",
           "related_question_id": "soln_understanding",
-          "severity": "medium",
-          "impact": "Lack of confirmation may lead to misunderstandings or missed details.",
-          "recommendation": "Ask the customer if they have any questions or need further clarification before concluding."
+          "severity": "high",
+          "impact": "Lack of confirmation can lead to misunderstandings and dissatisfaction if the customer feels uninformed.",
+          "recommendation": "Regularly pause to ask the customer if they have any questions or need further clarification to ensure understanding."
         }
       ]
     },
@@ -2614,7 +2614,7 @@
     "stages_missing": 1
   },
   "call_type": {
-    "primary_call_type": "consultation",
+    "primary_call_type": "post repair consultation",
     "secondary_types": [
       "maintenance_visit"
     ],
@@ -2622,9 +2622,9 @@
     "evidence": [
       "Technician discusses future efficiency drop and mold issues",
       "Technician shows different equipment options",
-      "Mention of maintenance plan and payment options"
+      "Mention of maintenance plan and upsell attempts"
     ],
-    "reasoning": "The call involves discussing future equipment options and maintenance plans, indicating a consultation for potential future work. The mention of efficiency drop and mold issues suggests a maintenance aspect, but the primary focus is on consultation.",
+    "reasoning": "The call involves discussing future equipment efficiency and mold issues, indicating a consultation for future work rather than immediate repair. The presence of upsell attempts and maintenance plan discussion suggests a focus on future service options rather than addressing an urgent issue.",
     "service_details": {
       "system_type": "HVAC",
       "issue_type": "Efficiency drop and mold issues",
@@ -2634,42 +2634,46 @@
   "sales_insights": {
     "opportunities_captured": [
       {
-        "opportunity": "Upselling multiple equipment options",
+        "opportunity": "Presentation of multiple equipment options",
         "evidence": "I did just want to show you some different equipment options.",
-        "effectiveness": "Excellent"
+        "effectiveness": "Excellent",
+        "effectiveness_score": 95,
+        "reasoning": "The technician presented a clear and compelling value proposition by offering multiple equipment options, which were explained in terms of efficiency and financial benefits. The approach was consultative and not pushy, aligning with the customer's needs."
       },
       {
-        "opportunity": "Explaining the benefits of heat pumps and available rebates",
-        "evidence": "Heat pumps are actually just got introduced some more rebates.",
-        "effectiveness": "Good"
+        "opportunity": "Explanation of efficiency and financial benefits",
+        "evidence": "It's going to be a new furnace, new coil, new condenser, higher sear rating, better efficiency.",
+        "effectiveness": "Good",
+        "effectiveness_score": 85,
+        "reasoning": "The benefits of the new equipment were clearly explained, including efficiency improvements and rebates. However, the explanation could have been more personalized to the customer's specific situation."
       }
     ],
     "opportunities_missed": [
       {
-        "opportunity": "Offering a Maintenance Plan",
-        "evidence": "The Maintenance Plan Offer stage was not identified in this call.",
-        "potential_value": "Maintenance plans can provide ongoing revenue and customer retention.",
-        "recommendation": "Include a proper Maintenance Plan Offer in future calls."
+        "opportunity": "Tailoring upsell to specific customer needs",
+        "evidence": "The approach was somewhat customer-focused, offering to simplify options and discussing financing, but it occasionally felt more focused on selling than on customer needs.",
+        "potential_value": "A more personalized approach could increase customer engagement and conversion rates.",
+        "recommendation": "Gather more information about the customer's specific needs and preferences to tailor the upsell discussion accordingly."
       },
       {
-        "opportunity": "Personalizing the upsell to customer needs",
-        "evidence": "The approach was somewhat customer-focused, offering to simplify options and discussing financing, but it occasionally felt more focused on selling than on customer needs.",
-        "potential_value": "Tailored solutions can increase customer satisfaction and conversion rates.",
-        "recommendation": "Tailor upsell discussions to specific customer needs and preferences."
+        "opportunity": "Offering a Maintenance Plan",
+        "evidence": "The Maintenance Plan Offer stage was not identified in this call.",
+        "potential_value": "Offering a maintenance plan could provide ongoing revenue and enhance customer loyalty.",
+        "recommendation": "Include a maintenance plan offer in future calls to capture additional sales opportunities."
       }
     ],
     "customer_buying_signals": [
       {
         "signal": "Interest in efficiency and rebates",
         "evidence": "Heat pumps are actually just got introduced some more rebates.",
-        "response": "The technician explained the benefits and rebates effectively."
+        "response": "The technician responded by explaining the rebates and efficiency benefits, which was appropriate."
       }
     ],
     "objections_and_concerns": [
       {
         "objection": "Cost concerns",
         "evidence": "And the interesting thing about that is that actually ends up being the most expensive one of the four that I've built.",
-        "handling": "The technician attempted to simplify options and discuss financing."
+        "handling": "The technician addressed this by offering to simplify options and discussing financing, which was a reasonable approach."
       }
     ],
     "sales_strengths": [
@@ -2678,15 +2682,16 @@
       "Consideration of financing options"
     ],
     "areas_for_improvement": [
-      "Include a Maintenance Plan Offer in future calls",
-      "Tailor upsell discussions to specific customer needs",
-      "Balance cost discussions with a focus on long-term value",
-      "Ensure the approach remains customer-focused",
-      "Provide more personalized examples of product benefits"
+      "Tailor upsell discussions to specific customer needs and preferences.",
+      "Balance cost discussions with a focus on long-term value and benefits.",
+      "Include a proper Maintenance Plan Offer in future calls.",
+      "Provide more personalized examples of how the products can benefit the customer.",
+      "Ensure the approach remains customer-focused and not overly sales-driven."
     ],
     "overall_sales_rating": "Good",
     "overall_sales_score": 80,
-    "summary": "The sales performance was good, with effective upselling of equipment options and clear explanations of benefits. However, there is room for improvement in personalizing the approach and including a Maintenance Plan Offer."
+    "rating_justification": "The overall sales performance was rated as 'Good' because the technician effectively presented multiple options and explained the benefits, but the approach could have been more personalized and customer-focused. The absence of a maintenance plan offer was a notable gap.",
+    "summary": "The sales call was well-executed with clear presentation of options and benefits. However, there is room for improvement in personalizing the approach and including a maintenance plan offer to capture additional opportunities."
   },
   "annotation_metadata": {
     "phase": "phase3_utterance_annotations",
