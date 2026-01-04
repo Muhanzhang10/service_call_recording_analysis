@@ -13,42 +13,8 @@
         "introduction"
       ],
       "stage_confidence": 0.9,
-      "stage_reasoning": "The customer greets the technician, indicating the start of the conversation.",
-      "annotations": [
-        {
-          "utterance_index": 0,
-          "type": "warning",
-          "icon": "\u274c",
-          "title": "Missing: Technician Greeting",
-          "description": "The technician did not provide any greeting to the customer, which is essential for setting a professional tone.",
-          "related_question_id": "intro_greeting",
-          "severity": "high",
-          "impact": "Lack of greeting can make the interaction feel impersonal and unprofessional.",
-          "recommendation": "Start the call with a friendly and professional greeting to establish rapport."
-        },
-        {
-          "utterance_index": 0,
-          "type": "warning",
-          "icon": "\u274c",
-          "title": "Missing: Technician Name Introduction",
-          "description": "The technician did not introduce their name, which is important for personalizing the interaction.",
-          "related_question_id": "intro_name",
-          "severity": "high",
-          "impact": "Not introducing oneself can make the customer feel disconnected and unsure of who they are speaking with.",
-          "recommendation": "Always introduce yourself by name at the beginning of the call."
-        },
-        {
-          "utterance_index": 0,
-          "type": "warning",
-          "icon": "\u274c",
-          "title": "Missing: Company Name Mention",
-          "description": "The technician did not mention the company name, which is crucial for brand representation and customer assurance.",
-          "related_question_id": "intro_company",
-          "severity": "high",
-          "impact": "Failing to mention the company can lead to confusion and reduce trust in the service.",
-          "recommendation": "Include the company name in the introduction to reinforce brand identity and customer confidence."
-        }
-      ]
+      "stage_reasoning": "The utterance 'Hello.' is a greeting, which fits the introduction stage.",
+      "annotations": []
     },
     {
       "speaker": "B",
@@ -58,12 +24,47 @@
       "confidence": 0.9384169,
       "primary_stage": "solution_explanation",
       "stage_tags": [
+        "introduction",
         "solution_explanation",
         "upsell_attempts"
       ],
-      "stage_confidence": 0.8,
-      "stage_reasoning": "The technician explains the work done and mentions building equipment options, hinting at upselling.",
-      "annotations": []
+      "stage_confidence": 0.95,
+      "stage_reasoning": "The technician greets the customer and explains the work done, mentioning equipment options, which suggests upsell attempts.",
+      "annotations": [
+        {
+          "utterance_index": 1,
+          "type": "warning",
+          "icon": "\u274c",
+          "title": "Missing: Technician and Company Introduction",
+          "description": "The technician did not introduce themselves or the company, which is important for establishing professionalism and context, especially if this is the first contact.",
+          "related_question_id": "intro_name_company",
+          "severity": "high",
+          "impact": "Lack of formal introduction can make the interaction feel less professional and may confuse the customer about who they are speaking with.",
+          "recommendation": "Always start with a clear introduction of your name and the company, especially if this is the first interaction."
+        },
+        {
+          "utterance_index": 1,
+          "type": "partial",
+          "icon": "\u26a0\ufe0f",
+          "title": "Partial: Professional Greeting",
+          "description": "The technician used the customer's name and maintained a friendly tone, but the greeting was informal and lacked professionalism.",
+          "related_question_id": "intro_greeting",
+          "severity": "medium",
+          "impact": "An informal greeting can undermine the professional tone of the call.",
+          "recommendation": "Use a more formal greeting initially, such as 'Hello, this is [Technician Name] from [Company Name]. How can I assist you today?'"
+        },
+        {
+          "utterance_index": 1,
+          "type": "success",
+          "icon": "\u2713",
+          "title": "Strong Rapport Building",
+          "description": "The technician effectively used the customer's name and maintained a friendly tone, which helps in building rapport.",
+          "related_question_id": "intro_rapport",
+          "severity": "low",
+          "impact": "Using the customer's name and a friendly tone can make the customer feel valued and comfortable.",
+          "recommendation": null
+        }
+      ]
     },
     {
       "speaker": "A",
@@ -71,12 +72,12 @@
       "start": 19.36,
       "end": 20.32,
       "confidence": 0.9786784,
-      "primary_stage": "other",
+      "primary_stage": "solution_explanation",
       "stage_tags": [
-        "other"
+        "solution_explanation"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer acknowledges the technician's statement without adding new information.",
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The customer's response 'Okay, sure.' is acknowledging the explanation of work done.",
       "annotations": []
     },
     {
@@ -85,25 +86,13 @@
       "start": 20.96,
       "end": 23.36,
       "confidence": 0.98461914,
-      "primary_stage": "closing",
+      "primary_stage": "solution_explanation",
       "stage_tags": [
-        "closing"
+        "solution_explanation"
       ],
-      "stage_confidence": 0.7,
-      "stage_reasoning": "The technician indicates a desire to wrap up the conversation.",
-      "annotations": [
-        {
-          "utterance_index": 3,
-          "type": "warning",
-          "icon": "\u274c",
-          "title": "Missing: Thank You Statement",
-          "description": "The technician did not thank the customer at the end of the call, missing an opportunity to leave a positive final impression.",
-          "related_question_id": "close_thankyou",
-          "severity": "high",
-          "impact": "Not expressing gratitude can make the interaction feel transactional and impersonal.",
-          "recommendation": "Always thank the customer at the end of the call to show appreciation and reinforce a positive relationship."
-        }
-      ]
+      "stage_confidence": 0.85,
+      "stage_reasoning": "The technician is transitioning to wrap up the explanation, which is part of the solution explanation stage.",
+      "annotations": []
     },
     {
       "speaker": "A",
@@ -111,12 +100,12 @@
       "start": 23.36,
       "end": 24.32,
       "confidence": 0.94921875,
-      "primary_stage": "other",
+      "primary_stage": "solution_explanation",
       "stage_tags": [
-        "other"
+        "solution_explanation"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer agrees to proceed without adding new information.",
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The customer's response 'Of course, of course.' is in agreement with the technician's intention to wrap up the explanation.",
       "annotations": []
     },
     {
@@ -129,8 +118,8 @@
       "stage_tags": [
         "other"
       ],
-      "stage_confidence": 0.8,
-      "stage_reasoning": "The technician engages in small talk unrelated to the service call stages.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The technician's question about the customer's day is small talk and does not fit any specific service call stage.",
       "annotations": []
     },
     {
@@ -143,8 +132,8 @@
       "stage_tags": [
         "other"
       ],
-      "stage_confidence": 0.8,
-      "stage_reasoning": "The customer responds to small talk, not related to service stages.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer's response about their day is small talk and does not fit any specific service call stage.",
       "annotations": []
     },
     {
@@ -157,8 +146,8 @@
       "stage_tags": [
         "other"
       ],
-      "stage_confidence": 0.8,
-      "stage_reasoning": "The technician continues with small talk, unrelated to service stages.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The technician's comment about working from the customer's home is small talk and does not fit any specific service call stage.",
       "annotations": []
     },
     {
@@ -171,8 +160,8 @@
       "stage_tags": [
         "other"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer acknowledges the technician's statement without adding new information.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer's response 'I know.' is part of small talk and does not fit any specific service call stage.",
       "annotations": []
     },
     {
@@ -186,8 +175,20 @@
         "solution_explanation"
       ],
       "stage_confidence": 0.9,
-      "stage_reasoning": "The technician explains the technical details of the work done, including temperature adjustments.",
-      "annotations": []
+      "stage_reasoning": "The technician explains the technical details of the work done, which fits the solution explanation stage.",
+      "annotations": [
+        {
+          "utterance_index": 9,
+          "type": "warning",
+          "icon": "\u274c",
+          "title": "Unclear Explanation of Technical Details",
+          "description": "The technician's explanation about the temperature differences and 'fancy charge' lacks clarity and context, making it difficult for the customer to understand the specific work done.",
+          "related_question_id": "soln_clarity",
+          "severity": "high",
+          "impact": "Customer may not fully understand the service performed, leading to confusion or dissatisfaction.",
+          "recommendation": "Use clear, simple language and provide context for technical terms to ensure the customer understands the work done."
+        }
+      ]
     },
     {
       "speaker": "A",
@@ -195,12 +196,12 @@
       "start": 82.92,
       "end": 83.36,
       "confidence": 0.96272784,
-      "primary_stage": "other",
+      "primary_stage": "solution_explanation",
       "stage_tags": [
-        "other"
+        "solution_explanation"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer acknowledges the technician's explanation without adding new information.",
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The customer's response 'Yeah.' is acknowledging the explanation of work done.",
       "annotations": []
     },
     {
@@ -213,21 +214,9 @@
       "stage_tags": [
         "problem_diagnosis"
       ],
-      "stage_confidence": 0.7,
-      "stage_reasoning": "The technician comments on the age of the unit, which relates to diagnosing potential issues.",
-      "annotations": [
-        {
-          "utterance_index": 11,
-          "type": "warning",
-          "icon": "\u274c",
-          "title": "Missing: Initial Inquiry",
-          "description": "The technician did not ask any initial questions to understand the customer's issue, which is crucial for effective problem diagnosis.",
-          "related_question_id": "diag_inquiry",
-          "severity": "high",
-          "impact": "Without understanding the customer's issue, the technician cannot provide a tailored solution, leading to potential dissatisfaction.",
-          "recommendation": "Start the diagnosis stage by asking the customer to describe the issue they are experiencing."
-        }
-      ]
+      "stage_confidence": 0.75,
+      "stage_reasoning": "The technician's comment 'It is old.' relates to diagnosing the condition of the equipment.",
+      "annotations": []
     },
     {
       "speaker": "A",
@@ -239,8 +228,8 @@
       "stage_tags": [
         "problem_diagnosis"
       ],
-      "stage_confidence": 0.7,
-      "stage_reasoning": "The customer confirms the unit's age, which is relevant to diagnosing issues.",
+      "stage_confidence": 0.75,
+      "stage_reasoning": "The customer's comment 'It's an old unit.' relates to diagnosing the condition of the equipment.",
       "annotations": []
     },
     {
@@ -251,22 +240,21 @@
       "confidence": 0.963873,
       "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "upsell_attempts",
-        "problem_diagnosis"
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.8,
-      "stage_reasoning": "The technician discusses future efficiency and mold issues, leading into equipment options.",
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician discusses future expectations and offers equipment options, indicating an upsell attempt.",
       "annotations": [
         {
           "utterance_index": 13,
-          "type": "partial",
-          "icon": "\u26a0\ufe0f",
-          "title": "Partial: Customer-Focused Approach",
-          "description": "The technician introduces equipment options but does not tailor the discussion to the customer's specific needs or preferences.",
+          "type": "success",
+          "icon": "\u2713",
+          "title": "Natural Transition to Upsell",
+          "description": "The technician smoothly transitions into discussing future efficiency and mold issues, setting the stage for presenting equipment options.",
           "related_question_id": "upsell_approach",
-          "severity": "medium",
-          "impact": "May reduce customer engagement and perceived relevance of the upsell.",
-          "recommendation": "Ask questions to understand the customer's specific needs and tailor the upsell options accordingly."
+          "severity": "low",
+          "impact": "Creates a seamless and customer-focused upsell opportunity.",
+          "recommendation": null
         }
       ]
     },
@@ -276,12 +264,12 @@
       "start": 108.03,
       "end": 108.55,
       "confidence": 0.75634766,
-      "primary_stage": "other",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "other"
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer acknowledges the technician's statement without adding new information.",
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The customer's response 'Of course.' is in agreement with the upsell attempt.",
       "annotations": []
     },
     {
@@ -295,7 +283,7 @@
         "other"
       ],
       "stage_confidence": 0.8,
-      "stage_reasoning": "The technician makes a personal comment unrelated to the service stages.",
+      "stage_reasoning": "The utterance 'Oh, my goodness. Who is this?' is a reaction to seeing something unexpected, likely a pet, and does not fit into any of the defined service call stages.",
       "annotations": []
     },
     {
@@ -309,7 +297,7 @@
         "other"
       ],
       "stage_confidence": 0.8,
-      "stage_reasoning": "The customer responds to the personal comment, unrelated to service stages.",
+      "stage_reasoning": "The utterance 'Yeah, this is Michelangelo.' is a response to a question about a pet's name and does not relate to any service call stages.",
       "annotations": []
     },
     {
@@ -323,7 +311,7 @@
         "other"
       ],
       "stage_confidence": 0.8,
-      "stage_reasoning": "The technician continues with personal comments about pets, unrelated to service stages.",
+      "stage_reasoning": "The utterance 'Michelangelo. I love cats. Get out of here. Aww. I have two cats and three dogs at home. So we have quite the chaos household.' is small talk about pets and does not fit into any service call stages.",
       "annotations": []
     },
     {
@@ -337,7 +325,7 @@
         "other"
       ],
       "stage_confidence": 0.8,
-      "stage_reasoning": "The customer continues the personal conversation about pets.",
+      "stage_reasoning": "The utterance 'We have two cats.' is a continuation of small talk about pets and does not relate to any service call stages.",
       "annotations": []
     },
     {
@@ -351,17 +339,17 @@
         "upsell_attempts"
       ],
       "stage_confidence": 0.9,
-      "stage_reasoning": "The technician discusses equipment options and upgrades, indicating an upsell attempt.",
+      "stage_reasoning": "The technician is discussing different equipment options and upgrades, which fits the upsell_attempts stage.",
       "annotations": [
         {
           "utterance_index": 19,
           "type": "success",
           "icon": "\u2713",
-          "title": "Strong Explanation of Benefits",
-          "description": "The technician clearly explains the benefits of upgrading to more efficient equipment, including higher SEER ratings and efficiency improvements.",
+          "title": "Clear Explanation of Equipment Options",
+          "description": "The technician provides a detailed explanation of the different equipment options, including benefits like higher efficiency and updated technology.",
           "related_question_id": "upsell_value",
           "severity": "low",
-          "impact": "Enhances customer understanding of the value proposition, potentially increasing acceptance of the upsell.",
+          "impact": "Helps the customer understand the value and benefits of each option, aiding informed decision-making.",
           "recommendation": null
         }
       ]
@@ -372,12 +360,12 @@
       "start": 179.67,
       "end": 180.07,
       "confidence": 0.8286133,
-      "primary_stage": "other",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "other"
+        "upsell_attempts"
       ],
       "stage_confidence": 0.9,
-      "stage_reasoning": "The customer responds with a simple acknowledgment, not adding new information.",
+      "stage_reasoning": "The customer is responding to the technician's explanation of equipment options, which is part of the upsell_attempts stage.",
       "annotations": []
     },
     {
@@ -390,8 +378,8 @@
       "stage_tags": [
         "upsell_attempts"
       ],
-      "stage_confidence": 0.8,
-      "stage_reasoning": "The technician explains the phase-out of gas appliances, leading into equipment options.",
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician is explaining the phase-out of gas appliances and the benefits of heat pumps, which is part of the upsell_attempts stage.",
       "annotations": []
     },
     {
@@ -400,12 +388,12 @@
       "start": 197.5,
       "end": 198.54,
       "confidence": 0.9404704,
-      "primary_stage": "other",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "other"
+        "upsell_attempts"
       ],
       "stage_confidence": 0.9,
-      "stage_reasoning": "The customer acknowledges the technician's statement without adding new information.",
+      "stage_reasoning": "The customer is acknowledging the information about equipment options, which is part of the upsell_attempts stage.",
       "annotations": []
     },
     {
@@ -419,20 +407,8 @@
         "upsell_attempts"
       ],
       "stage_confidence": 0.9,
-      "stage_reasoning": "The technician discusses heat pumps and rebates, indicating an upsell attempt.",
-      "annotations": [
-        {
-          "utterance_index": 23,
-          "type": "info",
-          "icon": "\u2139\ufe0f",
-          "title": "Informative: Industry Trends",
-          "description": "The technician provides context about industry trends, such as natural gas phase-outs and the push for solar and heat pumps.",
-          "related_question_id": null,
-          "severity": "low",
-          "impact": "Informs the customer about broader industry changes, which can support the rationale for the upsell.",
-          "recommendation": "Ensure the information is directly relevant to the customer's situation to maintain engagement."
-        }
-      ]
+      "stage_reasoning": "The technician is discussing heat pumps and rebates, which is part of the upsell_attempts stage.",
+      "annotations": []
     },
     {
       "speaker": "A",
@@ -440,12 +416,12 @@
       "start": 251.75,
       "end": 258.07,
       "confidence": 0.88075536,
-      "primary_stage": "other",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "other"
+        "upsell_attempts"
       ],
       "stage_confidence": 0.9,
-      "stage_reasoning": "The customer acknowledges the technician's statement without adding new information.",
+      "stage_reasoning": "The customer is expressing interest in the equipment options, which is part of the upsell_attempts stage.",
       "annotations": []
     },
     {
@@ -459,18 +435,18 @@
         "solution_explanation"
       ],
       "stage_confidence": 0.9,
-      "stage_reasoning": "The technician explains the installation process and guarantees, detailing the solution.",
+      "stage_reasoning": "The technician is explaining the steps involved in the installation process, which fits the solution_explanation stage.",
       "annotations": [
         {
           "utterance_index": 25,
-          "type": "warning",
-          "icon": "\u274c",
-          "title": "Missing: Clear Explanation of Costs",
-          "description": "The technician provides a lengthy explanation of costs and services but fails to clearly break down the costs in a way that is easy for the customer to understand.",
-          "related_question_id": "soln_clarity",
-          "severity": "high",
-          "impact": "Customer may feel overwhelmed or confused about the financial aspects, leading to potential dissatisfaction or mistrust.",
-          "recommendation": "Use simpler language and break down costs into clear, digestible parts. Consider using visual aids or examples to illustrate the cost breakdown."
+          "type": "partial",
+          "icon": "\u26a0\ufe0f",
+          "title": "Partial Explanation of Service Details",
+          "description": "While the technician provides a detailed breakdown of the service, the explanation is lengthy and may overwhelm the customer without checking for understanding.",
+          "related_question_id": "soln_understanding",
+          "severity": "medium",
+          "impact": "Customer might miss important details due to information overload.",
+          "recommendation": "Pause periodically to check for customer understanding and summarize key points to maintain engagement."
         }
       ]
     },
@@ -480,12 +456,12 @@
       "start": 344.73,
       "end": 345.21,
       "confidence": 0.90478516,
-      "primary_stage": "other",
+      "primary_stage": "solution_explanation",
       "stage_tags": [
-        "other"
+        "solution_explanation"
       ],
       "stage_confidence": 0.9,
-      "stage_reasoning": "The customer acknowledges the technician's explanation without adding new information.",
+      "stage_reasoning": "The customer is acknowledging the explanation of the installation process, which is part of the solution_explanation stage.",
       "annotations": []
     },
     {
@@ -498,8 +474,8 @@
       "stage_tags": [
         "solution_explanation"
       ],
-      "stage_confidence": 0.8,
-      "stage_reasoning": "The technician explains potential additional work related to water damage.",
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician is explaining potential issues with water damage and the solution, which fits the solution_explanation stage.",
       "annotations": []
     },
     {
@@ -508,12 +484,12 @@
       "start": 367.53,
       "end": 368.01,
       "confidence": 0.8308919,
-      "primary_stage": "other",
+      "primary_stage": "solution_explanation",
       "stage_tags": [
-        "other"
+        "solution_explanation"
       ],
       "stage_confidence": 0.9,
-      "stage_reasoning": "The customer acknowledges the technician's statement without adding new information.",
+      "stage_reasoning": "The customer is acknowledging the explanation of potential issues and solutions, which is part of the solution_explanation stage.",
       "annotations": []
     },
     {
@@ -526,8 +502,8 @@
       "stage_tags": [
         "solution_explanation"
       ],
-      "stage_confidence": 0.8,
-      "stage_reasoning": "The technician continues explaining the installation process.",
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician is providing additional details about the installation process, which fits the solution_explanation stage.",
       "annotations": []
     },
     {
@@ -536,12 +512,12 @@
       "start": 369.25,
       "end": 369.85,
       "confidence": 0.9576009,
-      "primary_stage": "other",
+      "primary_stage": "solution_explanation",
       "stage_tags": [
-        "other"
+        "solution_explanation"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer acknowledges the technician's statement without adding new information.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The utterance 'Oh yeah.' is a brief acknowledgment of the technician's explanation about potential issues with plywood and mold, which is part of the solution explanation.",
       "annotations": []
     },
     {
@@ -554,8 +530,8 @@
       "stage_tags": [
         "solution_explanation"
       ],
-      "stage_confidence": 0.8,
-      "stage_reasoning": "The technician explains the need for sheet metal adjustments during installation.",
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician is explaining the changes needed for the new system installation, which involves technical details about dimensions and sheet metal connections.",
       "annotations": []
     },
     {
@@ -564,12 +540,12 @@
       "start": 388.9,
       "end": 389.46,
       "confidence": 0.9538574,
-      "primary_stage": "other",
+      "primary_stage": "solution_explanation",
       "stage_tags": [
-        "other"
+        "solution_explanation"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer acknowledges the technician's statement without adding new information.",
+      "stage_confidence": 0.6,
+      "stage_reasoning": "The customer's response 'Of course.' is an acknowledgment of the technician's explanation about the system installation, fitting within the solution explanation stage.",
       "annotations": []
     },
     {
@@ -582,8 +558,8 @@
       "stage_tags": [
         "solution_explanation"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The technician explains electrical work and permits involved in the installation.",
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician is detailing the electrical work and permits involved in the installation, which is part of explaining the solution and work to be done.",
       "annotations": []
     },
     {
@@ -597,18 +573,18 @@
         "problem_diagnosis"
       ],
       "stage_confidence": 0.7,
-      "stage_reasoning": "The customer inquires about the HERS test, which relates to diagnosing home efficiency.",
+      "stage_reasoning": "The customer is asking about the HERS test, indicating a need for understanding the problem or requirements related to home efficiency.",
       "annotations": [
         {
           "utterance_index": 34,
           "type": "warning",
           "icon": "\u274c",
-          "title": "Lack of Probing Questions",
-          "description": "The technician failed to ask follow-up questions when the customer mentioned not knowing what the HERS test is, missing an opportunity to clarify and educate.",
-          "related_question_id": "diag_probing",
+          "title": "Missing: Explanation of HERS Test",
+          "description": "The customer expressed confusion about the HERS test, but the technician did not provide an explanation in subsequent utterances.",
+          "related_question_id": "diag_customer_needs",
           "severity": "high",
-          "impact": "This can lead to misunderstandings and the customer feeling unsupported.",
-          "recommendation": "Ask clarifying questions to ensure the customer understands technical terms and processes."
+          "impact": "Customer remains uninformed about a potentially important aspect of the service, leading to confusion and dissatisfaction.",
+          "recommendation": "Technician should provide a brief explanation of the HERS test to ensure the customer understands its relevance."
         }
       ]
     },
@@ -620,21 +596,22 @@
       "confidence": 0.9671594,
       "primary_stage": "solution_explanation",
       "stage_tags": [
-        "solution_explanation"
+        "solution_explanation",
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The technician explains the HERS test and ducting issues, detailing the solution.",
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician explains the HERS test and offers a promotion for duct sealing, which involves both explaining the solution and an upsell attempt.",
       "annotations": [
         {
           "utterance_index": 35,
-          "type": "partial",
-          "icon": "\u26a0\ufe0f",
-          "title": "Partial: Explanation of Technical Details",
-          "description": "The technician explains the HERS test and ductwork modifications but uses technical jargon that may not be fully accessible to the customer.",
+          "type": "success",
+          "icon": "\u2713",
+          "title": "Clear Explanation of HERS Test",
+          "description": "The technician effectively explains what a HERS test is and why the customer's home would not pass, providing clear context and relevance.",
           "related_question_id": "soln_details",
-          "severity": "medium",
-          "impact": "Customer may not fully grasp the importance or necessity of the modifications, affecting their decision-making.",
-          "recommendation": "Simplify technical terms and provide analogies or examples to make the information more relatable and understandable."
+          "severity": "low",
+          "impact": "Enhances customer understanding of the service and its importance.",
+          "recommendation": null
         }
       ]
     },
@@ -644,12 +621,12 @@
       "start": 586.5,
       "end": 587.46,
       "confidence": 0.91807723,
-      "primary_stage": "other",
+      "primary_stage": "solution_explanation",
       "stage_tags": [
-        "other"
+        "solution_explanation"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer acknowledges the technician's statement without adding new information.",
+      "stage_confidence": 0.6,
+      "stage_reasoning": "The customer's acknowledgment 'I have, yeah.' is in response to the technician's explanation about inverter technology, fitting within the solution explanation stage.",
       "annotations": []
     },
     {
@@ -663,7 +640,7 @@
         "solution_explanation"
       ],
       "stage_confidence": 0.9,
-      "stage_reasoning": "The technician explains inverter technology and its benefits, detailing the solution.",
+      "stage_reasoning": "The technician is explaining the benefits and differences of the inverter technology, which is part of the solution explanation.",
       "annotations": []
     },
     {
@@ -672,12 +649,12 @@
       "start": 643.98,
       "end": 645.22,
       "confidence": 0.8507012,
-      "primary_stage": "other",
+      "primary_stage": "solution_explanation",
       "stage_tags": [
-        "other"
+        "solution_explanation"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer acknowledges familiarity with the heat pump technology.",
+      "stage_confidence": 0.6,
+      "stage_reasoning": "The customer's statement 'I'm familiar with the heat pump.' acknowledges the technician's explanation about the heat pump, fitting within the solution explanation stage.",
       "annotations": []
     },
     {
@@ -686,12 +663,12 @@
       "start": 645.22,
       "end": 645.78,
       "confidence": 0.97436523,
-      "primary_stage": "other",
+      "primary_stage": "solution_explanation",
       "stage_tags": [
-        "other"
+        "solution_explanation"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The technician confirms the customer's familiarity with the technology.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The technician's question 'You know about these?' is a follow-up to the explanation about the heat pump, continuing the solution explanation stage.",
       "annotations": []
     },
     {
@@ -700,12 +677,12 @@
       "start": 645.78,
       "end": 646.58,
       "confidence": 0.86311847,
-      "primary_stage": "other",
+      "primary_stage": "solution_explanation",
       "stage_tags": [
-        "other"
+        "solution_explanation"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer confirms understanding without adding new information.",
+      "stage_confidence": 0.6,
+      "stage_reasoning": "The customer's response 'Okay, perfect.' acknowledges the technician's explanation, fitting within the solution explanation stage.",
       "annotations": []
     },
     {
@@ -714,12 +691,12 @@
       "start": 646.9,
       "end": 706.2,
       "confidence": 0.9759314,
-      "primary_stage": "solution_explanation",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "solution_explanation"
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The technician continues explaining the installation process and discounts.",
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The technician discusses discounts and rebates, which involves offering additional financial incentives, fitting within upsell attempts.",
       "annotations": []
     },
     {
@@ -728,12 +705,12 @@
       "start": 706.2,
       "end": 707.04,
       "confidence": 0.97960067,
-      "primary_stage": "other",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "other"
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer confirms not opting out of a program, not adding new information.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer's response 'Yeah, I didn't.' is part of the discussion about opting out of a program, which is related to the upsell attempts stage.",
       "annotations": []
     },
     {
@@ -742,25 +719,13 @@
       "start": 707.04,
       "end": 769.85,
       "confidence": 0.9612019,
-      "primary_stage": "solution_explanation",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "solution_explanation"
+        "upsell_attempts"
       ],
       "stage_confidence": 0.9,
-      "stage_reasoning": "The technician explains rebates and the process for obtaining them.",
-      "annotations": [
-        {
-          "utterance_index": 43,
-          "type": "success",
-          "icon": "\u2713",
-          "title": "Strong Explanation of Rebates",
-          "description": "The technician clearly explains the rebates available and the steps the customer needs to take, which helps in understanding the financial benefits.",
-          "related_question_id": "soln_clarity",
-          "severity": "low",
-          "impact": "Enhances customer understanding of potential savings, contributing to a positive service experience.",
-          "recommendation": null
-        }
-      ]
+      "stage_reasoning": "The technician explains the requirements for rebates and discounts, which involves offering additional financial incentives, fitting within upsell attempts.",
+      "annotations": []
     },
     {
       "speaker": "A",
@@ -768,12 +733,12 @@
       "start": 769.85,
       "end": 770.33,
       "confidence": 0.6936035,
-      "primary_stage": "other",
+      "primary_stage": "solution_explanation",
       "stage_tags": [
-        "other"
+        "solution_explanation"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer acknowledges the technician's explanation without adding new information.",
+      "stage_confidence": 0.6,
+      "stage_reasoning": "The customer's acknowledgment 'Got it.' is in response to the technician's explanation about the requirements for rebates, fitting within the solution explanation stage.",
       "annotations": []
     },
     {
@@ -782,13 +747,25 @@
       "start": 770.33,
       "end": 807.71,
       "confidence": 0.9624256,
-      "primary_stage": "solution_explanation",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "solution_explanation"
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The technician explains the requirements for a HERS test and promotions.",
-      "annotations": []
+      "stage_confidence": 0.85,
+      "stage_reasoning": "The technician is offering a promotion related to a duct seal, which is an upsell attempt.",
+      "annotations": [
+        {
+          "utterance_index": 45,
+          "type": "success",
+          "icon": "\u2713",
+          "title": "Incentive Offering Without Pressure",
+          "description": "The technician offers a promotion for duct sealing and explains the requirements for rebates without pressuring the customer.",
+          "related_question_id": "upsell_approach",
+          "severity": "low",
+          "impact": "Encourages customer interest through incentives while maintaining a consultative approach.",
+          "recommendation": null
+        }
+      ]
     },
     {
       "speaker": "A",
@@ -800,8 +777,8 @@
       "stage_tags": [
         "problem_diagnosis"
       ],
-      "stage_confidence": 0.7,
-      "stage_reasoning": "The customer inquires about failed permits, which relates to diagnosing potential issues.",
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The customer is seeking clarification on what 'failed permits' mean, which relates to understanding the issue.",
       "annotations": []
     },
     {
@@ -810,13 +787,25 @@
       "start": 810.11,
       "end": 813.31,
       "confidence": 0.97505385,
-      "primary_stage": "solution_explanation",
+      "primary_stage": "problem_diagnosis",
       "stage_tags": [
-        "solution_explanation"
+        "problem_diagnosis"
       ],
       "stage_confidence": 0.8,
-      "stage_reasoning": "The technician explains what failed permits mean, detailing the solution.",
-      "annotations": []
+      "stage_reasoning": "The technician is explaining what 'failed permits' mean, which is part of diagnosing or clarifying the problem.",
+      "annotations": [
+        {
+          "utterance_index": 47,
+          "type": "success",
+          "icon": "\u2713",
+          "title": "Clarification of Permit Issues",
+          "description": "The technician successfully clarified the issue of failed permits, providing a clear explanation that helps the customer understand the situation.",
+          "related_question_id": "diag_communication",
+          "severity": "low",
+          "impact": "Improves customer understanding and trust in the technician's expertise.",
+          "recommendation": null
+        }
+      ]
     },
     {
       "speaker": "A",
@@ -828,8 +817,8 @@
       "stage_tags": [
         "other"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer acknowledges the explanation and adds a personal note.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer's response is fragmented and does not clearly fit into any specific service call stage.",
       "annotations": []
     },
     {
@@ -838,12 +827,12 @@
       "start": 818.87,
       "end": 824.59,
       "confidence": 0.96676636,
-      "primary_stage": "solution_explanation",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "solution_explanation"
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.8,
-      "stage_reasoning": "The technician continues discussing qualification for options.",
+      "stage_confidence": 0.85,
+      "stage_reasoning": "The technician is discussing qualifications for an option, which is part of offering additional services or options.",
       "annotations": []
     },
     {
@@ -852,12 +841,12 @@
       "start": 824.59,
       "end": 825.63,
       "confidence": 0.90961915,
-      "primary_stage": "other",
+      "primary_stage": "problem_diagnosis",
       "stage_tags": [
-        "other"
+        "problem_diagnosis"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer asks for clarification on the options discussed.",
+      "stage_confidence": 0.75,
+      "stage_reasoning": "The customer is asking for clarification on an option, which relates to understanding the details of the service.",
       "annotations": []
     },
     {
@@ -871,7 +860,7 @@
         "solution_explanation"
       ],
       "stage_confidence": 0.8,
-      "stage_reasoning": "The technician provides clarification on the total price.",
+      "stage_reasoning": "The technician is providing a brief response about the total price, which is part of explaining the solution or service details.",
       "annotations": []
     },
     {
@@ -880,13 +869,25 @@
       "start": 826.51,
       "end": 829.85,
       "confidence": 0.8815918,
-      "primary_stage": "other",
+      "primary_stage": "problem_diagnosis",
       "stage_tags": [
-        "other"
+        "problem_diagnosis"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer seeks further clarification on the options.",
-      "annotations": []
+      "stage_confidence": 0.75,
+      "stage_reasoning": "The customer is seeking clarification on an option, which is part of understanding the service details.",
+      "annotations": [
+        {
+          "utterance_index": 52,
+          "type": "warning",
+          "icon": "\u274c",
+          "title": "Incomplete Response to Customer Inquiry",
+          "description": "The customer asked about an option shown to them, but the technician did not provide a clear response in the following utterances.",
+          "related_question_id": "diag_customer_needs",
+          "severity": "high",
+          "impact": "Customer may feel ignored or undervalued, leading to frustration and potential loss of trust.",
+          "recommendation": "Ensure that all customer inquiries are addressed promptly and clearly to maintain engagement and satisfaction."
+        }
+      ]
     },
     {
       "speaker": "B",
@@ -894,23 +895,23 @@
       "start": 830.01,
       "end": 910.57,
       "confidence": 0.96775156,
-      "primary_stage": "upsell_attempts",
+      "primary_stage": "solution_explanation",
       "stage_tags": [
-        "upsell_attempts"
+        "solution_explanation"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The technician discusses the benefits of a specific heat pump brand, indicating an upsell attempt.",
+      "stage_confidence": 0.85,
+      "stage_reasoning": "The technician is explaining the features and benefits of a heat pump, which is part of the solution explanation.",
       "annotations": [
         {
           "utterance_index": 53,
-          "type": "success",
-          "icon": "\u2713",
-          "title": "Effective Use of Brand Partnership",
-          "description": "The technician leverages the company's partnership with Daikin to build credibility and trust in the product being offered.",
-          "related_question_id": "upsell_value",
-          "severity": "low",
-          "impact": "Builds trust and confidence in the product, enhancing the likelihood of a successful upsell.",
-          "recommendation": null
+          "type": "opportunity",
+          "icon": "\ud83d\udca1",
+          "title": "Missed Opportunity: Customer Engagement",
+          "description": "The technician discusses technical partnerships and product features but misses the chance to engage the customer by asking for their thoughts or questions.",
+          "related_question_id": null,
+          "severity": "medium",
+          "impact": "Could have increased customer interest and trust by involving them in the conversation.",
+          "recommendation": "Encourage customer interaction by asking open-ended questions about their preferences or concerns."
         }
       ]
     },
@@ -924,8 +925,8 @@
       "stage_tags": [
         "other"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer acknowledges the technician's statement without adding new information.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer's single-word response 'Warm' does not fit into any specific service call stage.",
       "annotations": []
     },
     {
@@ -938,8 +939,8 @@
       "stage_tags": [
         "solution_explanation"
       ],
-      "stage_confidence": 0.8,
-      "stage_reasoning": "The technician explains the defrost cycle and its relevance to the installation.",
+      "stage_confidence": 0.85,
+      "stage_reasoning": "The technician is explaining the defrost cycle of the heat pump, which is part of the solution explanation.",
       "annotations": []
     },
     {
@@ -952,21 +953,9 @@
       "stage_tags": [
         "problem_diagnosis"
       ],
-      "stage_confidence": 0.7,
-      "stage_reasoning": "The customer inquires about moving the unit, which relates to diagnosing installation challenges.",
-      "annotations": [
-        {
-          "utterance_index": 56,
-          "type": "opportunity",
-          "icon": "\ud83d\udca1",
-          "title": "Missed Opportunity: Explore Alternatives",
-          "description": "The customer mentioned that none of the options are moving the unit to the top, indicating dissatisfaction with current solutions.",
-          "related_question_id": null,
-          "severity": "medium",
-          "impact": "By not exploring alternative solutions, the technician missed a chance to better meet the customer's needs.",
-          "recommendation": "Engage the customer in a discussion about alternative solutions that could address their concerns."
-        }
-      ]
+      "stage_confidence": 0.75,
+      "stage_reasoning": "The customer is questioning the options regarding the unit's location, which relates to understanding the service details.",
+      "annotations": []
     },
     {
       "speaker": "B",
@@ -978,8 +967,8 @@
       "stage_tags": [
         "solution_explanation"
       ],
-      "stage_confidence": 0.8,
-      "stage_reasoning": "The technician explains the implications of moving the unit to the attic.",
+      "stage_confidence": 0.85,
+      "stage_reasoning": "The technician is explaining the benefits and considerations of different installation locations, which is part of the solution explanation.",
       "annotations": []
     },
     {
@@ -988,12 +977,12 @@
       "start": 963.82,
       "end": 965.1,
       "confidence": 0.9594959,
-      "primary_stage": "problem_diagnosis",
+      "primary_stage": "other",
       "stage_tags": [
-        "problem_diagnosis"
+        "other"
       ],
       "stage_confidence": 0.7,
-      "stage_reasoning": "The customer comments on the attic's temperature, which relates to diagnosing installation challenges.",
+      "stage_reasoning": "The customer's response 'Yeah, because it's too hot up there.' is a comment that does not fit into a specific service call stage.",
       "annotations": []
     },
     {
@@ -1006,8 +995,8 @@
       "stage_tags": [
         "other"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The technician acknowledges the customer's comment without adding new information.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The technician's response 'Precisely.' is an acknowledgment that does not fit into a specific service call stage.",
       "annotations": []
     },
     {
@@ -1020,8 +1009,8 @@
       "stage_tags": [
         "problem_diagnosis"
       ],
-      "stage_confidence": 0.7,
-      "stage_reasoning": "The customer inquires about moving the unit to the garage, which relates to diagnosing installation challenges.",
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The customer is inquiring about an alternative solution to the current problem, which is part of understanding and diagnosing the issue.",
       "annotations": []
     },
     {
@@ -1034,8 +1023,8 @@
       "stage_tags": [
         "solution_explanation"
       ],
-      "stage_confidence": 0.8,
-      "stage_reasoning": "The technician explains the challenges of moving the unit to the garage.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The technician is explaining the difficulty and implications of moving the unit to the garage, which involves technical details about the solution.",
       "annotations": []
     },
     {
@@ -1044,12 +1033,12 @@
       "start": 970.14,
       "end": 970.7,
       "confidence": 0.89941406,
-      "primary_stage": "other",
+      "primary_stage": "solution_explanation",
       "stage_tags": [
-        "other"
+        "solution_explanation"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer repeats the technician's statement for confirmation.",
+      "stage_confidence": 0.6,
+      "stage_reasoning": "The customer is repeating the technician's explanation, which is part of the ongoing solution explanation.",
       "annotations": []
     },
     {
@@ -1063,7 +1052,7 @@
         "solution_explanation"
       ],
       "stage_confidence": 0.9,
-      "stage_reasoning": "The technician explains the benefits and challenges of moving the unit to the attic.",
+      "stage_reasoning": "The technician provides a detailed explanation of the work involved in moving the unit to the attic, including technical details and cost implications.",
       "annotations": []
     },
     {
@@ -1077,18 +1066,18 @@
         "problem_diagnosis"
       ],
       "stage_confidence": 0.7,
-      "stage_reasoning": "The customer comments on noise issues, which relates to diagnosing installation challenges.",
+      "stage_reasoning": "The customer is expressing a concern about noise, which is part of understanding the problem and customer preferences.",
       "annotations": [
         {
           "utterance_index": 64,
           "type": "customer_signal",
           "icon": "\ud83d\udc64",
           "title": "Customer Concern: Noise Issue",
-          "description": "The customer expressed dissatisfaction with the noise level of the unit, which is a key concern that should be addressed.",
+          "description": "The customer expressed a concern about the noise of the unit, indicating a potential area for improvement or alternative solutions.",
           "related_question_id": null,
           "severity": "medium",
-          "impact": "Ignoring this concern could lead to customer dissatisfaction and potential loss of business.",
-          "recommendation": "Acknowledge the concern and discuss potential solutions to reduce noise."
+          "impact": "Opportunity to address a specific customer concern and improve satisfaction by offering solutions.",
+          "recommendation": "Technician should acknowledge the concern and discuss potential solutions or alternatives to address the noise issue."
         }
       ]
     },
@@ -1102,8 +1091,8 @@
       "stage_tags": [
         "other"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The technician begins a statement but does not complete it.",
+      "stage_confidence": 0.5,
+      "stage_reasoning": "The utterance is incomplete and does not clearly fit into any specific stage.",
       "annotations": []
     },
     {
@@ -1112,12 +1101,12 @@
       "start": 1068.31,
       "end": 1071.98,
       "confidence": 0.9738421,
-      "primary_stage": "problem_diagnosis",
+      "primary_stage": "solution_explanation",
       "stage_tags": [
-        "problem_diagnosis"
+        "solution_explanation"
       ],
-      "stage_confidence": 0.7,
-      "stage_reasoning": "The customer comments on noise issues, which relates to diagnosing installation challenges.",
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The customer is commenting on the noise aspect of the units, which relates to the solution explanation about noise reduction.",
       "annotations": []
     },
     {
@@ -1131,8 +1120,20 @@
         "solution_explanation"
       ],
       "stage_confidence": 0.9,
-      "stage_reasoning": "The technician explains how to reduce noise with a different grill design.",
-      "annotations": []
+      "stage_reasoning": "The technician is explaining a potential solution to reduce noise, involving technical details about the grill and airflow.",
+      "annotations": [
+        {
+          "utterance_index": 67,
+          "type": "success",
+          "icon": "\u2713",
+          "title": "Effective Use of Analogies",
+          "description": "The technician uses an analogy comparing grill types to explain noise reduction, making the technical concept more relatable and understandable.",
+          "related_question_id": "soln_details",
+          "severity": "low",
+          "impact": "Helps the customer grasp complex information easily, improving their overall understanding.",
+          "recommendation": null
+        }
+      ]
     },
     {
       "speaker": "A",
@@ -1140,12 +1141,12 @@
       "start": 1139.95,
       "end": 1145.19,
       "confidence": 0.9405333,
-      "primary_stage": "other",
+      "primary_stage": "solution_explanation",
       "stage_tags": [
-        "other"
+        "solution_explanation"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer acknowledges the technician's explanation without adding new information.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer acknowledges the explanation about noise, which is part of the ongoing solution explanation.",
       "annotations": []
     },
     {
@@ -1159,7 +1160,7 @@
         "solution_explanation"
       ],
       "stage_confidence": 0.8,
-      "stage_reasoning": "The technician explains the impact of cooling demand on noise levels.",
+      "stage_reasoning": "The technician continues to explain the technical aspects of the system's performance under different conditions.",
       "annotations": []
     },
     {
@@ -1168,12 +1169,12 @@
       "start": 1170.68,
       "end": 1176.0,
       "confidence": 0.9497296,
-      "primary_stage": "other",
+      "primary_stage": "problem_diagnosis",
       "stage_tags": [
-        "other"
+        "problem_diagnosis"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer requests to see the prices again, not adding new information.",
+      "stage_confidence": 0.6,
+      "stage_reasoning": "The customer is asking to review options and prices, which is part of understanding the available solutions.",
       "annotations": []
     },
     {
@@ -1182,25 +1183,13 @@
       "start": 1176.08,
       "end": 1205.92,
       "confidence": 0.96812874,
-      "primary_stage": "closing",
+      "primary_stage": "other",
       "stage_tags": [
-        "closing"
+        "other"
       ],
-      "stage_confidence": 0.7,
-      "stage_reasoning": "The technician indicates they need to take a call, suggesting a pause or end to the conversation.",
-      "annotations": [
-        {
-          "utterance_index": 71,
-          "type": "warning",
-          "icon": "\u274c",
-          "title": "Unprofessional Interruption",
-          "description": "The technician interrupted the call to take another call, which is unprofessional and disrupts the closing process.",
-          "related_question_id": "close_professional",
-          "severity": "high",
-          "impact": "This behavior can make the customer feel undervalued and negatively affect their perception of the service.",
-          "recommendation": "Ensure all attention is on the customer during the call and avoid taking other calls until the current one is properly concluded."
-        }
-      ]
+      "stage_confidence": 0.5,
+      "stage_reasoning": "The technician is interrupted by another call, and the conversation does not fit into any specific service call stage.",
+      "annotations": []
     },
     {
       "speaker": "A",
@@ -1208,12 +1197,12 @@
       "start": 1215.76,
       "end": 1220.8,
       "confidence": 0.96500653,
-      "primary_stage": "other",
+      "primary_stage": "problem_diagnosis",
       "stage_tags": [
-        "other"
+        "problem_diagnosis"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer comments on the equipment, not adding new information.",
+      "stage_confidence": 0.6,
+      "stage_reasoning": "The customer is making an observation about the equipment, which is part of understanding the current situation.",
       "annotations": []
     },
     {
@@ -1226,8 +1215,8 @@
       "stage_tags": [
         "solution_explanation"
       ],
-      "stage_confidence": 0.8,
-      "stage_reasoning": "The technician explains the physical dimensions of the systems.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The technician is explaining the physical characteristics of the systems, which is part of the solution explanation.",
       "annotations": []
     },
     {
@@ -1236,12 +1225,12 @@
       "start": 1238.78,
       "end": 1244.5,
       "confidence": 0.9553556,
-      "primary_stage": "other",
+      "primary_stage": "problem_diagnosis",
       "stage_tags": [
-        "other"
+        "problem_diagnosis"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer comments on their experience with the equipment, not adding new information.",
+      "stage_confidence": 0.6,
+      "stage_reasoning": "The customer is sharing their experience with the equipment, which is part of understanding the problem and preferences.",
       "annotations": []
     },
     {
@@ -1255,7 +1244,7 @@
         "solution_explanation"
       ],
       "stage_confidence": 0.8,
-      "stage_reasoning": "The technician confirms the equipment's venting direction.",
+      "stage_reasoning": "The technician is confirming that the system will still vent to the side, which is a continuation of explaining the system's features.",
       "annotations": []
     },
     {
@@ -1264,12 +1253,12 @@
       "start": 1246.42,
       "end": 1249.94,
       "confidence": 0.9662001,
-      "primary_stage": "other",
+      "primary_stage": "problem_diagnosis",
       "stage_tags": [
-        "other"
+        "problem_diagnosis"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer comments on their preference for venting direction, not adding new information.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer is expressing a preference for a system that vents to the top, which is part of understanding their needs and preferences.",
       "annotations": []
     },
     {
@@ -1283,7 +1272,7 @@
         "solution_explanation"
       ],
       "stage_confidence": 0.8,
-      "stage_reasoning": "The technician offers to build an inverter that vents upwards.",
+      "stage_reasoning": "The technician is explaining a potential solution by mentioning the ability to build an inverter that vents to the top.",
       "annotations": []
     },
     {
@@ -1296,8 +1285,8 @@
       "stage_tags": [
         "other"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer acknowledges the technician's offer without adding new information.",
+      "stage_confidence": 0.6,
+      "stage_reasoning": "The utterance is a simple acknowledgment ('Yeah') and does not contribute to any specific stage.",
       "annotations": []
     },
     {
@@ -1306,12 +1295,12 @@
       "start": 1258.46,
       "end": 1258.94,
       "confidence": 0.71972656,
-      "primary_stage": "other",
+      "primary_stage": "problem_diagnosis",
       "stage_tags": [
-        "other"
+        "problem_diagnosis"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The technician begins a statement but does not complete it.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The technician is inquiring if the customer's preference for a top-venting unit is a requirement, which is part of understanding the customer's needs.",
       "annotations": []
     },
     {
@@ -1325,7 +1314,7 @@
         "problem_diagnosis"
       ],
       "stage_confidence": 0.7,
-      "stage_reasoning": "The customer inquires about units that vent upwards, which relates to diagnosing installation preferences.",
+      "stage_reasoning": "The customer is discussing the features of a unit that vents upwards, which is part of understanding their preferences.",
       "annotations": []
     },
     {
@@ -1334,12 +1323,12 @@
       "start": 1262.54,
       "end": 1308.91,
       "confidence": 0.9784068,
-      "primary_stage": "solution_explanation",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "solution_explanation"
+        "upsell_attempts"
       ],
       "stage_confidence": 0.8,
-      "stage_reasoning": "The technician explains the brand and features of units that vent upwards.",
+      "stage_reasoning": "The technician is discussing the features and benefits of a Bosch unit, including potential rebates, which aligns with offering additional options.",
       "annotations": []
     },
     {
@@ -1348,12 +1337,12 @@
       "start": 1308.91,
       "end": 1309.99,
       "confidence": 0.975944,
-      "primary_stage": "other",
+      "primary_stage": "problem_diagnosis",
       "stage_tags": [
-        "other"
+        "problem_diagnosis"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer inquires about a specific feature of the Bosch brand.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer is clarifying whether the Bosch unit has a specific feature, which is part of understanding the options available.",
       "annotations": []
     },
     {
@@ -1362,12 +1351,12 @@
       "start": 1309.99,
       "end": 1310.71,
       "confidence": 0.97802734,
-      "primary_stage": "solution_explanation",
+      "primary_stage": "problem_diagnosis",
       "stage_tags": [
-        "solution_explanation"
+        "problem_diagnosis"
       ],
-      "stage_confidence": 0.8,
-      "stage_reasoning": "The technician offers to find out more about the Bosch brand's features.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The technician is offering to find out more information about the Bosch unit, which is part of addressing the customer's inquiry.",
       "annotations": []
     },
     {
@@ -1380,8 +1369,8 @@
       "stage_tags": [
         "other"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer acknowledges the technician's offer without adding new information.",
+      "stage_confidence": 0.6,
+      "stage_reasoning": "The utterance is a simple acknowledgment ('Okay, okay, okay. Got it, got it.') and does not contribute to any specific stage.",
       "annotations": []
     },
     {
@@ -1390,12 +1379,12 @@
       "start": 1313.42,
       "end": 1314.86,
       "confidence": 0.9890137,
-      "primary_stage": "other",
+      "primary_stage": "problem_diagnosis",
       "stage_tags": [
-        "other"
+        "problem_diagnosis"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The technician offers to find out more about the Bosch brand's features.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The technician is offering to quickly find out more information, which is part of addressing the customer's inquiry.",
       "annotations": []
     },
     {
@@ -1408,8 +1397,8 @@
       "stage_tags": [
         "other"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer agrees to the technician's offer without adding new information.",
+      "stage_confidence": 0.6,
+      "stage_reasoning": "The utterance is a simple acknowledgment ('Sure, sure.') and does not contribute to any specific stage.",
       "annotations": []
     },
     {
@@ -1423,7 +1412,7 @@
         "solution_explanation"
       ],
       "stage_confidence": 0.8,
-      "stage_reasoning": "The technician explains the differences between Bosch and other brands.",
+      "stage_reasoning": "The technician is preparing to modify an estimate, which involves explaining the changes to the customer.",
       "annotations": []
     },
     {
@@ -1432,12 +1421,12 @@
       "start": 1319.7,
       "end": 1321.1,
       "confidence": 0.9637349,
-      "primary_stage": "other",
+      "primary_stage": "solution_explanation",
       "stage_tags": [
-        "other"
+        "solution_explanation"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer acknowledges the technician's explanation without adding new information.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer is instructing the technician on how to modify the estimate, which is part of the solution process.",
       "annotations": []
     },
     {
@@ -1451,7 +1440,7 @@
         "solution_explanation"
       ],
       "stage_confidence": 0.8,
-      "stage_reasoning": "The technician continues explaining the differences between Bosch and other brands.",
+      "stage_reasoning": "The technician is explaining the differences between the Bosch and Bryant units, including features and pricing, which is part of the solution explanation.",
       "annotations": []
     },
     {
@@ -1460,12 +1449,12 @@
       "start": 1441.5,
       "end": 1447.5,
       "confidence": 0.93321407,
-      "primary_stage": "other",
+      "primary_stage": "problem_diagnosis",
       "stage_tags": [
-        "other"
+        "problem_diagnosis"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer comments on their past experience with a heat pump.",
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The customer is discussing their past experience with a heat pump, which relates to understanding the issue or concern they have with the current options being discussed.",
       "annotations": []
     },
     {
@@ -1478,8 +1467,8 @@
       "stage_tags": [
         "solution_explanation"
       ],
-      "stage_confidence": 0.8,
-      "stage_reasoning": "The technician confirms the customer's past experience and explains the defrost cycle.",
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician is explaining the features of the heat pump, specifically how it rarely enters a defrost cycle, which is part of explaining the solution or product features.",
       "annotations": []
     },
     {
@@ -1493,20 +1482,8 @@
         "problem_diagnosis"
       ],
       "stage_confidence": 0.7,
-      "stage_reasoning": "The customer inquires about installation time, which relates to diagnosing installation logistics.",
-      "annotations": [
-        {
-          "utterance_index": 92,
-          "type": "info",
-          "icon": "\u2139\ufe0f",
-          "title": "Customer Inquiry: Installation Time",
-          "description": "The customer asked about the installation time, indicating interest in the service timeline.",
-          "related_question_id": null,
-          "severity": "low",
-          "impact": "Understanding the timeline can help set customer expectations and improve satisfaction.",
-          "recommendation": "Provide a clear and accurate estimate of the installation time to manage customer expectations."
-        }
-      ]
+      "stage_reasoning": "The customer is asking about the installation time, which is part of understanding the logistics and potential issues related to the installation process.",
+      "annotations": []
     },
     {
       "speaker": "B",
@@ -1519,7 +1496,7 @@
         "solution_explanation"
       ],
       "stage_confidence": 0.9,
-      "stage_reasoning": "The technician explains the installation time for different systems.",
+      "stage_reasoning": "The technician is explaining the time required for installation and the work involved, which is part of explaining the solution and what the service entails.",
       "annotations": []
     },
     {
@@ -1528,12 +1505,12 @@
       "start": 1498.37,
       "end": 1498.85,
       "confidence": 0.9453125,
-      "primary_stage": "other",
+      "primary_stage": "solution_explanation",
       "stage_tags": [
-        "other"
+        "solution_explanation"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer repeats the technician's statement for confirmation.",
+      "stage_confidence": 0.6,
+      "stage_reasoning": "The customer's brief comment 'Things up' is a continuation of the previous explanation about installation logistics.",
       "annotations": []
     },
     {
@@ -1547,7 +1524,7 @@
         "solution_explanation"
       ],
       "stage_confidence": 0.8,
-      "stage_reasoning": "The technician explains the crew size and its impact on installation time.",
+      "stage_reasoning": "The technician is providing further details about the installation crew, which is part of explaining the solution and logistics.",
       "annotations": []
     },
     {
@@ -1556,13 +1533,25 @@
       "start": 1501.57,
       "end": 1516.17,
       "confidence": 0.9742592,
-      "primary_stage": "other",
+      "primary_stage": "problem_diagnosis",
       "stage_tags": [
-        "other"
+        "problem_diagnosis"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer expresses interest in specific options without adding new information.",
-      "annotations": []
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer is expressing their interest in specific options, which is part of understanding their preferences and needs.",
+      "annotations": [
+        {
+          "utterance_index": 96,
+          "type": "partial",
+          "icon": "\u26a0\ufe0f",
+          "title": "Partial Understanding of Options",
+          "description": "The customer indicates understanding of the options but seems uncertain about their interest in specific solutions.",
+          "related_question_id": "diag_communication",
+          "severity": "medium",
+          "impact": "Potential for customer confusion or indecision, which could affect their final decision.",
+          "recommendation": "Technician should confirm the customer's understanding and offer further clarification or assistance in decision-making."
+        }
+      ]
     },
     {
       "speaker": "B",
@@ -1570,12 +1559,12 @@
       "start": 1516.17,
       "end": 1516.53,
       "confidence": 0.8491211,
-      "primary_stage": "other",
+      "primary_stage": "solution_explanation",
       "stage_tags": [
-        "other"
+        "solution_explanation"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The technician acknowledges the customer's interest without adding new information.",
+      "stage_confidence": 0.6,
+      "stage_reasoning": "The technician's response 'Sure' is acknowledging the customer's interest, which is part of the ongoing explanation and discussion of options.",
       "annotations": []
     },
     {
@@ -1584,12 +1573,12 @@
       "start": 1516.69,
       "end": 1520.01,
       "confidence": 0.95946246,
-      "primary_stage": "problem_diagnosis",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "problem_diagnosis"
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.7,
-      "stage_reasoning": "The customer inquires about financing options, which relates to diagnosing payment logistics.",
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The customer is inquiring about financing options, which is related to upselling as it involves discussing additional financial services.",
       "annotations": []
     },
     {
@@ -1598,12 +1587,12 @@
       "start": 1520.01,
       "end": 1523.01,
       "confidence": 0.9728516,
-      "primary_stage": "solution_explanation",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "solution_explanation"
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.8,
-      "stage_reasoning": "The technician confirms the availability of financing options.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The technician confirms the availability of financing, which is part of offering additional services related to the purchase.",
       "annotations": []
     },
     {
@@ -1612,12 +1601,12 @@
       "start": 1523.49,
       "end": 1527.65,
       "confidence": 0.98309326,
-      "primary_stage": "problem_diagnosis",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "problem_diagnosis"
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.7,
-      "stage_reasoning": "The customer requests details on financing terms, which relates to diagnosing payment logistics.",
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The customer is asking for details about financing, which is part of discussing additional financial options related to the purchase.",
       "annotations": []
     },
     {
@@ -1626,23 +1615,23 @@
       "start": 1527.81,
       "end": 1600.29,
       "confidence": 0.97263604,
-      "primary_stage": "solution_explanation",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "solution_explanation"
+        "upsell_attempts"
       ],
       "stage_confidence": 0.9,
-      "stage_reasoning": "The technician explains the financing options and terms available.",
+      "stage_reasoning": "The technician is explaining various financing options, which is part of offering additional services related to the purchase.",
       "annotations": [
         {
           "utterance_index": 101,
-          "type": "opportunity",
-          "icon": "\ud83d\udca1",
-          "title": "Missed Opportunity: Simplifying Financing Options",
-          "description": "The explanation of financing options is detailed but could be simplified to ensure the customer fully understands their choices.",
+          "type": "info",
+          "icon": "\u2139\ufe0f",
+          "title": "Detailed Financing Options",
+          "description": "The technician provides comprehensive information about financing options, including interest rates and terms.",
           "related_question_id": null,
           "severity": "medium",
-          "impact": "Customer might feel overwhelmed by the complexity, potentially leading to indecision or reluctance to proceed.",
-          "recommendation": "Present financing options in a simplified manner, highlighting key differences and benefits of each option."
+          "impact": "Ensures the customer is well-informed about payment options, which can facilitate decision-making.",
+          "recommendation": null
         }
       ]
     },
@@ -1652,12 +1641,12 @@
       "start": 1606.45,
       "end": 1606.73,
       "confidence": 0.99853516,
-      "primary_stage": "other",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "other"
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer begins a statement but does not complete it.",
+      "stage_confidence": 0.6,
+      "stage_reasoning": "The customer's brief interjection 'When' is part of the ongoing discussion about financing options.",
       "annotations": []
     },
     {
@@ -1666,12 +1655,12 @@
       "start": 1606.73,
       "end": 1614.19,
       "confidence": 0.9772231,
-      "primary_stage": "solution_explanation",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "solution_explanation"
+        "upsell_attempts"
       ],
       "stage_confidence": 0.8,
-      "stage_reasoning": "The technician continues explaining the financing terms.",
+      "stage_reasoning": "The technician is providing specific details about a payment plan, which is part of discussing financing options.",
       "annotations": []
     },
     {
@@ -1680,12 +1669,12 @@
       "start": 1614.91,
       "end": 1615.63,
       "confidence": 0.8840309,
-      "primary_stage": "other",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "other"
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer repeats the financing term for confirmation.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer's response '60 months' is part of the ongoing discussion about financing terms.",
       "annotations": []
     },
     {
@@ -1694,12 +1683,12 @@
       "start": 1616.11,
       "end": 1616.99,
       "confidence": 0.9526365,
-      "primary_stage": "other",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "other"
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The technician confirms the financing term without adding new information.",
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The utterance is part of a discussion about financing options, which is related to upselling additional services or products.",
       "annotations": []
     },
     {
@@ -1708,12 +1697,12 @@
       "start": 1617.15,
       "end": 1626.51,
       "confidence": 0.8939777,
-      "primary_stage": "problem_diagnosis",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "problem_diagnosis"
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.7,
-      "stage_reasoning": "The customer inquires about the monthly payment, which relates to diagnosing payment logistics.",
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The customer is confirming details about a promotion, which is part of the upsell discussion.",
       "annotations": []
     },
     {
@@ -1722,12 +1711,12 @@
       "start": 1627.31,
       "end": 1634.67,
       "confidence": 0.99011457,
-      "primary_stage": "solution_explanation",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "solution_explanation"
+        "upsell_attempts"
       ],
       "stage_confidence": 0.8,
-      "stage_reasoning": "The technician explains the baseline equipment cost and promotions.",
+      "stage_reasoning": "The technician is explaining promotions and baseline equipment, which is part of the upsell process.",
       "annotations": []
     },
     {
@@ -1736,12 +1725,12 @@
       "start": 1635.83,
       "end": 1641.23,
       "confidence": 0.9753883,
-      "primary_stage": "problem_diagnosis",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "problem_diagnosis"
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.7,
-      "stage_reasoning": "The customer inquires about a specific financing option, which relates to diagnosing payment logistics.",
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The customer is inquiring about payment options, which is part of the upsell discussion.",
       "annotations": []
     },
     {
@@ -1750,12 +1739,12 @@
       "start": 1641.23,
       "end": 1659.91,
       "confidence": 0.9744037,
-      "primary_stage": "solution_explanation",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "solution_explanation"
+        "upsell_attempts"
       ],
       "stage_confidence": 0.8,
-      "stage_reasoning": "The technician explains the terms of a specific financing option.",
+      "stage_reasoning": "The technician is explaining payment terms and interest rates, which is part of the upsell process.",
       "annotations": []
     },
     {
@@ -1764,12 +1753,12 @@
       "start": 1659.99,
       "end": 1661.19,
       "confidence": 0.98083496,
-      "primary_stage": "other",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "other"
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer acknowledges the explanation without adding new information.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer is acknowledging understanding of the payment terms, which is part of the upsell discussion.",
       "annotations": []
     },
     {
@@ -1778,12 +1767,12 @@
       "start": 1661.51,
       "end": 1664.89,
       "confidence": 0.959158,
-      "primary_stage": "solution_explanation",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "solution_explanation"
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.8,
-      "stage_reasoning": "The technician continues explaining the financing terms.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The technician is further explaining interest rates, which is part of the upsell process.",
       "annotations": []
     },
     {
@@ -1792,12 +1781,12 @@
       "start": 1665.04,
       "end": 1669.36,
       "confidence": 0.9335734,
-      "primary_stage": "problem_diagnosis",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "problem_diagnosis"
+        "upsell_attempts"
       ],
       "stage_confidence": 0.7,
-      "stage_reasoning": "The customer clarifies the payment terms, which relates to diagnosing payment logistics.",
+      "stage_reasoning": "The customer is summarizing the payment plan, which is part of the upsell discussion.",
       "annotations": []
     },
     {
@@ -1806,12 +1795,12 @@
       "start": 1669.36,
       "end": 1687.28,
       "confidence": 0.9898309,
-      "primary_stage": "solution_explanation",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "solution_explanation"
+        "upsell_attempts"
       ],
       "stage_confidence": 0.8,
-      "stage_reasoning": "The technician explains the impact of partial payments on financing terms.",
+      "stage_reasoning": "The technician is explaining the benefits of the payment plan, which is part of the upsell process.",
       "annotations": []
     },
     {
@@ -1820,12 +1809,12 @@
       "start": 1688.08,
       "end": 1689.36,
       "confidence": 0.9794922,
-      "primary_stage": "other",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "other"
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer repeats the financing term for confirmation.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer is confirming understanding of the payment plan, which is part of the upsell discussion.",
       "annotations": []
     },
     {
@@ -1834,12 +1823,12 @@
       "start": 1689.44,
       "end": 1742.33,
       "confidence": 0.95506597,
-      "primary_stage": "solution_explanation",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "solution_explanation"
+        "upsell_attempts"
       ],
       "stage_confidence": 0.8,
-      "stage_reasoning": "The technician explains the impact of partial payments on financing terms.",
+      "stage_reasoning": "The technician is explaining the details of the payment plan, which is part of the upsell process.",
       "annotations": []
     },
     {
@@ -1848,12 +1837,12 @@
       "start": 1743.69,
       "end": 1744.73,
       "confidence": 0.9958496,
-      "primary_stage": "other",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "other"
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer repeats the financing term for confirmation.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The customer is confirming the duration of the payment plan, which is part of the upsell discussion.",
       "annotations": []
     },
     {
@@ -1862,12 +1851,12 @@
       "start": 1744.97,
       "end": 1748.17,
       "confidence": 0.9733724,
-      "primary_stage": "solution_explanation",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "solution_explanation"
+        "upsell_attempts"
       ],
       "stage_confidence": 0.8,
-      "stage_reasoning": "The technician explains the flexibility of early payment options.",
+      "stage_reasoning": "The technician is explaining the flexibility of the payment plan, which is part of the upsell process.",
       "annotations": []
     },
     {
@@ -1876,25 +1865,13 @@
       "start": 1748.41,
       "end": 1765.07,
       "confidence": 0.9690585,
-      "primary_stage": "closing",
+      "primary_stage": "solution_explanation",
       "stage_tags": [
-        "closing"
+        "solution_explanation"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer indicates a desire to discuss options with their spouse, suggesting a pause or end to the conversation.",
-      "annotations": [
-        {
-          "utterance_index": 118,
-          "type": "partial",
-          "icon": "\u26a0\ufe0f",
-          "title": "Partial: Next Steps Clarity",
-          "description": "The customer requested an email with options, but the technician did not confirm this action or provide a timeline.",
-          "related_question_id": "close_nextsteps",
-          "severity": "medium",
-          "impact": "Lack of clear next steps can lead to customer confusion and delay in decision-making.",
-          "recommendation": "Clearly confirm the next steps and provide a timeline for when the customer can expect the follow-up email."
-        }
-      ]
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The customer is requesting a summary of the work done, indicating a transition to solution explanation.",
+      "annotations": []
     },
     {
       "speaker": "B",
@@ -1902,12 +1879,12 @@
       "start": 1765.07,
       "end": 1765.99,
       "confidence": 0.94352216,
-      "primary_stage": "other",
+      "primary_stage": "solution_explanation",
       "stage_tags": [
-        "other"
+        "solution_explanation"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The technician acknowledges the customer's plan without adding new information.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The technician is agreeing to provide information, which is part of the solution explanation process.",
       "annotations": []
     },
     {
@@ -1916,12 +1893,12 @@
       "start": 1766.15,
       "end": 1770.63,
       "confidence": 0.9924859,
-      "primary_stage": "other",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "other"
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer comments on their preference for quieter and more efficient options.",
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The customer is expressing interest in the benefits of a quieter and more efficient system, which aligns with the upsell attempts made by the technician in the surrounding context.",
       "annotations": []
     },
     {
@@ -1930,12 +1907,12 @@
       "start": 1770.71,
       "end": 1771.23,
       "confidence": 0.86116534,
-      "primary_stage": "other",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "other"
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The technician acknowledges the customer's preference without adding new information.",
+      "stage_confidence": 0.7,
+      "stage_reasoning": "The technician's response 'Yeah' is part of the ongoing upsell discussion, acknowledging the customer's interest in the benefits of the proposed options.",
       "annotations": []
     },
     {
@@ -1944,12 +1921,12 @@
       "start": 1771.23,
       "end": 1772.87,
       "confidence": 0.9689636,
-      "primary_stage": "other",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "other"
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer comments on their preference for avoiding gas leaks.",
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The customer is highlighting a benefit of the proposed solution (avoiding gas leaks), which is part of the upsell discussion initiated by the technician.",
       "annotations": []
     },
     {
@@ -1962,19 +1939,19 @@
       "stage_tags": [
         "upsell_attempts"
       ],
-      "stage_confidence": 0.8,
-      "stage_reasoning": "The technician offers a complimentary repair and financing options, indicating an upsell attempt.",
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician is discussing financing options and benefits, which is a clear attempt to upsell the customer on additional services or products.",
       "annotations": [
         {
           "utterance_index": 123,
-          "type": "opportunity",
-          "icon": "\ud83d\udca1",
-          "title": "Missed Opportunity: Customer Engagement",
-          "description": "The technician could have engaged the customer more by asking for their thoughts or concerns about the options presented.",
+          "type": "success",
+          "icon": "\u2713",
+          "title": "Professional Handling of Customer Objection",
+          "description": "The technician accepts the customer's decision not to proceed today gracefully and offers to send more information for review.",
           "related_question_id": "upsell_approach",
-          "severity": "medium",
-          "impact": "Potentially missed deeper customer engagement and understanding of their specific needs.",
-          "recommendation": "In future calls, actively solicit customer feedback and address any concerns to enhance engagement."
+          "severity": "low",
+          "impact": "Demonstrates respect for the customer's decision, maintaining a positive relationship.",
+          "recommendation": null
         }
       ]
     },
@@ -1984,25 +1961,13 @@
       "start": 1838.82,
       "end": 1845.7,
       "confidence": 0.9461304,
-      "primary_stage": "closing",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "closing"
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer declines the offer and indicates a desire to discuss options with their spouse, suggesting a pause or end to the conversation.",
-      "annotations": [
-        {
-          "utterance_index": 124,
-          "type": "customer_signal",
-          "icon": "\ud83d\udc64",
-          "title": "Customer Decision-Making Process",
-          "description": "The customer indicated they need to discuss options with their spouse before making a decision.",
-          "related_question_id": null,
-          "severity": "medium",
-          "impact": "Understanding the customer's decision-making process can help tailor follow-up communications effectively.",
-          "recommendation": "Acknowledge the customer's need for discussion and offer to be available for any further questions they might have."
-        }
-      ]
+      "stage_confidence": 0.8,
+      "stage_reasoning": "The customer is responding to the upsell attempt by stating they will discuss the options with their wife, indicating consideration of the upsell.",
+      "annotations": []
     },
     {
       "speaker": "B",
@@ -2010,25 +1975,13 @@
       "start": 1845.7,
       "end": 1910.05,
       "confidence": 0.95004976,
-      "primary_stage": "solution_explanation",
+      "primary_stage": "upsell_attempts",
       "stage_tags": [
-        "solution_explanation"
+        "upsell_attempts"
       ],
-      "stage_confidence": 0.8,
-      "stage_reasoning": "The technician explains the process of sending estimates and promotions.",
-      "annotations": [
-        {
-          "utterance_index": 125,
-          "type": "warning",
-          "icon": "\u274c",
-          "title": "Missing: Confirmation of Customer Understanding",
-          "description": "The technician does not actively check if the customer understands the explanation of the service and costs.",
-          "related_question_id": "soln_understanding",
-          "severity": "high",
-          "impact": "Lack of confirmation can lead to misunderstandings and dissatisfaction if the customer feels uninformed.",
-          "recommendation": "Regularly pause to ask the customer if they have any questions or need further clarification to ensure understanding."
-        }
-      ]
+      "stage_confidence": 0.9,
+      "stage_reasoning": "The technician continues to discuss promotions and financing, which are part of the upsell strategy to encourage the customer to make a purchase.",
+      "annotations": []
     },
     {
       "speaker": "A",
@@ -2040,8 +1993,8 @@
       "stage_tags": [
         "other"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer searches for their payment card, not adding new information.",
+      "stage_confidence": 0.6,
+      "stage_reasoning": "The customer is simply indicating they are looking for their MasterCard, which does not fit into any specific service call stage.",
       "annotations": []
     },
     {
@@ -2054,8 +2007,8 @@
       "stage_tags": [
         "other"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The technician makes a light comment about the importance of finding the card.",
+      "stage_confidence": 0.6,
+      "stage_reasoning": "The technician's comment 'Always important' is a light-hearted remark and does not fit into any specific service call stage.",
       "annotations": []
     },
     {
@@ -2068,8 +2021,8 @@
       "stage_tags": [
         "other"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer indicates they have found the card.",
+      "stage_confidence": 0.6,
+      "stage_reasoning": "The customer is handing over the card, which is a transactional action and does not fit into any specific service call stage.",
       "annotations": []
     },
     {
@@ -2082,8 +2035,8 @@
       "stage_tags": [
         "other"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The technician acknowledges the customer's action without adding new information.",
+      "stage_confidence": 0.6,
+      "stage_reasoning": "The technician's response 'Great' is a simple acknowledgment and does not fit into any specific service call stage.",
       "annotations": []
     },
     {
@@ -2096,8 +2049,8 @@
       "stage_tags": [
         "other"
       ],
-      "stage_confidence": 0.9,
-      "stage_reasoning": "The customer provides additional information about the card location.",
+      "stage_confidence": 0.6,
+      "stage_reasoning": "The customer is providing information about the card, which is a transactional detail and does not fit into any specific service call stage.",
       "annotations": []
     }
   ],
@@ -2110,24 +2063,24 @@
     "model": "gpt-4o",
     "total_utterances": 131,
     "stages_found": [
-      "solution_explanation",
       "problem_diagnosis",
-      "closing",
-      "introduction",
       "upsell_attempts",
-      "other"
+      "solution_explanation",
+      "other",
+      "introduction"
     ],
-    "overall_notes": "The call primarily focused on solution explanation and upsell attempts, with the technician providing detailed information about equipment options, installation processes, and financing. The conversation included several instances of small talk and personal comments, which were not directly related to the service stages. The customer showed interest in specific options and financing but wanted to discuss with their spouse before making a decision."
+    "overall_notes": "Labeled with sliding window context (window_size=4). Processed in 9 batches."
   },
   "stage_summary": {
     "introduction": {
       "name": "Introduction & Greeting",
       "utterance_indices": [
-        0
+        0,
+        1
       ],
-      "utterance_count": 1,
+      "utterance_count": 2,
       "start_time": 12.16,
-      "end_time": 12.48,
+      "end_time": 19.36,
       "status": "present"
     },
     "problem_diagnosis": {
@@ -2137,87 +2090,134 @@
         12,
         34,
         46,
+        47,
+        50,
+        52,
         56,
-        58,
         60,
         64,
-        66,
+        70,
+        72,
+        74,
+        76,
+        79,
         80,
+        82,
+        83,
+        85,
+        90,
         92,
-        98,
-        100,
-        106,
-        108,
-        112
+        96
       ],
-      "utterance_count": 16,
+      "utterance_count": 22,
       "start_time": 83.68,
-      "end_time": 1669.36,
+      "end_time": 1516.17,
       "status": "present"
     },
     "solution_explanation": {
       "name": "Solution Explanation",
       "utterance_indices": [
         1,
+        2,
+        3,
+        4,
         9,
+        10,
         25,
+        26,
         27,
+        28,
         29,
+        30,
         31,
+        32,
         33,
         35,
+        36,
         37,
-        41,
-        43,
-        45,
-        47,
-        49,
+        38,
+        39,
+        40,
+        44,
         51,
+        53,
         55,
         57,
         61,
+        62,
         63,
+        66,
         67,
+        68,
         69,
         73,
         75,
         77,
-        81,
-        83,
         87,
+        88,
         89,
         91,
         93,
+        94,
         95,
-        99,
-        101,
-        103,
-        107,
-        109,
-        111,
-        113,
-        115,
-        117,
-        125
+        97,
+        118,
+        119
       ],
-      "utterance_count": 41,
+      "utterance_count": 46,
       "start_time": 12.8,
-      "end_time": 1910.05,
+      "end_time": 1765.99,
       "status": "present"
     },
     "upsell_attempts": {
       "name": "Upsell Attempts",
       "utterance_indices": [
+        1,
         13,
+        14,
         19,
+        20,
         21,
+        22,
         23,
-        53,
-        123
+        24,
+        35,
+        41,
+        42,
+        43,
+        45,
+        49,
+        81,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125
       ],
-      "utterance_count": 6,
-      "start_time": 85.99,
-      "end_time": 1838.26,
+      "utterance_count": 42,
+      "start_time": 12.8,
+      "end_time": 1910.05,
       "status": "present"
     },
     "maintenance_plan": {
@@ -2230,16 +2230,11 @@
     },
     "closing": {
       "name": "Closing & Thank You",
-      "utterance_indices": [
-        3,
-        71,
-        118,
-        124
-      ],
-      "utterance_count": 4,
-      "start_time": 20.96,
-      "end_time": 1845.7,
-      "status": "present"
+      "utterance_indices": [],
+      "utterance_count": 0,
+      "start_time": null,
+      "end_time": null,
+      "status": "absent"
     }
   },
   "stage_analyses": {
@@ -2248,107 +2243,152 @@
       "questions": [
         {
           "id": "intro_greeting",
-          "question": "Did the technician properly greet the customer?",
-          "answer": "NO",
-          "score": 0,
-          "evidence": [],
-          "explanation": "There was no greeting from the technician in the provided utterances.",
-          "what_was_good": "N/A",
-          "what_was_missing": "A professional and friendly greeting that acknowledges the customer was missing."
+          "question": "Did the technician greet the customer in a professional and cordial manner?",
+          "answer": "PARTIAL",
+          "score": 60,
+          "evidence": [
+            {
+              "quote": "Hey, Luis.",
+              "timestamp": "[12.80s - 19.36s]",
+              "speaker": "Technician"
+            }
+          ],
+          "explanation": "The technician greeted the customer by name, which is friendly, but the greeting was informal and lacked a professional tone.",
+          "what_was_good": "Used customer's name, indicating familiarity and friendliness.",
+          "what_was_missing": "Lacked a professional greeting structure."
         },
         {
-          "id": "intro_name",
-          "question": "Did the technician introduce their name?",
+          "id": "intro_name_company",
+          "question": "Did the technician appropriately introduce themselves/company (if needed given the context)?",
           "answer": "NO",
           "score": 0,
-          "evidence": [],
-          "explanation": "The technician did not introduce their name in the provided utterances.",
+          "evidence": [
+            {
+              "quote": "Hey, Luis. Got you all done.",
+              "timestamp": "[12.80s - 19.36s]",
+              "speaker": "Technician"
+            }
+          ],
+          "explanation": "There was no introduction of the technician's name or company, which might be necessary if this was the first contact or if the customer needed reassurance.",
           "what_was_good": "N/A",
-          "what_was_missing": "A clear statement of the technician's name was missing."
+          "what_was_missing": "Introduction of name and company was missing."
         },
         {
-          "id": "intro_company",
-          "question": "Did the technician introduce the company?",
-          "answer": "NO",
-          "score": 0,
-          "evidence": [],
-          "explanation": "The technician did not mention the company name in the provided utterances.",
-          "what_was_good": "N/A",
-          "what_was_missing": "A clear statement of the company name to establish credibility was missing."
+          "id": "intro_rapport",
+          "question": "Did the technician establish or maintain good rapport with the customer?",
+          "answer": "YES",
+          "score": 80,
+          "evidence": [
+            {
+              "quote": "Hey, Luis. Got you all done.",
+              "timestamp": "[12.80s - 19.36s]",
+              "speaker": "Technician"
+            }
+          ],
+          "explanation": "The technician used the customer's name and provided an update on the work, which helps in maintaining rapport.",
+          "what_was_good": "Friendly tone and use of customer's name.",
+          "what_was_missing": "Could have been improved with a more structured and professional approach."
         }
       ],
-      "overall_compliance": "NON-COMPLIANT",
-      "compliance_score": 0,
-      "quality_rating": "Poor",
-      "analysis": "The introduction stage was completely missing from the provided utterances. The technician did not greet the customer, introduce themselves, or mention the company, which are all critical components of a professional introduction.",
-      "key_strengths": [],
+      "overall_compliance": "PARTIAL",
+      "compliance_score": 50,
+      "quality_rating": "Fair",
+      "analysis": "The introduction stage was present but incomplete, with a friendly tone but lacking in professional structure and formal introduction elements.",
+      "key_strengths": [
+        "Used customer's name",
+        "Friendly tone"
+      ],
       "critical_gaps": [
-        "No greeting provided",
         "No name introduction",
         "No company mention"
       ],
       "recommendations": [
-        "Ensure every call begins with a professional greeting.",
-        "Introduce yourself by name to establish a personal connection.",
-        "Mention the company name to build credibility and trust."
+        "Add a formal greeting with name and company when appropriate.",
+        "Practice a professional introduction script to ensure clarity and professionalism.",
+        "Establish credibility early by clearly stating your role and company."
       ]
     },
     "problem_diagnosis": {
       "status": "present",
       "questions": [
         {
-          "id": "diag_inquiry",
-          "question": "Did the technician inquire about the customer's issue?",
-          "answer": "NO",
-          "score": 0,
-          "evidence": [],
-          "explanation": "There is no evidence of the technician asking any questions to understand the customer's issue. The only statement from the technician is 'It is old,' which does not constitute an inquiry.",
-          "what_was_good": "N/A",
-          "what_was_missing": "The technician did not ask any questions to understand the customer's problem."
-        },
-        {
-          "id": "diag_probing",
-          "question": "Did the technician ask probing/follow-up questions?",
-          "answer": "NO",
-          "score": 0,
-          "evidence": [],
-          "explanation": "There are no follow-up or probing questions from the technician to delve deeper into the customer's issue.",
-          "what_was_good": "N/A",
-          "what_was_missing": "The technician did not engage in any probing or follow-up questions to diagnose the issue thoroughly."
-        },
-        {
-          "id": "diag_understanding",
-          "question": "Did the technician demonstrate understanding of the issue?",
-          "answer": "NO",
-          "score": 0,
+          "id": "diag_relevance",
+          "question": "Was problem diagnosis relevant and appropriate for this call?",
+          "answer": "PARTIAL",
+          "score": 60,
           "evidence": [
             {
-              "quote": "It is old.",
-              "timestamp": "[83.68s - 84.72s]",
+              "quote": "No, I don't know what the HERS test is. It's like an efficiency.",
+              "timestamp": "[447.38s - 450.38s]",
+              "speaker": "Customer"
+            },
+            {
+              "quote": "Failed permits, meaning like, you tried to.",
+              "timestamp": "[808.27s - 810.11s]",
+              "speaker": "Customer"
+            }
+          ],
+          "explanation": "The customer expressed some confusion about technical terms and processes, indicating a need for clarification. However, the technician's responses were not fully captured in the provided utterances, leaving some questions potentially unanswered.",
+          "what_was_good": "The technician attempted to clarify the permit issue.",
+          "what_was_missing": "More comprehensive responses to the customer's questions about technical terms and processes."
+        },
+        {
+          "id": "diag_customer_needs",
+          "question": "Did the technician appropriately address any customer questions or concerns?",
+          "answer": "PARTIAL",
+          "score": 50,
+          "evidence": [
+            {
+              "quote": "Pull a permit and it didn't work or passed. It didn't pass inspection.",
+              "timestamp": "[810.11s - 813.31s]",
+              "speaker": "Technician"
+            },
+            {
+              "quote": "I can find out.",
+              "timestamp": "[1309.99s - 1310.71s]",
               "speaker": "Technician"
             }
           ],
-          "explanation": "The technician's statement 'It is old' does not demonstrate an understanding of the issue. It is a vague comment that does not reflect comprehension of the customer's specific concerns.",
-          "what_was_good": "N/A",
-          "what_was_missing": "The technician did not confirm understanding or show comprehension of the customer's problem."
+          "explanation": "The technician provided some responses to customer inquiries but did not fully address all concerns or provide detailed explanations, particularly regarding the HERS test and unit options.",
+          "what_was_good": "The technician offered to find out more information when unsure.",
+          "what_was_missing": "Detailed explanations and proactive addressing of all customer concerns."
+        },
+        {
+          "id": "diag_communication",
+          "question": "Was communication about the work clear and appropriate?",
+          "answer": "PARTIAL",
+          "score": 55,
+          "evidence": [
+            {
+              "quote": "Want me to just find out real quick?",
+              "timestamp": "[1313.42s - 1314.86s]",
+              "speaker": "Technician"
+            }
+          ],
+          "explanation": "The communication was somewhat clear, but there were instances where the technician could have provided more detailed information or clarification to ensure the customer fully understood the situation.",
+          "what_was_good": "The technician showed willingness to gather more information.",
+          "what_was_missing": "Clear and thorough explanations of technical aspects and options."
         }
       ],
-      "overall_compliance": "NON-COMPLIANT",
-      "compliance_score": 0,
-      "quality_rating": "Poor",
-      "analysis": "The Problem Diagnosis stage was ineffective as the technician did not inquire about the customer's issue, ask probing questions, or demonstrate understanding. This lack of engagement and diagnostic effort resulted in a non-compliant evaluation.",
-      "key_strengths": [],
+      "overall_compliance": "PARTIAL",
+      "compliance_score": 55,
+      "quality_rating": "Fair",
+      "analysis": "The problem diagnosis stage showed some effort to address customer concerns, but lacked thoroughness and clarity in communication. The technician's responses were not always complete, leaving some customer questions insufficiently answered.",
+      "key_strengths": [
+        "Willingness to find additional information",
+        "Attempted to clarify permit issues"
+      ],
       "critical_gaps": [
-        "No inquiry into the customer's issue",
-        "Lack of probing or follow-up questions",
-        "Failure to demonstrate understanding of the problem"
+        "Incomplete responses to customer questions",
+        "Lack of detailed explanations for technical terms",
+        "Insufficient clarity in communication"
       ],
       "recommendations": [
-        "Train technicians to ask initial questions to identify the customer's issue.",
-        "Encourage the use of probing questions to gather detailed information.",
-        "Ensure technicians confirm their understanding of the problem with the customer.",
-        "Implement a checklist for technicians to follow during the diagnosis stage.",
-        "Provide role-playing exercises to improve diagnostic skills."
+        "Provide more detailed explanations for technical terms and processes.",
+        "Ensure all customer questions are fully addressed with clear responses.",
+        "Improve communication clarity by summarizing key points and confirming customer understanding.",
+        "Proactively address potential customer concerns based on context.",
+        "Enhance training on technical aspects to improve confidence in explanations."
       ]
     },
     "solution_explanation": {
@@ -2361,19 +2401,19 @@
           "score": 60,
           "evidence": [
             {
-              "quote": "Exactly. And so to start off with, it's always important to realize these are more expensive than investments than your normal investment into a home.",
-              "timestamp": "[258.07s - 344.73s]",
+              "quote": "The reason that took so long is I. I just kind of also built all your equipment options when I was out there too.",
+              "timestamp": "[12.80s - 19.36s]",
               "speaker": "Technician"
             },
             {
-              "quote": "So let's start off with the like for like we always come with our guarantees.",
-              "timestamp": "[258.07s - 344.73s]",
+              "quote": "Did a really fancy charge there for you and got you in good shape.",
+              "timestamp": "[50.14s - 82.92s]",
               "speaker": "Technician"
             }
           ],
-          "explanation": "The technician provided a detailed explanation of the services and options available, but the clarity was somewhat compromised by the lengthy and complex nature of the explanation.",
-          "what_was_good": "The technician covered a wide range of topics and options, providing a comprehensive overview.",
-          "what_was_missing": "The explanation could have been more concise and focused on the specific solution provided."
+          "explanation": "The technician mentioned completing the work and building equipment options but did not clearly explain what was specifically done or how it was fixed.",
+          "what_was_good": "The technician attempted to explain the work done.",
+          "what_was_missing": "Lacked specific details on what was fixed or how the solution was implemented."
         },
         {
           "id": "soln_understanding",
@@ -2382,19 +2422,19 @@
           "score": 50,
           "evidence": [
             {
-              "quote": "Have you ever heard of that before?",
-              "timestamp": "[389.86s - 446.10s]",
-              "speaker": "Technician"
+              "quote": "Okay, sure.",
+              "timestamp": "[19.36s - 20.32s]",
+              "speaker": "Customer"
             },
             {
-              "quote": "Did you opt out of this program?",
-              "timestamp": "[707.04s - 769.85s]",
-              "speaker": "Technician"
+              "quote": "Got it.",
+              "timestamp": "[344.73s - 345.21s]",
+              "speaker": "Customer"
             }
           ],
-          "explanation": "The technician occasionally checked for understanding, but there was limited evidence of the customer's responses indicating comprehension.",
-          "what_was_good": "The technician asked questions to check for understanding.",
-          "what_was_missing": "There was a lack of clear confirmation from the customer that they understood the explanation."
+          "explanation": "The customer gave brief affirmations, indicating some level of understanding, but the technician did not actively check for comprehension.",
+          "what_was_good": "Customer provided verbal affirmations.",
+          "what_was_missing": "Technician did not verify customer understanding or ask if there were questions."
         },
         {
           "id": "soln_details",
@@ -2413,30 +2453,28 @@
               "speaker": "Technician"
             }
           ],
-          "explanation": "The technician attempted to explain technical details, but the use of jargon and complex terms without sufficient simplification made it less accessible.",
-          "what_was_good": "The technician made an effort to explain technical terms like 'HERS test' and 'inverter'.",
-          "what_was_missing": "More simplification and layman's terms could have been used to ensure the customer fully understood the technical details."
+          "explanation": "The technician provided some explanations of technical terms but did not consistently ensure they were accessible or avoid excessive jargon.",
+          "what_was_good": "Some technical terms were explained.",
+          "what_was_missing": "Explanations were not consistently clear or simplified for customer understanding."
         }
       ],
       "overall_compliance": "PARTIAL",
-      "compliance_score": 58,
+      "compliance_score": 56,
       "quality_rating": "Fair",
-      "analysis": "The solution explanation stage was detailed but lacked clarity and accessibility in some areas. The technician provided a comprehensive overview but could have improved by simplifying the explanation and ensuring customer understanding.",
+      "analysis": "The solution explanation stage was partially compliant, with attempts to explain the work done and some technical details. However, the explanations lacked clarity and accessibility, and the technician did not verify customer understanding.",
       "key_strengths": [
-        "Comprehensive coverage of options and services",
-        "Effort to check for customer understanding"
+        "Attempted to explain work done",
+        "Provided some technical explanations"
       ],
       "critical_gaps": [
-        "Lack of concise and clear explanation",
-        "Insufficient confirmation of customer understanding",
-        "Complex technical details not fully simplified"
+        "Lacked clear explanation of specific solutions",
+        "Did not verify customer understanding",
+        "Inconsistent clarity in technical explanations"
       ],
       "recommendations": [
-        "Simplify explanations by breaking down complex concepts into simpler terms.",
-        "Actively seek confirmation from the customer to ensure understanding.",
-        "Use visual aids or analogies to make technical details more accessible.",
-        "Focus on the specific solution provided rather than overwhelming with options.",
-        "Encourage customer questions to clarify any doubts during the explanation."
+        "Provide a clear and concise summary of the work done and solutions implemented.",
+        "Actively check for customer understanding by asking if they have questions.",
+        "Simplify technical explanations and avoid jargon to ensure accessibility."
       ]
     },
     "upsell_attempts": {
@@ -2454,77 +2492,72 @@
               "speaker": "Technician"
             },
             {
-              "quote": "So the two equipment options, or there's a total of four that I built.",
-              "timestamp": "[128.11s - 179.59s]",
+              "quote": "We do have a promotion going on currently is sealing your ductwork...",
+              "timestamp": "[450.38s - 586.50s]",
               "speaker": "Technician"
             }
           ],
-          "explanation": "The technician clearly presented multiple equipment options, indicating an attempt to upsell additional products.",
-          "what_was_good": "Multiple options were presented, showing a range of products.",
-          "what_was_missing": "Nothing was missing in terms of presenting upsell options."
+          "explanation": "The technician clearly attempted to upsell by presenting different equipment options and promotions.",
+          "what_was_good": "Multiple upsell attempts with clear options presented.",
+          "what_was_missing": "Nothing significant was missing in terms of upsell attempts."
         },
         {
           "id": "upsell_approach",
           "question": "Was the upsell approach natural and customer-focused?",
-          "answer": "PARTIAL",
-          "score": 70,
+          "answer": "YES",
+          "score": 90,
           "evidence": [
             {
-              "quote": "And the interesting thing about that is that actually ends up being the most expensive one of the four that I've built.",
-              "timestamp": "[128.11s - 179.59s]",
+              "quote": "I like the idea. It's just kind of a lot. They want every house to have a 200amp panel...",
+              "timestamp": "[198.54s - 251.75s]",
               "speaker": "Technician"
             },
             {
-              "quote": "So how about this? Let me bring the estimates down to just two of them.",
+              "quote": "So how about this? Let me bring the estimates down to just two of them...",
               "timestamp": "[1772.87s - 1838.26s]",
               "speaker": "Technician"
             }
           ],
-          "explanation": "The approach was somewhat customer-focused, offering to simplify options and discussing financing, but it occasionally felt more focused on selling than on customer needs.",
-          "what_was_good": "Attempted to simplify choices and discuss financing options.",
-          "what_was_missing": "Could have been more tailored to specific customer needs and less focused on cost."
+          "explanation": "The technician's approach was customer-focused, providing detailed explanations and adjusting options based on customer feedback.",
+          "what_was_good": "Considered customer needs and provided tailored options.",
+          "what_was_missing": "Could have been slightly more concise to maintain engagement."
         },
         {
           "id": "upsell_value",
           "question": "Did the technician explain the value/benefits?",
           "answer": "YES",
-          "score": 90,
+          "score": 100,
           "evidence": [
             {
-              "quote": "It's going to be a new furnace, new coil, new condenser, higher sear rating, better efficiency.",
-              "timestamp": "[128.11s - 179.59s]",
+              "quote": "The sear rating is up. You currently have a 12 seer. We install a 15...",
+              "timestamp": "[450.38s - 586.50s]",
               "speaker": "Technician"
             },
             {
-              "quote": "Heat pumps are actually just got introduced some more rebates.",
+              "quote": "Heat pumps are actually just got introduced some more rebates...",
               "timestamp": "[198.54s - 251.75s]",
               "speaker": "Technician"
             }
           ],
-          "explanation": "The technician provided clear explanations of the benefits, such as improved efficiency and available rebates, which add value to the upsell.",
-          "what_was_good": "Highlighted efficiency improvements and financial incentives.",
-          "what_was_missing": "Could have included more personalized benefits for the customer."
+          "explanation": "The technician effectively explained the benefits of the products, including efficiency improvements and rebates.",
+          "what_was_good": "Clear explanation of benefits and financial incentives.",
+          "what_was_missing": "No significant gaps in explaining value."
         }
       ],
       "overall_compliance": "COMPLIANT",
-      "compliance_score": 86,
-      "quality_rating": "Good",
-      "analysis": "The upsell stage was well-executed, with clear attempts to present additional products and explain their benefits. The approach was generally customer-focused, though it could have been more personalized.",
+      "compliance_score": 97,
+      "quality_rating": "Excellent",
+      "analysis": "The upsell stage was executed with excellence, demonstrating a strong understanding of customer needs and effectively communicating the benefits of additional services and products.",
       "key_strengths": [
-        "Clear presentation of multiple product options",
-        "Explanation of efficiency and financial benefits",
-        "Consideration of financing options"
+        "Clear and multiple upsell attempts",
+        "Customer-focused approach",
+        "Thorough explanation of benefits and value"
       ],
-      "critical_gaps": [
-        "Approach could be more tailored to individual customer needs",
-        "Occasional focus on cost rather than customer value"
-      ],
+      "critical_gaps": [],
       "recommendations": [
-        "Tailor upsell discussions to specific customer needs and preferences.",
-        "Balance cost discussions with a focus on long-term value and benefits.",
-        "Continue to highlight financial incentives and efficiency improvements.",
-        "Ensure the approach remains customer-focused and not overly sales-driven.",
-        "Provide more personalized examples of how the products can benefit the customer."
+        "Maintain concise communication to keep customer engagement high.",
+        "Continue tailoring options based on customer feedback.",
+        "Ensure all upsell attempts are as clear and detailed as in this call."
       ]
     },
     "maintenance_plan": {
@@ -2543,75 +2576,26 @@
       ]
     },
     "closing": {
-      "status": "present",
-      "questions": [
-        {
-          "id": "close_thankyou",
-          "question": "Did the technician thank the customer?",
-          "answer": "NO",
-          "score": 0,
-          "evidence": [],
-          "explanation": "There was no expression of gratitude or thanks from the technician to the customer in the provided utterances.",
-          "what_was_good": "N/A",
-          "what_was_missing": "The technician did not thank the customer for their time or business."
-        },
-        {
-          "id": "close_professional",
-          "question": "Was the closing professional and courteous?",
-          "answer": "NO",
-          "score": 30,
-          "evidence": [
-            {
-              "quote": "I do have to take this call. Feel free to review this. Hello? Okay, I'm still talking to our client here about different options, so I don't know. Yeah.",
-              "timestamp": "[1176.08s - 1205.92s]",
-              "speaker": "Technician"
-            }
-          ],
-          "explanation": "The closing was interrupted by the technician taking another call, which is unprofessional and discourteous.",
-          "what_was_good": "The technician attempted to provide options to the customer.",
-          "what_was_missing": "The closing lacked professionalism due to the interruption and lack of a proper wrap-up."
-        },
-        {
-          "id": "close_nextsteps",
-          "question": "Were next steps or follow-up information provided if needed?",
-          "answer": "PARTIAL",
-          "score": 50,
-          "evidence": [
-            {
-              "quote": "Feel free to review this.",
-              "timestamp": "[1176.08s - 1205.92s]",
-              "speaker": "Technician"
-            }
-          ],
-          "explanation": "The technician mentioned reviewing options but did not clearly outline next steps or confirm follow-up actions.",
-          "what_was_good": "The technician encouraged the customer to review the options.",
-          "what_was_missing": "There was no clear confirmation of follow-up actions or detailed next steps."
-        }
-      ],
+      "status": "absent",
       "overall_compliance": "NON-COMPLIANT",
-      "compliance_score": 32,
-      "quality_rating": "Poor",
-      "analysis": "The closing stage of the call was poorly handled, lacking professionalism and courtesy. The technician failed to thank the customer and did not provide clear next steps, which are critical for a satisfactory customer experience.",
-      "key_strengths": [
-        "Encouraged customer to review options"
-      ],
+      "compliance_score": 0,
+      "quality_rating": "N/A",
+      "analysis": "The Closing & Thank You stage was not identified in this call.",
+      "questions": [],
+      "key_strengths": [],
       "critical_gaps": [
-        "No expression of gratitude",
-        "Unprofessional interruption",
-        "Lack of clear next steps"
+        "Closing & Thank You stage missing entirely"
       ],
       "recommendations": [
-        "Ensure to thank the customer at the end of every call to express appreciation.",
-        "Avoid taking other calls during a customer interaction to maintain professionalism.",
-        "Clearly outline next steps and confirm any follow-up actions with the customer."
+        "Include a proper Closing & Thank You in future calls"
       ]
     }
   },
   "overall_compliance": {
-    "score": 35.2,
-    "rating": "Poor",
-    "stages_evaluated": 5,
-    "stages_missing": 1
+    "score": 64.5,
+    "rating": "Fair",
+    "stages_evaluated": 4,
+    "stages_missing": 2
   },
   "call_type": {
     "primary_call_type": "post repair consultation",
@@ -2624,7 +2608,7 @@
       "Technician shows different equipment options",
       "Mention of maintenance plan and upsell attempts"
     ],
-    "reasoning": "The call involves discussing future equipment efficiency and mold issues, indicating a consultation for future work rather than immediate repair. The presence of upsell attempts and maintenance plan discussion suggests a focus on future service options rather than addressing an urgent issue.",
+    "reasoning": "The call involves discussing future equipment efficiency and mold issues, indicating a consultation for future work rather than immediate repair. The presence of upsell attempts and maintenance plan discussion suggests a focus on future service options rather than immediate repair needs.",
     "service_details": {
       "system_type": "HVAC",
       "issue_type": "Efficiency drop and mold issues",
@@ -2632,70 +2616,91 @@
     }
   },
   "sales_insights": {
+    "customer_purchase_profile": {
+      "interested_products": [
+        {
+          "product_name": "Bosch HVAC System",
+          "details": "Energy Star, high heat, inverter technology",
+          "price_discussed": "Not explicitly mentioned, but financing options discussed",
+          "customer_interest_level": "high"
+        }
+      ],
+      "decision_timeline": "needs to discuss with spouse",
+      "decision_factors": [
+        "price",
+        "energy efficiency",
+        "rebates",
+        "financing options"
+      ],
+      "purchase_likelihood": "warm_lead",
+      "estimated_deal_value": "$15,000 - $20,000 total potential revenue",
+      "next_steps": "Follow-up call scheduled to discuss decision after consulting with spouse"
+    },
     "opportunities_captured": [
       {
-        "opportunity": "Presentation of multiple equipment options",
-        "evidence": "I did just want to show you some different equipment options.",
-        "effectiveness": "Excellent",
+        "opportunity": "HVAC System Replacement - Bosch option",
+        "specific_details": "Bosch HVAC System with Energy Star, high heat, inverter technology",
+        "estimated_value": "$15,000 - $20,000",
+        "evidence": "Technician: 'The brand is Bosch. Very highly reviewed... Energy Star, high heat.'",
+        "effectiveness_grade": "A",
         "effectiveness_score": 95,
-        "reasoning": "The technician presented a clear and compelling value proposition by offering multiple equipment options, which were explained in terms of efficiency and financial benefits. The approach was consultative and not pushy, aligning with the customer's needs."
-      },
-      {
-        "opportunity": "Explanation of efficiency and financial benefits",
-        "evidence": "It's going to be a new furnace, new coil, new condenser, higher sear rating, better efficiency.",
-        "effectiveness": "Good",
-        "effectiveness_score": 85,
-        "reasoning": "The benefits of the new equipment were clearly explained, including efficiency improvements and rebates. However, the explanation could have been more personalized to the customer's specific situation."
+        "what_worked_well": "Clear explanation of benefits, rebates, and financing options",
+        "customer_response": "Interested",
+        "status": "pending_decision"
       }
     ],
     "opportunities_missed": [
       {
-        "opportunity": "Tailoring upsell to specific customer needs",
-        "evidence": "The approach was somewhat customer-focused, offering to simplify options and discussing financing, but it occasionally felt more focused on selling than on customer needs.",
-        "potential_value": "A more personalized approach could increase customer engagement and conversion rates.",
-        "recommendation": "Gather more information about the customer's specific needs and preferences to tailor the upsell discussion accordingly."
-      },
-      {
-        "opportunity": "Offering a Maintenance Plan",
-        "evidence": "The Maintenance Plan Offer stage was not identified in this call.",
-        "potential_value": "Offering a maintenance plan could provide ongoing revenue and enhance customer loyalty.",
-        "recommendation": "Include a maintenance plan offer in future calls to capture additional sales opportunities."
+        "opportunity": "Maintenance Plan Offer",
+        "estimated_lost_revenue": "$500 - $1,000 annually",
+        "where_it_should_have_been_offered": "After discussing the 10-year warranty benefits",
+        "why_it_was_missed": "Technician didn't mention",
+        "customer_need_evidence": "Technician: 'If you're on this maintenance program with us, we actually completely match the manufacturer warranties.'",
+        "recommended_approach": "Introduce the maintenance plan when discussing warranty benefits to emphasize long-term savings and reliability."
       }
     ],
     "customer_buying_signals": [
       {
-        "signal": "Interest in efficiency and rebates",
-        "evidence": "Heat pumps are actually just got introduced some more rebates.",
-        "response": "The technician responded by explaining the rebates and efficiency benefits, which was appropriate."
+        "signal": "Interest in financing options",
+        "type": "positive",
+        "evidence": "Customer: 'And then the other thing I noticed is that you also have financing?'",
+        "technician_response": "Provided detailed financing options",
+        "effectiveness": "well_handled"
       }
     ],
     "objections_and_concerns": [
       {
-        "objection": "Cost concerns",
-        "evidence": "And the interesting thing about that is that actually ends up being the most expensive one of the four that I've built.",
-        "handling": "The technician addressed this by offering to simplify options and discussing financing, which was a reasonable approach."
+        "objection": "Price and financing terms",
+        "category": "price",
+        "evidence": "Customer: 'So for financing, can you show me the monthly payment and for how long is that?'",
+        "handling": "Technician provided detailed financing options",
+        "resolution": "resolved"
       }
     ],
     "sales_strengths": [
-      "Clear presentation of multiple product options",
-      "Explanation of efficiency and financial benefits",
-      "Consideration of financing options"
+      "Clear and multiple upsell attempts with detailed options",
+      "Customer-focused approach with tailored solutions",
+      "Thorough explanation of benefits, rebates, and financing"
     ],
     "areas_for_improvement": [
-      "Tailor upsell discussions to specific customer needs and preferences.",
-      "Balance cost discussions with a focus on long-term value and benefits.",
-      "Include a proper Maintenance Plan Offer in future calls.",
-      "Provide more personalized examples of how the products can benefit the customer.",
-      "Ensure the approach remains customer-focused and not overly sales-driven."
+      "Include a Maintenance Plan Offer to capture additional revenue",
+      "Maintain concise communication to keep customer engagement high"
     ],
-    "overall_sales_rating": "Good",
-    "overall_sales_score": 80,
-    "rating_justification": "The overall sales performance was rated as 'Good' because the technician effectively presented multiple options and explained the benefits, but the approach could have been more personalized and customer-focused. The absence of a maintenance plan offer was a notable gap.",
-    "summary": "The sales call was well-executed with clear presentation of options and benefits. However, there is room for improvement in personalizing the approach and including a maintenance plan offer to capture additional opportunities."
+    "overall_sales_grade": "A",
+    "overall_sales_score": 92,
+    "grade_justification": "The technician effectively presented the Bosch HVAC system with clear benefits and financing options, addressing customer concerns and showing strong potential for closing the sale.",
+    "summary": "The sales call was highly effective, with the technician successfully presenting the Bosch HVAC system and addressing customer concerns about financing. The potential revenue is significant, but a maintenance plan offer could have increased it further.",
+    "key_takeaways_for_management": [
+      "Potential revenue from Bosch HVAC system sale: $15,000 - $20,000",
+      "Customer is a warm lead, interested in energy efficiency and financing options",
+      "Follow-up needed after customer consults with spouse",
+      "Introduce maintenance plans to increase annual revenue by $500 - $1,000",
+      "Ensure all upsell attempts are as clear and detailed as in this call"
+    ]
   },
   "annotation_metadata": {
     "phase": "phase3_utterance_annotations",
-    "total_annotations": 22,
-    "annotated_utterances": 20
+    "total_annotations": 18,
+    "annotated_utterances": 16
   }
 }

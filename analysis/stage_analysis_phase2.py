@@ -25,21 +25,21 @@ COMPLIANCE_CRITERIA = {
         "questions": [
             {
                 "id": "intro_greeting",
-                "question": "Did the technician properly greet the customer?",
-                "criteria": "Professional and friendly greeting that acknowledges the customer",
+                "question": "Did the technician greet the customer in a professional and cordial manner?",
+                "criteria": "Professional and friendly greeting that acknowledges the customer. If they've already met, the greeting should still be warm and professional.",
+                "weight": 2
+            },
+            {
+                "id": "intro_name_company",
+                "question": "Did the technician appropriately introduce themselves/company (if needed given the context)?",
+                "criteria": "If this is first contact, technician should introduce name and company. If they've already met (common in service calls), this is not required - cordial acknowledgment is sufficient. Consider whether a formal introduction would be natural given the context.",
+                "weight": 2
+            },
+            {
+                "id": "intro_rapport",
+                "question": "Did the technician establish or maintain good rapport with the customer?",
+                "criteria": "Friendly, respectful tone that builds trust. Uses customer's name if appropriate. Creates a positive start to the interaction.",
                 "weight": 1
-            },
-            {
-                "id": "intro_name",
-                "question": "Did the technician introduce their name?",
-                "criteria": "Clear statement of technician's name",
-                "weight": 2
-            },
-            {
-                "id": "intro_company",
-                "question": "Did the technician introduce the company?",
-                "criteria": "Clear statement of company name to establish credibility",
-                "weight": 2
             }
         ]
     },
@@ -47,22 +47,22 @@ COMPLIANCE_CRITERIA = {
         "stage_name": "Problem Diagnosis",
         "questions": [
             {
-                "id": "diag_inquiry",
-                "question": "Did the technician inquire about the customer's issue?",
-                "criteria": "Asked questions to understand the problem",
-                "weight": 2
-            },
-            {
-                "id": "diag_probing",
-                "question": "Did the technician ask probing/follow-up questions?",
-                "criteria": "Demonstrated thorough diagnostic approach with follow-up questions",
-                "weight": 2
-            },
-            {
-                "id": "diag_understanding",
-                "question": "Did the technician demonstrate understanding of the issue?",
-                "criteria": "Confirmed understanding and showed comprehension of the problem",
+                "id": "diag_relevance",
+                "question": "Was problem diagnosis relevant and appropriate for this call?",
+                "criteria": "Consider: Did the customer express concerns or ask questions that warrant diagnosis? Is this a repair/troubleshooting call or routine service? May have already been discussed before recording. If no customer concerns or questions, brief responses are sufficient.",
                 "weight": 1
+            },
+            {
+                "id": "diag_customer_needs",
+                "question": "Did the technician appropriately address any customer questions or concerns?",
+                "criteria": "If customer asked questions or expressed concerns, technician should respond thoughtfully. If customer didn't raise issues, no probing is needed.",
+                "weight": 2
+            },
+            {
+                "id": "diag_communication",
+                "question": "Was communication about the work clear and appropriate?",
+                "criteria": "Technician explains what they're doing/found in a way that's appropriate for the context. Active listening if customer has concerns. May be brief if straightforward work.",
+                "weight": 2
             }
         ]
     },
@@ -225,11 +225,17 @@ COMPLIANCE QUESTIONS TO EVALUATE:
 
 Your task: Evaluate this stage against each compliance question.
 
+IMPORTANT CONTEXT CONSIDERATIONS:
+- Consider the CONTEXT of the conversation. For example, in service calls, the technician often arrives at a location where they've already met the customer, so a formal name/company introduction may not be needed.
+- Evaluate what is APPROPRIATE for the situation, not just a checklist. A cordial greeting in a follow-up context is just as good as a formal introduction in a first-contact scenario.
+- For PROBLEM DIAGNOSIS: Not all calls require extensive diagnosis. If the customer has no questions/concerns, brief responses are perfectly fine. Diagnostic discussions may have occurred before the recording. Evaluate based on whether the technician appropriately addressed the customer's actual needs, not whether they probed for problems that don't exist.
+- Focus on the quality and professionalism of the interaction within its context, not rigid adherence to formalities that may be unnecessary.
+
 For EACH question, provide:
 1. answer: "YES" (compliant), "PARTIAL" (somewhat compliant), or "NO" (non-compliant)
 2. score: 0-100 (0=completely missing, 50=partially present, 100=excellently done)
 3. evidence: Specific quote(s) from the utterances with timestamps
-4. explanation: Why you gave this answer and score
+4. explanation: Why you gave this answer and score, considering the context
 5. what_was_good: Positive aspects (if any)
 6. what_was_missing: Gaps or issues (if any)
 

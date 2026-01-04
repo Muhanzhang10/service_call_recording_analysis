@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Load transcript data
 async function loadTranscript() {
     try {
-        const response = await fetch('./annotated_transcript.json');
+        const response = await fetch('../data/annotated_transcript.json');
         if (!response.ok) {
             throw new Error('Failed to load transcript');
         }
@@ -133,8 +133,12 @@ function renderStageNav() {
     document.getElementById('call-type').textContent = 
         formatCallType(callType.primary_call_type) || 'Unknown';
     
+    // Display sales grade instead of rating
+    const salesGrade = salesInsights.overall_sales_grade || 
+                       getGradeFromScore(salesInsights.overall_sales_score) || 
+                       'N/A';
     document.getElementById('sales-rating').textContent = 
-        salesInsights.overall_sales_rating || 'N/A';
+        salesGrade + (salesInsights.overall_sales_score ? ` (${salesInsights.overall_sales_score})` : '');
     
     const overallCompliance = transcriptData.overall_compliance || {};
     document.getElementById('stages-evaluated').textContent = 
@@ -351,26 +355,182 @@ function renderSalesInsights() {
     
     let html = '';
     
-    // Opportunities Captured
+    // Customer Purchase Profile (NEW - Priority Intelligence)
+    if (sales.customer_purchase_profile) {
+        const profile = sales.customer_purchase_profile;
+        html += '<div class="sales-card customer-profile">';
+        html += '<h3>🎯 Customer Purchase Profile</h3>';
+        
+        if (profile.interested_products && profile.interested_products.length > 0) {
+            html += '<div class="profile-section"><strong>Products of Interest:</strong><ul>';
+            profile.interested_products.forEach(product => {
+                html += `<li><strong>${escapeHtml(product.product_name || '')}</strong>`;
+                if (product.price_discussed) {
+                    html += ` <span class="price-tag">${escapeHtml(product.price_discussed)}</span>`;
+                }
+                html += `<br><small>${escapeHtml(product.details || '')}</small>`;
+                if (product.customer_interest_level) {
+                    html += ` <span class="interest-badge interest-${product.customer_interest_level}">${product.customer_interest_level}</span>`;
+                }
+                html += `</li>`;
+            });
+            html += '</ul></div>';
+        }
+        
+        if (profile.estimated_deal_value) {
+            html += `<div class="profile-section"><strong>💰 Estimated Deal Value:</strong> <span class="deal-value">${escapeHtml(profile.estimated_deal_value)}</span></div>`;
+        }
+        
+        if (profile.purchase_likelihood) {
+            html += `<div class="profile-section"><strong>🔥 Lead Status:</strong> <span class="lead-badge lead-${profile.purchase_likelihood}">${formatLeadStatus(profile.purchase_likelihood)}</span></div>`;
+        }
+        
+        if (profile.decision_timeline) {
+            html += `<div class="profile-section"><strong>⏰ Decision Timeline:</strong> ${escapeHtml(profile.decision_timeline)}</div>`;
+        }
+        
+        if (profile.decision_factors && profile.decision_factors.length > 0) {
+            html += '<div class="profile-section"><strong>Key Decision Factors:</strong><ul>';
+            profile.decision_factors.forEach(factor => {
+                html += `<li>${escapeHtml(factor)}</li>`;
+            });
+            html += '</ul></div>';
+        }
+        
+        if (profile.next_steps) {
+            html += `<div class="profile-section next-steps"><strong>📋 Next Steps:</strong> ${escapeHtml(profile.next_steps)}</div>`;
+        }
+        
+        html += '</div>';
+    }
+    
+    // Key Takeaways for Management (NEW)
+    if (sales.key_takeaways_for_management && sales.key_takeaways_for_management.length > 0) {
+        html += '<div class="sales-card key-takeaways">';
+        html += '<h3>🔑 Key Takeaways for Management</h3>';
+        html += '<ul>';
+        sales.key_takeaways_for_management.forEach(takeaway => {
+            html += `<li>${escapeHtml(takeaway)}</li>`;
+        });
+        html += '</ul></div>';
+    }
+    
+    // Sales Grade Criteria Legend (moved down, still useful reference)
+    html += '<div class="sales-card grade-legend">';
+    html += '<h3>📊 Sales Effectiveness Grading Criteria</h3>';
+    html += '<div class="grade-grid">';
+    html += '<div class="grade-item grade-a"><strong>Grade A (90-100)</strong><ul>';
+    html += '<li>Clear, compelling value proposition</li>';
+    html += '<li>Natural, consultative approach</li>';
+    html += '<li>Customer shows strong interest</li>';
+    html += '<li>Professional objection handling</li>';
+    html += '</ul></div>';
+    html += '<div class="grade-item grade-b"><strong>Grade B (70-89)</strong><ul>';
+    html += '<li>Value proposition could be stronger</li>';
+    html += '<li>Mostly natural approach</li>';
+    html += '<li>Customer shows moderate interest</li>';
+    html += '<li>Adequate objection handling</li>';
+    html += '</ul></div>';
+    html += '<div class="grade-item grade-c"><strong>Grade C (50-69)</strong><ul>';
+    html += '<li>Weak or unclear value proposition</li>';
+    html += '<li>Somewhat awkward approach</li>';
+    html += '<li>Customer shows limited interest</li>';
+    html += '<li>Weak objection handling</li>';
+    html += '</ul></div>';
+    html += '<div class="grade-item grade-d"><strong>Grade D (0-49)</strong><ul>';
+    html += '<li>No clear value proposition</li>';
+    html += '<li>Pushy or unprofessional</li>';
+    html += '<li>Customer shows disinterest</li>';
+    html += '<li>Poor or no objection handling</li>';
+    html += '</ul></div>';
+    html += '</div></div>';
+    
+    // Overall Sales Grade
+    if (sales.overall_sales_grade || sales.overall_sales_score) {
+        const grade = sales.overall_sales_grade || getGradeFromScore(sales.overall_sales_score);
+        const score = sales.overall_sales_score || '--';
+        html += '<div class="sales-card overall-grade">';
+        html += '<h3>🎯 Overall Sales Performance</h3>';
+        html += `<div class="grade-display grade-${grade.toLowerCase()}">${grade}</div>`;
+        html += `<div class="score-display">${score}/100</div>`;
+        if (sales.summary) {
+            html += `<p>${escapeHtml(sales.summary)}</p>`;
+        }
+        html += '</div>';
+    }
+    
+    // Opportunities Captured (with enhanced details)
     if (sales.opportunities_captured && sales.opportunities_captured.length > 0) {
         html += '<div class="sales-card">';
         html += '<h3>✓ Opportunities Captured</h3>';
         html += '<ul>';
         sales.opportunities_captured.forEach(opp => {
-            html += `<li><strong>${escapeHtml(opp.opportunity || '')}</strong><br>`;
-            html += `<small>${escapeHtml(opp.evidence || '')}</small></li>`;
+            const grade = opp.effectiveness_grade || opp.effectiveness || getGradeFromScore(opp.effectiveness_score);
+            html += `<li class="opportunity-item">`;
+            html += `<div class="opp-header">`;
+            html += `<strong>${escapeHtml(opp.opportunity || '')}</strong>`;
+            if (grade) {
+                html += `<span class="grade-badge grade-${grade.toLowerCase()}">${grade}</span>`;
+            }
+            html += `</div>`;
+            
+            if (opp.specific_details) {
+                html += `<div class="opp-details">${escapeHtml(opp.specific_details)}</div>`;
+            }
+            
+            if (opp.estimated_value) {
+                html += `<div class="opp-value">💰 ${escapeHtml(opp.estimated_value)}</div>`;
+            }
+            
+            if (opp.evidence) {
+                html += `<div class="opp-evidence"><em>"${escapeHtml(opp.evidence)}"</em></div>`;
+            }
+            
+            if (opp.customer_response) {
+                html += `<div class="opp-response"><strong>Customer Response:</strong> ${escapeHtml(opp.customer_response)}</div>`;
+            }
+            
+            if (opp.status) {
+                const statusClass = opp.status.replace('_', '-');
+                html += `<div class="opp-status status-${statusClass}">${formatStatus(opp.status)}</div>`;
+            }
+            
+            if (opp.what_worked_well || opp.reasoning) {
+                html += `<div class="opp-reasoning"><strong>Why ${grade}:</strong> ${escapeHtml(opp.what_worked_well || opp.reasoning)}</div>`;
+            }
+            
+            html += `</li>`;
         });
         html += '</ul></div>';
     }
     
-    // Opportunities Missed
+    // Opportunities Missed (with enhanced details)
     if (sales.opportunities_missed && sales.opportunities_missed.length > 0) {
-        html += '<div class="sales-card">';
-        html += '<h3>⚠ Opportunities Missed</h3>';
+        html += '<div class="sales-card missed-opps">';
+        html += '<h3>⚠️ Opportunities Missed</h3>';
         html += '<ul>';
         sales.opportunities_missed.forEach(opp => {
-            html += `<li><strong>${escapeHtml(opp.opportunity || '')}</strong><br>`;
-            html += `<small>${escapeHtml(opp.recommendation || '')}</small></li>`;
+            html += `<li class="missed-item">`;
+            html += `<div class="missed-header">`;
+            html += `<strong>${escapeHtml(opp.opportunity || '')}</strong>`;
+            if (opp.estimated_lost_revenue) {
+                html += `<span class="lost-revenue">💸 ${escapeHtml(opp.estimated_lost_revenue)}</span>`;
+            }
+            html += `</div>`;
+            
+            if (opp.customer_need_evidence) {
+                html += `<div class="missed-need"><strong>Customer Need:</strong> ${escapeHtml(opp.customer_need_evidence)}</div>`;
+            }
+            
+            if (opp.why_it_was_missed) {
+                html += `<div class="missed-why"><strong>Why Missed:</strong> ${escapeHtml(opp.why_it_was_missed)}</div>`;
+            }
+            
+            if (opp.recommended_approach || opp.recommendation) {
+                html += `<div class="missed-recommendation"><strong>💡 Recommendation:</strong> ${escapeHtml(opp.recommended_approach || opp.recommendation)}</div>`;
+            }
+            
+            html += `</li>`;
         });
         html += '</ul></div>';
     }
@@ -410,6 +570,15 @@ function renderSalesInsights() {
     }
     
     salesEl.innerHTML = html;
+}
+
+// Helper function to convert score to grade
+function getGradeFromScore(score) {
+    if (!score) return '';
+    if (score >= 90) return 'A';
+    if (score >= 70) return 'B';
+    if (score >= 50) return 'C';
+    return 'D';
 }
 
 // Show annotation detail modal
@@ -468,5 +637,26 @@ function formatCallType(type) {
     return type.split('_').map(word => 
         word.charAt(0).toUpperCase() + word.slice(1)
     ).join(' ');
+}
+
+function formatLeadStatus(status) {
+    if (!status) return 'Unknown';
+    const statusMap = {
+        'hot_lead': '🔥 Hot Lead',
+        'warm_lead': '🌡️ Warm Lead',
+        'cold_lead': '❄️ Cold Lead',
+        'not_interested': '🚫 Not Interested'
+    };
+    return statusMap[status] || formatCallType(status);
+}
+
+function formatStatus(status) {
+    if (!status) return '';
+    const statusMap = {
+        'closed': '✅ Closed',
+        'pending_decision': '⏳ Pending Decision',
+        'follow_up_needed': '📞 Follow-up Needed'
+    };
+    return statusMap[status] || formatCallType(status);
 }
 

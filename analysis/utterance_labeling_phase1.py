@@ -52,9 +52,9 @@ STAGE_DEFINITIONS = {
     },
     "closing": {
         "name": "Closing & Thank You",
-        "description": "Technician wraps up the call and thanks the customer",
-        "keywords": ["thank", "thanks", "appreciate", "have a", "take care", "goodbye"],
-        "key_elements": ["thank you", "closing remarks", "goodbye"]
+        "description": "The FINAL closing of the call - technician thanks the customer and says goodbye. NOT 'wrapping up' a discussion or presentation (that's part of other stages like upsell/maintenance plan). This is the actual end of the conversation.",
+        "keywords": ["thank", "thanks", "appreciate", "have a", "take care", "goodbye", "bye"],
+        "key_elements": ["thank you", "final goodbye", "call ending"]
     }
 }
 
@@ -66,25 +66,48 @@ def load_transcription():
         return json.load(f)
 
 
-def create_labeling_prompt(utterances):
+def create_context_window(utterances, target_index, window_size=4):
     """
-    Create a prompt for GPT-4 to label all utterances with stage tags
-    """
+    Create a context window around a target utterance for better labeling
     
-    # Simplify utterances for the prompt (remove unnecessary fields)
-    simplified_utterances = []
-    for i, utt in enumerate(utterances):
-        simplified_utterances.append({
+    Args:
+        utterances: List of all utterances
+        target_index: Index of the utterance to label
+        window_size: Number of utterances to include before and after (default 4)
+    
+    Returns:
+        List of utterances with context, marking the target
+    """
+    start_idx = max(0, target_index - window_size)
+    end_idx = min(len(utterances), target_index + window_size + 1)
+    
+    context_utterances = []
+    for i in range(start_idx, end_idx):
+        utt = utterances[i]
+        context_utterances.append({
             "index": i,
             "speaker": utt["speaker"],
             "text": utt["text"],
             "start": utt["start"],
-            "end": utt["end"]
+            "end": utt["end"],
+            "is_target": (i == target_index)  # Mark the utterance to be labeled
         })
+    
+    return context_utterances
+
+
+def create_batch_labeling_prompt(utterance_batches):
+    """
+    Create a prompt for GPT-4 to label a batch of utterances with their context windows
+    
+    Args:
+        utterance_batches: List of context windows, each containing utterances with one marked as target
+    """
     
     prompt = f"""You are analyzing a service call transcript between a technician and a customer.
 
-Your task: Label EACH utterance with the appropriate service call stage(s).
+Your task: Label the TARGET utterances (marked with "is_target": true) with the appropriate service call stage(s).
+For each target utterance, you are provided with surrounding utterances for CONTEXT ONLY.
 
 STAGES (in typical order):
 1. **introduction** - Greeting, technician introduces name/company
@@ -92,25 +115,46 @@ STAGES (in typical order):
 3. **solution_explanation** - Explaining work done, repairs made, technical details
 4. **upsell_attempts** - Offering additional services, products, or upgrades
 5. **maintenance_plan** - Offering maintenance plans or service agreements
-6. **closing** - Thank you, wrapping up, goodbye
+6. **closing** - FINAL thank you and goodbye (NOT "wrapping up" a presentation - that belongs to the stage being wrapped up)
 
 STAGE DETAILS:
 {json.dumps(STAGE_DEFINITIONS, indent=2)}
 
 INSTRUCTIONS:
+- Label ONLY the utterances marked with "is_target": true
+- Use surrounding utterances for context to make better decisions
 - Each utterance can have ONE primary_stage and potentially multiple stage_tags
 - primary_stage = the main stage this utterance belongs to
 - stage_tags = array of all relevant stages (usually includes primary_stage)
 - An utterance can span multiple stages if it covers multiple topics
 - Use "other" as primary_stage only if it doesn't fit any category (small talk, off-topic)
-- Consider context from previous utterances
 - Speaker B is likely the Technician, Speaker A is likely the Customer
 
-TRANSCRIPT UTTERANCES:
-{json.dumps(simplified_utterances, indent=2)}
+IMPORTANT - CLOSING STAGE CLARIFICATION:
+- "closing" stage is ONLY for the FINAL goodbye/thank you at the END of the call
+- Phrases like "let me wrap up", "to wrap this up", "wrapping up here" are NOT closing - they're transitions within other stages (upsell, maintenance_plan, solution_explanation)
+- Only label as "closing" if it's the actual farewell/goodbye at the end of the conversation
+- Example: "Let me wrap up the pricing for you" = upsell_attempts (NOT closing)
+- Example: "Thanks so much, have a great day!" = closing
+
+CONTEXT CONSIDERATIONS:
+- Look at what comes BEFORE the target utterance to understand the flow
+- Look at what comes AFTER to see where the conversation is heading
+- Short utterances like "Okay" or "Sure" should be labeled based on the stage they're part of
+- Transitions like "Let me explain..." belong to the stage that follows, not closing
+
+SPECIAL PATTERN - COMBINED GREETINGS:
+- Technicians often combine greetings with status updates: "Hey John, I got you all fixed up"
+- These should have BOTH "introduction" AND the other relevant stage in stage_tags
+- If the FIRST technician utterance contains ANY greeting element (Hi, Hey, Hello, customer name), include "introduction" in stage_tags
+- Example: "Hey Luis. Got you all done." → stage_tags: ["introduction", "solution_explanation"]
+- The primary_stage can be the dominant topic, but introduction should be in stage_tags if greeting is present
+
+UTTERANCES WITH CONTEXT:
+{json.dumps(utterance_batches, indent=2)}
 
 OUTPUT FORMAT (JSON):
-Return a JSON object with a "labels" array containing one entry per utterance:
+Return a JSON object with a "labels" array containing one entry for EACH TARGET utterance:
 
 {{
   "labels": [
@@ -119,66 +163,130 @@ Return a JSON object with a "labels" array containing one entry per utterance:
       "primary_stage": "introduction",
       "stage_tags": ["introduction"],
       "confidence": 0.9,
-      "reasoning": "Brief explanation of why this stage was chosen"
-    }},
-    {{
-      "index": 1,
-      "primary_stage": "introduction",
-      "stage_tags": ["introduction", "solution_explanation"],
-      "confidence": 0.7,
-      "reasoning": "Technician mentions work done but hasn't properly introduced themselves - mixed content"
+      "reasoning": "Brief explanation considering the surrounding context"
     }}
-  ],
-  "speaker_identification": {{
-    "A": "Customer",
-    "B": "Technician"
-  }},
-  "overall_notes": "Any observations about the call flow or stage progression"
+  ]
 }}
 
 IMPORTANT: 
 - Return ONLY valid JSON, no markdown code blocks
-- Include ALL {len(utterances)} utterances in order
+- Include labels for ALL target utterances in the batch
 - Be consistent with stage naming (use exact stage keys listed above)
+- Consider the FULL CONTEXT when making labeling decisions
 """
     
     return prompt
 
 
-def label_utterances_with_gpt(utterances):
+def label_utterances_with_gpt(utterances, batch_size=15):
     """
-    Send utterances to GPT-4 and get stage labels back
+    Send utterances to GPT-4 with sliding window context for better labeling
+    
+    Args:
+        utterances: List of all utterances to label
+        batch_size: Number of context windows to process per API call
     """
-    print(f"Sending {len(utterances)} utterances to GPT-4 for labeling...")
+    print(f"Labeling {len(utterances)} utterances using sliding window context...")
+    print(f"Window size: 4 utterances before and after each target")
     
-    prompt = create_labeling_prompt(utterances)
+    all_labels = []
+    total_batches = (len(utterances) + batch_size - 1) // batch_size
     
+    # Process utterances in batches for efficiency
+    for batch_num in range(0, len(utterances), batch_size):
+        batch_end = min(batch_num + batch_size, len(utterances))
+        current_batch_size = batch_end - batch_num
+        
+        print(f"Processing batch {batch_num // batch_size + 1}/{total_batches} ({current_batch_size} utterances)...")
+        
+        # Create context windows for this batch
+        utterance_batches = []
+        for i in range(batch_num, batch_end):
+            context_window = create_context_window(utterances, i, window_size=4)
+            utterance_batches.append({
+                "target_index": i,
+                "context": context_window
+            })
+        
+        prompt = create_batch_labeling_prompt(utterance_batches)
+        
+        try:
+            response = client.chat.completions.create(
+                model="gpt-4o",
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are an expert service call analyst. You analyze call transcripts and identify different stages of service calls with high accuracy. You use context effectively to make accurate stage classifications. Always respond with valid JSON."
+                    },
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ],
+                temperature=0,
+                response_format={"type": "json_object"}
+            )
+            
+            batch_result = json.loads(response.choices[0].message.content)
+            batch_labels = batch_result.get("labels", [])
+            
+            # Validate we got the right number of labels
+            if len(batch_labels) != current_batch_size:
+                print(f"⚠️  Warning: Expected {current_batch_size} labels, got {len(batch_labels)}")
+            
+            all_labels.extend(batch_labels)
+            print(f"   ✓ Received {len(batch_labels)} labels")
+            
+        except Exception as e:
+            print(f"❌ Error processing batch {batch_num // batch_size + 1}: {e}")
+            raise
+    
+    print(f"✓ Successfully labeled all {len(all_labels)} utterances with context")
+    
+    # For first batch, try to identify speaker roles (do this once, not per batch)
+    # Re-run a quick analysis on the first ~20 utterances to identify speakers
+    speaker_identification = identify_speakers(utterances[:20])
+    
+    return {
+        "labels": all_labels,
+        "speaker_identification": speaker_identification,
+        "overall_notes": f"Labeled with sliding window context (window_size=4). Processed in {total_batches} batches."
+    }
+
+
+def identify_speakers(initial_utterances):
+    """
+    Identify which speaker is the technician and which is the customer
+    """
     try:
+        prompt = f"""Based on these initial utterances from a service call, identify which speaker is the Technician and which is the Customer.
+
+UTTERANCES:
+{json.dumps([{"speaker": u["speaker"], "text": u["text"]} for u in initial_utterances], indent=2)}
+
+OUTPUT FORMAT (JSON):
+{{
+  "A": "Customer" or "Technician",
+  "B": "Customer" or "Technician"
+}}
+
+Return ONLY valid JSON."""
+
         response = client.chat.completions.create(
             model="gpt-4o",
             messages=[
-                {
-                    "role": "system",
-                    "content": "You are an expert service call analyst. You analyze call transcripts and identify different stages of service calls with high accuracy. Always respond with valid JSON."
-                },
-                {
-                    "role": "user",
-                    "content": prompt
-                }
+                {"role": "system", "content": "You identify speakers in service call transcripts."},
+                {"role": "user", "content": prompt}
             ],
             temperature=0,
-            response_format={"type": "json_object"}  # Ensures JSON output
+            response_format={"type": "json_object"}
         )
         
-        result = json.loads(response.choices[0].message.content)
-        
-        print(f"✓ Received labels for {len(result['labels'])} utterances")
-        
-        return result
-        
+        return json.loads(response.choices[0].message.content)
+    
     except Exception as e:
-        print(f"❌ Error calling GPT-4: {e}")
-        raise
+        print(f"⚠️  Could not identify speakers: {e}")
+        return {"A": "Customer", "B": "Technician"}  # Default assumption
 
 
 def merge_labels_with_transcript(transcript_data, labels_result):
@@ -241,19 +349,24 @@ def generate_stage_summary(labeled_transcript):
             "status": "absent"
         }
     
-    # Group utterances by primary stage
+    # Group utterances by stage tags (not just primary stage)
+    # This allows utterances with multiple stages to be analyzed in all relevant stages
     for i, utterance in enumerate(labeled_transcript["utterances"]):
-        primary_stage = utterance.get("primary_stage")
+        stage_tags = utterance.get("stage_tags", [])
         
-        if primary_stage and primary_stage in stage_summary:
-            stage_summary[primary_stage]["utterance_indices"].append(i)
-            stage_summary[primary_stage]["utterance_count"] += 1
-            stage_summary[primary_stage]["status"] = "present"
-            
-            # Update time range
-            if stage_summary[primary_stage]["start_time"] is None:
-                stage_summary[primary_stage]["start_time"] = utterance["start"]
-            stage_summary[primary_stage]["end_time"] = utterance["end"]
+        # Add this utterance to ALL stages it's tagged with
+        for stage_tag in stage_tags:
+            if stage_tag in stage_summary:
+                # Avoid duplicates
+                if i not in stage_summary[stage_tag]["utterance_indices"]:
+                    stage_summary[stage_tag]["utterance_indices"].append(i)
+                    stage_summary[stage_tag]["utterance_count"] += 1
+                    stage_summary[stage_tag]["status"] = "present"
+                    
+                    # Update time range
+                    if stage_summary[stage_tag]["start_time"] is None:
+                        stage_summary[stage_tag]["start_time"] = utterance["start"]
+                    stage_summary[stage_tag]["end_time"] = utterance["end"]
     
     labeled_transcript["stage_summary"] = stage_summary
     
