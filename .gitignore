@@ -13,7 +13,7 @@ ENV/
 
 # Transcription outputs
 # transcription*.txt
-transcription*.json
+# transcription*.json
 
 # Audio files (optional - uncomment if you don't want to commit the audio)
 # *.m4a
