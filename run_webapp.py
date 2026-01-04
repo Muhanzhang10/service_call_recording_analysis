@@ -6,6 +6,7 @@ Simple HTTP server to run the web application locally
 import http.server
 import socketserver
 import os
+import sys
 import webbrowser
 from pathlib import Path
 
@@ -14,7 +15,14 @@ PROJECT_ROOT = Path(__file__).parent
 
 # Configuration
 PORT = 8000
-WEBAPP_PATH = "/webapp/"
+
+# Determine which webapp to serve
+if len(sys.argv) > 1 and sys.argv[1] == "1":
+     WEBAPP_PATH = "/webapp/"
+    WEBAPP_NAME = "Stage Analysis (webapp)"
+else:
+    WEBAPP_PATH = "/webapp2/"
+    WEBAPP_NAME = "Comprehensive Analysis (webapp2)"
 
 class MyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
     def end_headers(self):
@@ -35,10 +43,13 @@ def main():
         url = f"http://localhost:{PORT}{WEBAPP_PATH}"
         
         print("="*60)
-        print("Service Call Analysis Web Application")
+        print(f"Service Call Analysis: {WEBAPP_NAME}")
         print("="*60)
         print(f"\n✓ Server running at: http://localhost:{PORT}/")
         print(f"\n✓ Open in browser: {url}")
+        print("\nAvailable webapps:")
+        print(f"  • python run_webapp.py    - Stage-based analysis (webapp)")
+        print(f"  • python run_webapp.py 2  - Comprehensive analysis (webapp2)")
         print("\nPress Ctrl+C to stop the server")
         print("="*60)
         

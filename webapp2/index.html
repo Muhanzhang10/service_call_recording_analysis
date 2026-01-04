@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Service Call Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1>📞 Service Call Comprehensive Analysis</h1>
+            <p class="subtitle">Detailed compliance check and sales opportunity analysis</p>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs-nav">
+        <div class="container">
+            <button class="tab-button active" data-tab="summary">📋 Overall Summary</button>
+            <button class="tab-button" data-tab="compliance">✓ Compliance Check</button>
+            <button class="tab-button" data-tab="structured">📊 Client & Products</button>
+            <button class="tab-button" data-tab="transcript">📝 Full Transcript</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Tab 1: Overall Summary -->
+        <section id="tab-summary" class="tab-content active">
+            <div class="card">
+                <h2>Overall Summary</h2>
+                <div id="overall-summary" class="summary-text">
+                    <p class="loading">Loading analysis...</p>
+                </div>
+            </div>
+            
+            <!-- Overall Technician Critique -->
+            <div class="card critique-card">
+                <h2>📊 Overall Technician Performance Critique</h2>
+                <div id="overall-critique">
+                    <p class="loading">Loading critique...</p>
+                </div>
+            </div>
+
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">📞</div>
+                    <div class="stat-content">
+                        <h3>Call Type</h3>
+                        <p id="quick-call-type">--</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-content">
+                        <h3>Duration</h3>
+                        <p id="quick-duration">--</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💬</div>
+                    <div class="stat-content">
+                        <h3>Utterances</h3>
+                        <p id="quick-utterances">--</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 2: Compliance Check -->
+        <section id="tab-compliance" class="tab-content">
+            <div class="compliance-intro">
+                <h2>Compliance Analysis</h2>
+                <p>Detailed evaluation of standard service call procedures with citations from the actual conversation.</p>
+            </div>
+
+            <div id="compliance-questions">
+                <p class="loading">Loading compliance analysis...</p>
+            </div>
+        </section>
+
+        <!-- Tab 3: Structured Analysis -->
+        <section id="tab-structured" class="tab-content">
+            <h2>Client Situation & Products Presented</h2>
+            
+            <!-- Client Situation -->
+            <div class="card">
+                <h3>🔧 Client's Situation</h3>
+                <div id="client-situation">
+                    <p class="loading">Loading client situation...</p>
+                </div>
+            </div>
+
+            <!-- Products and Plans (with integrated interest & research) -->
+            <div class="card">
+                <h3>🛒 Products & Plans Presented</h3>
+                <div id="products-plans">
+                    <p class="loading">Loading products analysis...</p>
+                </div>
+            </div>
+
+            <!-- Alternative Products -->
+            <div class="card">
+                <h3>🔍 Alternative Products (Research-Based)</h3>
+                <div id="alternative-products">
+                    <p class="loading">Loading alternative products...</p>
+                </div>
+            </div>
+
+            <!-- Winner Product -->
+            <div class="card winner-card">
+                <h3>🏆 Recommended Product & Analysis</h3>
+                <div id="winner-analysis">
+                    <p class="loading">Loading winner analysis...</p>
+                </div>
+            </div>
+
+            <!-- Overall Outcome -->
+            <div class="card">
+                <h3>📈 Overall Outcome</h3>
+                <div id="overall-outcome">
+                    <p class="loading">Loading outcome...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab 4: Full Transcript -->
+        <section id="tab-transcript" class="tab-content">
+            <div class="card">
+                <h2>Full Transcript</h2>
+                <div class="transcript-controls">
+                    <label>
+                        <input type="checkbox" id="show-timestamps" checked>
+                        Show timestamps
+                    </label>
+                </div>
+                <div id="full-transcript" class="transcript-view">
+                    <p class="loading">Loading transcript...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>Service Call Analysis System | Generated with OpenAI GPT-4</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
