@@ -79,6 +79,7 @@ function renderAllSections() {
     
     renderOverallSummary();
     renderComplianceQuestions();
+    renderSalesEvaluation();
     renderStructuredAnalysis();
     renderTranscript();
 }
@@ -232,6 +233,385 @@ function renderComplianceQuestions() {
     });
     
     container.innerHTML = html;
+}
+
+// Tab 3: Sales Evaluation
+function renderSalesEvaluation() {
+    const salesEval = analysisData.step8_sales_evaluation;
+    
+    if (!salesEval) {
+        document.getElementById('sales-evaluation-questions').innerHTML = '<p>No sales evaluation data available.</p>';
+        return;
+    }
+    
+    // Render Sales Questions (includes 70/30 analysis as one of the questions)
+    renderSalesQuestions(salesEval);
+}
+
+function renderSalesQuestions(salesEval) {
+    const container = document.getElementById('sales-evaluation-questions');
+    
+    const questions = [
+        { key: 'building_rapport', title: '🤝 Building Rapport', icon: '🤝' },
+        { key: 'handling_objections', title: '💬 Handling Objections', icon: '💬' },
+        { key: 'speaking_time_analysis', title: '🗣️ 70/30 Rule Analysis', icon: '🗣️' },
+        { key: 'upselling_performance', title: '📈 Upselling Performance', icon: '📈' }
+    ];
+    
+    let html = '<div class="sales-questions-container">';
+    
+    questions.forEach(q => {
+        const data = salesEval[q.key];
+        if (!data || data.error) {
+            return;
+        }
+        
+        const grade = data.grade || 'N/A';
+        const gradeClass = `grade-${grade}`;
+        
+        html += `
+            <div class="compliance-question sales-question">
+                <div class="question-header">
+                    <h3 class="question-title">${q.icon} ${q.title}</h3>
+                    ${grade !== 'N/A' ? `<div class="grade-badge ${gradeClass}">${grade}</div>` : ''}
+                </div>
+                ${data.grade_explanation ? `
+                    <div class="grade-explanation">
+                        <strong>Grade Explanation:</strong> ${escapeHtml(data.grade_explanation)}
+                    </div>
+                ` : ''}
+        `;
+        
+        // Render specific content based on question type
+        if (q.key === 'building_rapport') {
+            html += renderBuildingRapportContent(data);
+        } else if (q.key === 'handling_objections') {
+            html += renderHandlingObjectionsContent(data);
+        } else if (q.key === 'speaking_time_analysis') {
+            html += renderSpeakingTimeContent(data);
+        } else if (q.key === 'upselling_performance') {
+            html += renderUpsellingContent(data);
+        }
+        
+        html += `</div>`;
+    });
+    
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+function renderSpeakingTimeContent(data) {
+    let html = '';
+    
+    if (data.speaking_ratio_assessment) {
+        html += `<div class="answer-text">${escapeHtml(data.speaking_ratio_assessment)}</div>`;
+    }
+    
+    if (data.time_breakdown) {
+        // Extract percentages from the time breakdown descriptions
+        const breakdownData = extractTimeBreakdownPercentages(data.time_breakdown);
+        
+        if (breakdownData.length > 0) {
+            html += `
+                <div class="time-breakdown-section">
+                    <h4>Time Breakdown</h4>
+                    <div class="time-breakdown-with-chart">
+                        ${renderTimeBreakdownPieChart(breakdownData)}
+                        <div class="breakdown-grid">
+            `;
+            
+            for (const [category, description] of Object.entries(data.time_breakdown)) {
+                html += `
+                    <div class="breakdown-item">
+                        <strong>${category.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}:</strong>
+                        <span>${escapeHtml(description)}</span>
+                    </div>
+                `;
+            }
+            
+            html += `
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    }
+    
+    if (data.recommendations && data.recommendations.length > 0) {
+        html += `
+            <div class="recommendations-section">
+                <h4>💡 Recommendations</h4>
+                <ul>
+                    ${data.recommendations.map(r => `<li>${escapeHtml(r)}</li>`).join('')}
+                </ul>
+            </div>
+        `;
+    }
+    
+    return html;
+}
+
+function extractTimeBreakdownPercentages(timeBreakdown) {
+    const categories = [];
+    const colorMap = {
+        'promoting_products': '#f59e0b',
+        'listening_to_concerns': '#10b981',
+        'technical_explanation': '#3b82f6',
+        'rapport_building': '#8b5cf6'
+    };
+    
+    for (const [category, description] of Object.entries(timeBreakdown)) {
+        // Extract percentage from description (e.g., "40% - ...")
+        const match = description.match(/^(\d+)%/);
+        if (match) {
+            const percentage = parseInt(match[1]);
+            categories.push({
+                name: category.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+                percentage: percentage,
+                color: colorMap[category] || '#64748b'
+            });
+        }
+    }
+    
+    return categories;
+}
+
+function renderTimeBreakdownPieChart(breakdownData) {
+    // Calculate cumulative percentages for conic gradient
+    let cumulativePercent = 0;
+    const gradientStops = [];
+    
+    breakdownData.forEach((item, index) => {
+        const startPercent = cumulativePercent;
+        cumulativePercent += item.percentage;
+        const endPercent = cumulativePercent;
+        
+        gradientStops.push(`${item.color} ${startPercent}% ${endPercent}%`);
+    });
+    
+    const conicGradient = gradientStops.join(', ');
+    
+    let html = `
+        <div class="time-breakdown-pie-chart-container">
+            <div class="time-breakdown-pie-chart" style="background: conic-gradient(${conicGradient});">
+                <div class="time-breakdown-pie-center">
+                    <span class="pie-center-label">Time<br>Breakdown</span>
+                </div>
+            </div>
+            <div class="time-breakdown-legend">
+    `;
+    
+    breakdownData.forEach(item => {
+        html += `
+            <div class="time-breakdown-legend-item">
+                <span class="legend-color-box" style="background-color: ${item.color};"></span>
+                <span class="legend-text">${escapeHtml(item.name)}: ${item.percentage}%</span>
+            </div>
+        `;
+    });
+    
+    html += `
+            </div>
+        </div>
+    `;
+    
+    return html;
+}
+
+function renderBuildingRapportContent(data) {
+    let html = '';
+    
+    if (data.detailed_assessment) {
+        html += `<div class="answer-text">${escapeHtml(data.detailed_assessment)}</div>`;
+    }
+    
+    if (data.strengths && data.strengths.length > 0) {
+        html += `
+            <div class="strengths-section">
+                <h4>✅ Strengths</h4>
+                <ul>
+                    ${data.strengths.map(s => `<li>${escapeHtml(s)}</li>`).join('')}
+                </ul>
+            </div>
+        `;
+    }
+    
+    if (data.weaknesses && data.weaknesses.length > 0) {
+        html += `
+            <div class="weaknesses-section">
+                <h4>⚠️ Areas for Improvement</h4>
+                <ul>
+                    ${data.weaknesses.map(w => `<li>${escapeHtml(w)}</li>`).join('')}
+                </ul>
+            </div>
+        `;
+    }
+    
+    if (data.supporting_quotes && data.supporting_quotes.length > 0) {
+        html += renderSalesQuotes(data.supporting_quotes);
+    }
+    
+    return html;
+}
+
+function renderHandlingObjectionsContent(data) {
+    let html = '';
+    
+    if (data.overall_assessment) {
+        html += `<div class="answer-text">${escapeHtml(data.overall_assessment)}</div>`;
+    }
+    
+    if (data.objections_identified && data.objections_identified.length > 0) {
+        html += `
+            <div class="objections-section">
+                <h4>Objections Identified & Handled</h4>
+        `;
+        
+        data.objections_identified.forEach(obj => {
+            const effectivenessClass = obj.effectiveness === 'high' ? 'effective-high' : 
+                                      obj.effectiveness === 'medium' ? 'effective-medium' : 'effective-low';
+            
+            html += `
+                <div class="objection-item">
+                    <div class="objection-header">
+                        <strong>Objection:</strong> ${escapeHtml(obj.objection)}
+                        ${obj.effectiveness ? `<span class="effectiveness-badge ${effectivenessClass}">${obj.effectiveness} effectiveness</span>` : ''}
+                    </div>
+                    ${obj.how_handled ? `<p><strong>How Handled:</strong> ${escapeHtml(obj.how_handled)}</p>` : ''}
+                    ${obj.quote ? `<div class="objection-quote">"${escapeHtml(obj.quote)}"</div>` : ''}
+                </div>
+            `;
+        });
+        
+        html += `</div>`;
+    }
+    
+    if (data.strengths && data.strengths.length > 0) {
+        html += `
+            <div class="strengths-section">
+                <h4>✅ Strengths</h4>
+                <ul>
+                    ${data.strengths.map(s => `<li>${escapeHtml(s)}</li>`).join('')}
+                </ul>
+            </div>
+        `;
+    }
+    
+    if (data.areas_for_improvement && data.areas_for_improvement.length > 0) {
+        html += `
+            <div class="weaknesses-section">
+                <h4>📈 Areas for Improvement</h4>
+                <ul>
+                    ${data.areas_for_improvement.map(a => `<li>${escapeHtml(a)}</li>`).join('')}
+                </ul>
+            </div>
+        `;
+    }
+    
+    return html;
+}
+
+function renderUpsellingContent(data) {
+    let html = '';
+    
+    if (data.overall_assessment) {
+        html += `<div class="answer-text">${escapeHtml(data.overall_assessment)}</div>`;
+    }
+    
+    // Key metrics
+    html += `
+        <div class="upsell-metrics">
+            <div class="metric-item">
+                <span class="metric-label">Upsell Attempted:</span>
+                <span class="metric-value ${data.upsell_attempted === 'yes' ? 'value-yes' : 'value-no'}">${data.upsell_attempted || 'N/A'}</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-label">Upsell Successful:</span>
+                <span class="metric-value">${data.upsell_successful || 'N/A'}</span>
+            </div>
+        </div>
+    `;
+    
+    if (data.products_upsold && data.products_upsold.length > 0) {
+        html += `
+            <div class="products-upsold-section">
+                <h4>Products Upsold</h4>
+        `;
+        
+        data.products_upsold.forEach(product => {
+            const successClass = product.success_level === 'high' ? 'success-high' : 
+                               product.success_level === 'medium' ? 'success-medium' : 'success-low';
+            
+            html += `
+                <div class="upsold-product-item">
+                    <div class="product-name-badge">
+                        ${escapeHtml(product.product)}
+                        ${product.success_level ? `<span class="success-badge ${successClass}">${product.success_level} success</span>` : ''}
+                    </div>
+                    ${product.customer_response ? `<p><strong>Customer Response:</strong> ${escapeHtml(product.customer_response)}</p>` : ''}
+                    ${product.quote ? `<div class="product-quote">"${escapeHtml(product.quote)}"</div>` : ''}
+                </div>
+            `;
+        });
+        
+        html += `</div>`;
+    }
+    
+    if (data.objections_faced && data.objections_faced.length > 0) {
+        html += `
+            <div class="objections-faced-section">
+                <h4>Objections Encountered</h4>
+        `;
+        
+        data.objections_faced.forEach(obj => {
+            html += `
+                <div class="objection-faced-item">
+                    <p><strong>Objection:</strong> ${escapeHtml(obj.objection)}</p>
+                    <p><strong>Handled Well:</strong> ${escapeHtml(obj.handled_well || 'N/A')}</p>
+                    ${obj.outcome ? `<p><strong>Outcome:</strong> ${escapeHtml(obj.outcome)}</p>` : ''}
+                </div>
+            `;
+        });
+        
+        html += `</div>`;
+    }
+    
+    if (data.missed_opportunities && data.missed_opportunities.length > 0) {
+        html += `
+            <div class="missed-opportunities-section">
+                <h4>⚠️ Missed Opportunities</h4>
+                <ul>
+                    ${data.missed_opportunities.map(m => `<li>${escapeHtml(m)}</li>`).join('')}
+                </ul>
+            </div>
+        `;
+    }
+    
+    return html;
+}
+
+function renderSalesQuotes(quotes) {
+    if (!quotes || quotes.length === 0) {
+        return '';
+    }
+    
+    let html = '<div class="citations-section">';
+    html += '<h4 class="citations-title">Supporting Evidence</h4>';
+    
+    quotes.forEach(quote => {
+        html += `
+            <div class="citation">
+                <div class="citation-header">
+                    ${quote.timestamp ? `<span class="timestamp">${escapeHtml(quote.timestamp)}</span>` : ''}
+                </div>
+                ${quote.quote ? `<div class="citation-quote">"${escapeHtml(quote.quote)}"</div>` : ''}
+                ${quote.context ? `<div class="citation-relevance"><strong>Context:</strong> ${escapeHtml(quote.context)}</div>` : ''}
+            </div>
+        `;
+    });
+    
+    html += '</div>';
+    return html;
 }
 
 function renderCitations(citations) {

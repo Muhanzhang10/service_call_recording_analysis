@@ -755,7 +755,8 @@ Provide 1-2 products with current, verifiable information and California-specifi
     }
 
 
-def step6_overall_technician_critique(compliance_analysis: Dict, products_analysis: List[Dict]) -> Dict[str, Any]:
+def step6_overall_technician_critique(compliance_analysis: Dict, products_analysis: List[Dict], 
+                                      sales_evaluation: Dict = None) -> Dict[str, Any]:
     """Generate overall technician performance critique."""
     print("\n" + "="*80)
     print("STEP 6A: Overall Technician Critique")
@@ -770,6 +771,16 @@ def step6_overall_technician_critique(compliance_analysis: Dict, products_analys
                 'question': item.get('question', '')
             }
     
+    # Extract sales evaluation grades if available
+    sales_grades = {}
+    if sales_evaluation:
+        for key in ['building_rapport', 'handling_objections', 'speaking_time_analysis', 'upselling_performance']:
+            if key in sales_evaluation and isinstance(sales_evaluation[key], dict):
+                sales_grades[key] = sales_evaluation[key].get('grade', 'N/A')
+    
+    # Check if products were promoted
+    products_promoted = len(products_analysis) > 0
+    
     system_prompt = """You are a senior service call quality analyst. Provide a comprehensive 
 critique of technician performance across compliance and sales."""
     
@@ -778,22 +789,28 @@ critique of technician performance across compliance and sales."""
 COMPLIANCE GRADES:
 {json.dumps(grades, indent=2)}
 
+SALES EVALUATION GRADES:
+{json.dumps(sales_grades, indent=2) if sales_grades else 'Not yet available'}
+
 NUMBER OF PRODUCTS PRESENTED: {len(products_analysis)}
+PRODUCTS PROMOTED: {'Yes' if products_promoted else 'No'}
 
 Provide a comprehensive critique covering:
 1. Overall compliance performance (summary of grades)
-2. Strengths demonstrated
-3. Areas needing improvement
-4. Product presentation quality
-5. Sales effectiveness
-6. Customer rapport and professionalism
-7. Key recommendations for improvement
+2. Overall sales performance (rapport, objection handling, upselling)
+3. Strengths demonstrated
+4. Areas needing improvement
+5. Product presentation quality
+6. Sales effectiveness
+7. Customer rapport and professionalism
+8. Key recommendations for improvement
 
 Return JSON format:
 {{
-  "overall_grade": "A/B/C/D/F based on compliance average",
+  "overall_grade": "A/B/C/D/F based on compliance and sales average",
   "compliance_summary": "Summary of compliance performance",
-  "sales_summary": "Summary of sales/product presentation",
+  "sales_summary": "Summary of sales/product presentation including whether products were promoted",
+  "products_promoted": {str(products_promoted).lower()},
   "strengths": ["strength 1", "strength 2", ...],
   "areas_for_improvement": ["area 1", "area 2", ...],
   "key_recommendations": ["recommendation 1", "recommendation 2", ...],
@@ -812,13 +829,16 @@ Return JSON format:
             cleaned_response = cleaned_response[:-3]
         cleaned_response = cleaned_response.strip()
         
-        return json.loads(cleaned_response)
+        parsed = json.loads(cleaned_response)
+        parsed['products_promoted'] = products_promoted
+        return parsed
     except (json.JSONDecodeError, KeyError) as e:
         print(f"  Warning: Could not parse critique: {e}")
         return {
             "overall_grade": "N/A",
             "compliance_summary": response,
             "sales_summary": "",
+            "products_promoted": products_promoted,
             "strengths": [],
             "areas_for_improvement": [],
             "key_recommendations": [],
@@ -838,22 +858,34 @@ def generate_executive_summary(all_results: Dict[str, Any]) -> Dict[str, Any]:
     critique = all_results.get("step6_overall_critique", {})
     objections = all_results.get("customer_objections_analysis", {})
     winner = all_results.get("step7_product_comparison", {})
+    sales_eval = all_results.get("step8_sales_evaluation", {})
     
-    # Count grades
+    # Count compliance grades
     grades = {}
     for key, item in compliance.items():
         grade = item.get('grade', 'N/A')
         grades[grade] = grades.get(grade, 0) + 1
     
-    # Calculate average grade (letter to number)
+    # Calculate average grade (letter to number) - including both compliance and sales
     grade_values = {'A': 90, 'B': 80, 'C': 70, 'D': 60, 'F': 50}
     total_grade = 0
     grade_count = 0
+    
+    # Add compliance grades
     for key, item in compliance.items():
         grade = item.get('grade', '')
         if grade in grade_values:
             total_grade += grade_values[grade]
             grade_count += 1
+    
+    # Add sales evaluation grades
+    if sales_eval:
+        for key in ['building_rapport', 'handling_objections', 'speaking_time_analysis', 'upselling_performance']:
+            if key in sales_eval and isinstance(sales_eval[key], dict):
+                grade = sales_eval[key].get('grade', '')
+                if grade in grade_values:
+                    total_grade += grade_values[grade]
+                    grade_count += 1
     
     avg_grade_num = total_grade / grade_count if grade_count > 0 else 0
     if avg_grade_num >= 90:
@@ -867,7 +899,7 @@ def generate_executive_summary(all_results: Dict[str, Any]) -> Dict[str, Any]:
     else:
         avg_grade = 'F'
     
-    # Build executive summary
+    # Build executive summary with technician performance critique
     return {
         "call_outcome": winner.get("winner_product", "Unknown"),
         "overall_grade": avg_grade,
@@ -888,7 +920,272 @@ def generate_executive_summary(all_results: Dict[str, Any]) -> Dict[str, Any]:
         ],
         "buying_signals_count": len(objections.get("buying_signals", [])),
         "objections_count": len(objections.get("objections", [])),
+        "overall_technician_performance_critique": {
+            "overall_grade": critique.get("overall_grade", "N/A"),
+            "compliance_summary": critique.get("compliance_summary", ""),
+            "sales_summary": critique.get("sales_summary", ""),
+            "products_promoted": critique.get("products_promoted", False),
+            "strengths": critique.get("strengths", []),
+            "areas_for_improvement": critique.get("areas_for_improvement", []),
+            "overall_assessment": critique.get("overall_assessment", "")
+        },
+        "sales_evaluation_summary": {
+            "building_rapport_grade": sales_eval.get('building_rapport', {}).get('grade', 'N/A') if sales_eval else 'N/A',
+            "handling_objections_grade": sales_eval.get('handling_objections', {}).get('grade', 'N/A') if sales_eval else 'N/A',
+            "speaking_time_grade": sales_eval.get('speaking_time_analysis', {}).get('grade', 'N/A') if sales_eval else 'N/A',
+            "upselling_grade": sales_eval.get('upselling_performance', {}).get('grade', 'N/A') if sales_eval else 'N/A'
+        },
         "generated_at": datetime.now().isoformat()
+    }
+
+
+def calculate_speaking_time_ratio(transcript_json: List[Dict], speaker_mapping: Dict[str, str]) -> Dict[str, Any]:
+    """Calculate the 70/30 speaking time ratio between technician and customer."""
+    technician_time = 0
+    customer_time = 0
+    
+    for utterance in transcript_json:
+        duration = utterance['end'] - utterance['start']
+        # Utterances have "A" or "B", but speaker_mapping has "Speaker A" or "Speaker B"
+        speaker_key = f"Speaker {utterance['speaker']}"
+        speaker_role = speaker_mapping.get(speaker_key, utterance['speaker'])
+        
+        if speaker_role == 'Technician':
+            technician_time += duration
+        elif speaker_role == 'Customer':
+            customer_time += duration
+    
+    total_time = technician_time + customer_time
+    
+    if total_time == 0:
+        return {
+            "technician_percentage": 0,
+            "customer_percentage": 0,
+            "technician_time_seconds": 0,
+            "customer_time_seconds": 0,
+            "total_time_seconds": 0
+        }
+    
+    tech_percentage = (technician_time / total_time) * 100
+    customer_percentage = (customer_time / total_time) * 100
+    
+    return {
+        "technician_percentage": round(tech_percentage, 1),
+        "customer_percentage": round(customer_percentage, 1),
+        "technician_time_seconds": round(technician_time, 1),
+        "customer_time_seconds": round(customer_time, 1),
+        "total_time_seconds": round(total_time, 1)
+    }
+
+
+def step8_sales_evaluation(transcript_text: str, products_list: List[Dict], 
+                           objections_analysis: Dict, speaking_ratio: Dict) -> Dict[str, Any]:
+    """Step 8: Sales Evaluation - Building rapport, handling objections, 70/30 rule, and upselling."""
+    print("\n" + "="*80)
+    print("STEP 8: Sales Evaluation")
+    print("="*80)
+    
+    system_prompt = """You are an expert sales performance analyst specializing in evaluating 
+technician/salesperson performance in service calls. Provide detailed, evidence-based assessments 
+with specific examples from the transcript."""
+    
+    # Question 1: Building Rapport
+    print("\nEvaluating: Building Rapport")
+    time.sleep(1)
+    
+    rapport_prompt = f"""Analyze this service call transcript and evaluate how well the technician 
+built rapport with the customer. Consider these specific criteria:
+
+CRITERIA:
+- Did the salesperson clearly introduce themselves and their company at the start?
+- Did they use the customer's name naturally and respectfully?
+- Did they ask questions to understand the customer's needs, preferences, or concerns?
+- Did the customer seem comfortable and engaged in the conversation?
+- Did the salesperson listen actively rather than dominate the conversation?
+- Did they find appropriate common ground without oversharing or going off-topic?
+- Did they mirror the customer's communication style (pace, tone, detail)?
+- Did they avoid pressuring or pushing decisions too quickly?
+- Did their explanations feel helpful, not overwhelming or condescending?
+- Did the customer open up more as the conversation progressed?
+
+TRANSCRIPT:
+{transcript_text}
+
+Return JSON format:
+{{
+  "grade": "A/B/C/D/F",
+  "grade_explanation": "Brief explanation of grade",
+  "detailed_assessment": "Comprehensive analysis addressing each criterion",
+  "strengths": ["strength 1", "strength 2", ...],
+  "weaknesses": ["weakness 1", "weakness 2", ...],
+  "supporting_quotes": [
+    {{
+      "timestamp": "[XXs - YYs]",
+      "quote": "Quote showing rapport-building or lack thereof",
+      "context": "What this demonstrates"
+    }}
+  ]
+}}"""
+    
+    rapport_response = call_llm(rapport_prompt, system_prompt, model="gpt-4o")
+    
+    # Question 2: Handling Objections
+    print("\nEvaluating: Handling Objections")
+    time.sleep(1)
+    
+    objection_prompt = f"""Analyze how well the technician handled customer objections in this service call.
+
+CRITERIA FOR GOOD OBJECTION HANDLING:
+- Did the salesperson stay calm and avoid becoming defensive?
+- Did they acknowledge the customer's concern before responding?
+- Did they ask clarifying questions to understand the real objection?
+- Did they listen fully before giving an answer?
+- Did they restate the objection accurately to show understanding?
+- Did they provide a clear, relevant response to the objection?
+- Did they offer options instead of ultimatums (financing plans, alternative models, smaller scope options)?
+- Did their response reduce the customer's concern?
+- Did they check for understanding afterward?
+- Did they avoid pushing for a close immediately after the objection?
+
+COMMON OBJECTIONS TO LOOK FOR:
+- "I need to ask my wife/spouse"
+- "This is too expensive for me"
+- Timing concerns
+- Trust/credibility concerns
+
+OBJECTIONS FOUND IN TRANSCRIPT:
+{objections_analysis}
+
+TRANSCRIPT:
+{transcript_text}
+
+Return JSON format:
+{{
+  "grade": "A/B/C/D/F",
+  "grade_explanation": "Brief explanation of grade",
+  "objections_identified": [
+    {{
+      "objection": "Description of objection",
+      "how_handled": "How technician responded",
+      "effectiveness": "high/medium/low",
+      "quote": "Supporting quote"
+    }}
+  ],
+  "overall_assessment": "Comprehensive analysis of objection handling skills",
+  "strengths": ["strength 1", "strength 2", ...],
+  "areas_for_improvement": ["improvement 1", "improvement 2", ...]
+}}"""
+    
+    objection_response = call_llm(objection_prompt, system_prompt, model="gpt-4o")
+    
+    # Question 3: 70/30 Rule Analysis
+    print("\nEvaluating: 70/30 Rule (Speaking Time Ratio)")
+    time.sleep(1)
+    
+    ratio_prompt = f"""Analyze whether the technician followed the 70/30 rule in sales (customer should 
+speak 70% of the time, salesperson 30%).
+
+SPEAKING TIME DATA:
+- Technician spoke: {speaking_ratio['technician_percentage']}% of the time ({speaking_ratio['technician_time_seconds']} seconds)
+- Customer spoke: {speaking_ratio['customer_percentage']}% of the time ({speaking_ratio['customer_time_seconds']} seconds)
+
+TRANSCRIPT CONTEXT:
+{transcript_text[:3000]}
+
+Analyze:
+1. Did the technician talk too much or listen appropriately?
+2. How much time was spent promoting products vs. listening to customer concerns?
+3. Was the balance appropriate for this type of service call?
+4. Did the technician dominate the conversation or let the customer express their needs?
+
+Return JSON format:
+{{
+  "grade": "A/B/C/D/F",
+  "grade_explanation": "Brief explanation of grade",
+  "speaking_ratio_assessment": "Analysis of whether the ratio was appropriate",
+  "time_breakdown": {{
+    "promoting_products": "percentage/description",
+    "listening_to_concerns": "percentage/description",
+    "technical_explanation": "percentage/description",
+    "rapport_building": "percentage/description"
+  }},
+  "recommendations": ["recommendation 1", "recommendation 2", ...]
+}}"""
+    
+    ratio_response = call_llm(ratio_prompt, system_prompt, model="gpt-4o")
+    
+    # Question 4: Successful Upsale
+    print("\nEvaluating: Successful Upsale")
+    time.sleep(1)
+    
+    upsale_prompt = f"""Analyze whether the technician successfully upsold products or faced common objections.
+
+PRODUCTS PRESENTED:
+{json.dumps([{"name": p.get("name"), "pricing": p.get("pricing"), "client_interest": p.get("client_interest_level")} for p in products_list], indent=2)}
+
+OBJECTIONS ANALYSIS:
+{objections_analysis}
+
+TRANSCRIPT:
+{transcript_text}
+
+Evaluate:
+1. Did the technician attempt to upsell?
+2. What products/services were upsold?
+3. Was the upsell successful? Did the customer commit or show strong interest?
+4. What objections were encountered (price, timing, need to consult spouse, etc.)?
+5. How did the technician respond to objections during the upsell?
+6. Were there missed upsell opportunities?
+
+Return JSON format:
+{{
+  "grade": "A/B/C/D/F",
+  "grade_explanation": "Brief explanation of grade",
+  "upsell_attempted": "yes/no",
+  "upsell_successful": "yes/no/partial",
+  "products_upsold": [
+    {{
+      "product": "Product name",
+      "success_level": "high/medium/low",
+      "customer_response": "Description",
+      "quote": "Supporting quote"
+    }}
+  ],
+  "objections_faced": [
+    {{
+      "objection": "Type of objection",
+      "handled_well": "yes/no/partial",
+      "outcome": "Description"
+    }}
+  ],
+  "missed_opportunities": ["opportunity 1", "opportunity 2", ...],
+  "overall_assessment": "Comprehensive analysis of upselling performance"
+}}"""
+    
+    upsale_response = call_llm(upsale_prompt, system_prompt, model="gpt-4o")
+    
+    # Parse all responses
+    def parse_json_response(response: str) -> Dict:
+        try:
+            cleaned = response.strip()
+            if cleaned.startswith("```json"):
+                cleaned = cleaned[7:]
+            if cleaned.startswith("```"):
+                cleaned = cleaned[3:]
+            if cleaned.endswith("```"):
+                cleaned = cleaned[:-3]
+            cleaned = cleaned.strip()
+            return json.loads(cleaned)
+        except (json.JSONDecodeError, KeyError) as e:
+            print(f"  Warning: Could not parse JSON: {e}")
+            return {"error": "Could not parse response", "raw_response": response}
+    
+    return {
+        "building_rapport": parse_json_response(rapport_response),
+        "handling_objections": parse_json_response(objection_response),
+        "speaking_time_analysis": parse_json_response(ratio_response),
+        "speaking_time_ratio": speaking_ratio,
+        "upselling_performance": parse_json_response(upsale_response)
     }
 
 
@@ -995,8 +1292,8 @@ def main():
     print(f"\nReading transcription from: {TRANSCRIPT_TXT}")
     print(f"Cache directory: {CACHE_DIR}")
     
-    # Initialize progress tracker (11 total steps now)
-    progress = ProgressTracker(total_steps=12)
+    # Initialize progress tracker (13 total steps now including sales evaluation)
+    progress = ProgressTracker(total_steps=13)
     
     # Load transcription
     transcript_text, transcript_json = load_transcription()
@@ -1053,7 +1350,7 @@ def main():
     if cached:
         results["step1_overall_summary"] = cached
     else:
-    results["step1_overall_summary"] = step1_overall_summary(labeled_transcript)
+        results["step1_overall_summary"] = step1_overall_summary(labeled_transcript)
         save_checkpoint("step1", results["step1_overall_summary"])
     
     # Step 2: Compliance Questions with Grades
@@ -1062,7 +1359,7 @@ def main():
     if cached:
         results["step2_compliance_analysis"] = cached
     else:
-    results["step2_compliance_analysis"] = step2_compliance_questions(labeled_transcript)
+        results["step2_compliance_analysis"] = step2_compliance_questions(labeled_transcript)
         save_checkpoint("step2", results["step2_compliance_analysis"])
     
     # Step 3: Structured Analysis
@@ -1071,7 +1368,7 @@ def main():
     if cached:
         results["step3_structured_analysis"] = cached
     else:
-    results["step3_structured_analysis"] = step3_structured_analysis(labeled_transcript)
+        results["step3_structured_analysis"] = step3_structured_analysis(labeled_transcript)
         save_checkpoint("step3", results["step3_structured_analysis"])
     
     # Step 3.5: Customer Objections Analysis
@@ -1114,7 +1411,7 @@ def main():
             results["step5_perplexity_research"] = cached
         else:
             results["step5_perplexity_research"] = step5_perplexity_enhanced_research(
-        labeled_transcript,
+                labeled_transcript,
                 results["step4_enhanced_products"],
                 customer_context,
                 location_info
@@ -1137,19 +1434,45 @@ def main():
         print("⚠️  Skipping Perplexity research (no products found)")
         results["step5_perplexity_research"] = {}
     
-    # Step 6: Overall Technician Critique
+    # Step 6: Calculate Speaking Time Ratio
+    progress.step("Speaking Time Analysis")
+    speaking_ratio = calculate_speaking_time_ratio(transcript_json, speaker_mapping)
+    results["speaking_time_ratio"] = speaking_ratio
+    print(f"  Speaking ratio - Technician: {speaking_ratio['technician_percentage']}%, Customer: {speaking_ratio['customer_percentage']}%")
+    
+    # Step 7: Sales Evaluation
+    if results.get("step4_enhanced_products"):
+        progress.step("Sales Evaluation")
+        cached = load_checkpoint("step8")
+        if cached:
+            results["step8_sales_evaluation"] = cached
+        else:
+            results["step8_sales_evaluation"] = step8_sales_evaluation(
+                labeled_transcript,
+                results["step4_enhanced_products"],
+                results.get("customer_objections_analysis", {}),
+                speaking_ratio
+            )
+            save_checkpoint("step8", results["step8_sales_evaluation"])
+    else:
+        print("⚠️  Skipping sales evaluation (no products found)")
+        results["step8_sales_evaluation"] = {}
+    
+    # Step 8: Overall Technician Critique (now includes sales evaluation)
     progress.step("Technician Critique")
     cached = load_checkpoint("step6")
-    if cached:
+    if cached and not results.get("step8_sales_evaluation"):
+        # Use cached only if no new sales evaluation
         results["step6_overall_critique"] = cached
     else:
         results["step6_overall_critique"] = step6_overall_technician_critique(
             results["step2_compliance_analysis"],
-            results.get("step4_enhanced_products", [])
+            results.get("step4_enhanced_products", []),
+            results.get("step8_sales_evaluation", {})
         )
         save_checkpoint("step6", results["step6_overall_critique"])
     
-    # Step 7: Product Comparison and Winner
+    # Step 9: Product Comparison and Winner
     if results.get("step4_enhanced_products"):
         progress.step("Product Comparison")
         cached = load_checkpoint("step7")
@@ -1166,7 +1489,7 @@ def main():
         print("⚠️  Skipping product comparison (no products found)")
         results["step7_product_comparison"] = {}
     
-    # Step 8: Executive Summary
+    # Step 10: Executive Summary
     progress.step("Executive Summary")
     results["executive_summary"] = generate_executive_summary(results)
     
@@ -1194,6 +1517,14 @@ def main():
     print(f"  - Buying Signals: {results['executive_summary'].get('buying_signals_count', 0)}")
     print(f"  - Objections: {results['executive_summary'].get('objections_count', 0)}")
     print(f"  - Recommended Product: {results.get('step7_product_comparison', {}).get('winner_product', 'N/A')}")
+    
+    sales_eval_summary = results['executive_summary'].get('sales_evaluation_summary', {})
+    if sales_eval_summary:
+        print(f"\n📊 Sales Evaluation:")
+        print(f"  - Building Rapport: {sales_eval_summary.get('building_rapport_grade', 'N/A')}")
+        print(f"  - Handling Objections: {sales_eval_summary.get('handling_objections_grade', 'N/A')}")
+        print(f"  - Speaking Time (70/30 Rule): {sales_eval_summary.get('speaking_time_grade', 'N/A')}")
+        print(f"  - Upselling Performance: {sales_eval_summary.get('upselling_grade', 'N/A')}")
     
     return 0
 
