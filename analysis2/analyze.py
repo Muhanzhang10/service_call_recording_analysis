@@ -10,6 +10,7 @@ import os
 import re
 import time
 import pickle
+import argparse
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 from datetime import datetime
@@ -1284,214 +1285,378 @@ Return detailed JSON:
         }
 
 
+def parse_arguments():
+    """Parse command-line arguments for step selection."""
+    parser = argparse.ArgumentParser(
+        description='Run service call analysis with selective step execution',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Steps:
+  0  - Speaker Identification
+  1  - Location & Context Extraction
+  2  - Pricing Extraction
+  3  - Overall Summary
+  4  - Compliance Analysis
+  5  - Structured Analysis (Client & Products)
+  6  - Customer Objections Analysis
+  7  - Product Interest Analysis
+  8  - Perplexity Research
+  9  - Speaking Time Analysis
+  10 - Sales Evaluation
+  11 - Technician Critique
+  12 - Product Comparison
+  13 - Executive Summary
+
+Examples:
+  python -m analysis2.analyze                    # Run all steps
+  python -m analysis2.analyze --steps 10         # Run only Sales Evaluation
+  python -m analysis2.analyze --steps 10 11 13   # Run Sales Eval, Critique, Summary
+  python -m analysis2.analyze --from 10          # Run from Sales Evaluation onwards
+  python -m analysis2.analyze --clear            # Clear cache and run all
+        """
+    )
+    
+    parser.add_argument(
+        '--steps',
+        type=int,
+        nargs='+',
+        help='Specific steps to run (space-separated)'
+    )
+    
+    parser.add_argument(
+        '--from',
+        type=int,
+        dest='from_step',
+        help='Run from this step onwards'
+    )
+    
+    parser.add_argument(
+        '--clear',
+        action='store_true',
+        help='Clear all cached checkpoints before running'
+    )
+    
+    parser.add_argument(
+        '--list',
+        action='store_true',
+        help='List all available steps and exit'
+    )
+    
+    return parser.parse_args()
+
+
+def list_steps():
+    """List all available analysis steps."""
+    steps = [
+        (0, "Speaker Identification"),
+        (1, "Location & Context Extraction"),
+        (2, "Pricing Extraction"),
+        (3, "Overall Summary"),
+        (4, "Compliance Analysis"),
+        (5, "Structured Analysis (Client & Products)"),
+        (6, "Customer Objections Analysis"),
+        (7, "Product Interest Analysis"),
+        (8, "Perplexity Research"),
+        (9, "Speaking Time Analysis"),
+        (10, "Sales Evaluation"),
+        (11, "Technician Critique"),
+        (12, "Product Comparison"),
+        (13, "Executive Summary")
+    ]
+    
+    print("\nAvailable Analysis Steps:")
+    print("="*80)
+    for step_num, step_name in steps:
+        print(f"  {step_num:2d} - {step_name}")
+    print("="*80)
+
+
+def load_existing_results() -> Dict[str, Any]:
+    """Load existing analysis results if they exist."""
+    if OUTPUT_FILE.exists():
+        try:
+            with open(OUTPUT_FILE, 'r') as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"  Warning: Could not load existing results: {e}")
+    return {}
+
+
 def main():
     """Run the complete analysis pipeline with progress tracking and checkpointing."""
+    # Parse command-line arguments
+    args = parse_arguments()
+    
+    # List steps and exit if requested
+    if args.list:
+        list_steps()
+        return 0
+    
+    # Clear cache if requested
+    if args.clear:
+        print("\nClearing all cached checkpoints...")
+        clear_checkpoints()
+    
+    # Determine which steps to run
+    if args.steps:
+        steps_to_run = set(args.steps)
+        print(f"\nRunning selected steps: {sorted(steps_to_run)}")
+    elif args.from_step is not None:
+        steps_to_run = set(range(args.from_step, 14))
+        print(f"\nRunning from step {args.from_step} onwards")
+    else:
+        steps_to_run = set(range(14))  # All steps 0-13
+        print("\nRunning all steps")
+    
     print("\n" + "="*80)
     print("SERVICE CALL COMPREHENSIVE ANALYSIS (ENHANCED)")
     print("="*80)
     print(f"\nReading transcription from: {TRANSCRIPT_TXT}")
     print(f"Cache directory: {CACHE_DIR}")
     
-    # Initialize progress tracker (13 total steps now including sales evaluation)
-    progress = ProgressTracker(total_steps=13)
+    # Load existing results if running specific steps
+    if len(steps_to_run) < 14:
+        results = load_existing_results()
+        print(f"Loaded existing results with {len(results)} top-level keys")
+    else:
+        results = {}
     
-    # Load transcription
+    # Initialize progress tracker
+    total_steps_to_run = len(steps_to_run)
+    progress = ProgressTracker(total_steps=total_steps_to_run)
+    
+    # Load transcription (always needed)
     transcript_text, transcript_json = load_transcription()
     print(f"Loaded transcript with {len(transcript_json)} utterances")
     
-    # Initialize results structure
-    results = {
-        "metadata": {
-            "transcript_file": str(TRANSCRIPT_TXT),
-            "total_utterances": len(transcript_json),
-            "analysis_model": "gpt-4o",
-            "analysis_timestamp": datetime.now().isoformat()
-        }
-    }
+    # Initialize or update metadata
+    if "metadata" not in results:
+        results["metadata"] = {}
+    
+    results["metadata"].update({
+        "transcript_file": str(TRANSCRIPT_TXT),
+        "total_utterances": len(transcript_json),
+        "analysis_model": "gpt-4o",
+        "analysis_timestamp": datetime.now().isoformat()
+    })
     
     # Step 0: Speaker Identification
-    progress.step("Speaker Identification")
-    cached = load_checkpoint("speakers")
-    if cached:
-        speaker_mapping = cached
+    if 0 in steps_to_run:
+        progress.step("Speaker Identification")
+        cached = load_checkpoint("speakers")
+        if cached:
+            speaker_mapping = cached
+        else:
+            speaker_mapping = identify_speakers(transcript_text)
+            save_checkpoint("speakers", speaker_mapping)
+        
+        results["metadata"]["speaker_mapping"] = speaker_mapping
+        print(f"Speaker mapping: {speaker_mapping}")
     else:
-        speaker_mapping = identify_speakers(transcript_text)
-        save_checkpoint("speakers", speaker_mapping)
+        # Load from existing results or checkpoint
+        if "metadata" in results and "speaker_mapping" in results["metadata"]:
+            speaker_mapping = results["metadata"]["speaker_mapping"]
+        else:
+            speaker_mapping = load_checkpoint("speakers") or identify_speakers(transcript_text)
+            results["metadata"]["speaker_mapping"] = speaker_mapping
     
     labeled_transcript = relabel_transcript(transcript_text, speaker_mapping)
-    results["metadata"]["speaker_mapping"] = speaker_mapping
-    print(f"Speaker mapping: {speaker_mapping}")
     
-    # Step 0.5: Location Extraction
-    progress.step("Location & Context Extraction")
-    cached = load_checkpoint("location")
-    if cached:
-        location_info = cached
-    else:
-        location_info = extract_location_info(labeled_transcript)
-        save_checkpoint("location", location_info)
-    results["location_info"] = location_info
-    print(f"Location: {location_info}")
-    
-    # Step 0.6: Pricing Extraction
-    progress.step("Pricing Extraction")
-    cached = load_checkpoint("pricing")
-    if cached:
-        pricing_info = cached
-    else:
-        pricing_info = extract_pricing_mentions(labeled_transcript)
-        save_checkpoint("pricing", pricing_info)
-    results["pricing_info"] = pricing_info
-    print(f"Found {len(pricing_info.get('structured_pricing', []))} pricing mentions")
-    
-    # Step 1: Overall Summary
-    progress.step("Overall Summary")
-    cached = load_checkpoint("step1")
-    if cached:
-        results["step1_overall_summary"] = cached
-    else:
-        results["step1_overall_summary"] = step1_overall_summary(labeled_transcript)
-        save_checkpoint("step1", results["step1_overall_summary"])
-    
-    # Step 2: Compliance Questions with Grades
-    progress.step("Compliance Analysis")
-    cached = load_checkpoint("step2")
-    if cached:
-        results["step2_compliance_analysis"] = cached
-    else:
-        results["step2_compliance_analysis"] = step2_compliance_questions(labeled_transcript)
-        save_checkpoint("step2", results["step2_compliance_analysis"])
-    
-    # Step 3: Structured Analysis
-    progress.step("Structured Analysis")
-    cached = load_checkpoint("step3")
-    if cached:
-        results["step3_structured_analysis"] = cached
-    else:
-        results["step3_structured_analysis"] = step3_structured_analysis(labeled_transcript)
-        save_checkpoint("step3", results["step3_structured_analysis"])
-    
-    # Step 3.5: Customer Objections Analysis
-    progress.step("Customer Objections Analysis")
-    cached = load_checkpoint("objections")
-    if cached:
-        results["customer_objections_analysis"] = cached
-    else:
-        results["customer_objections_analysis"] = analyze_customer_objections(labeled_transcript)
-        save_checkpoint("objections", results["customer_objections_analysis"])
-    
-    # Step 4: Enhanced Product Analysis (interest integrated)
-    progress.step("Product Interest Analysis")
-    products_list = results["step3_structured_analysis"].get("products_and_plans", [])
-    
-    if not products_list:
-        print("⚠️  No products found in structured analysis. Skipping product-related steps.")
-        results["step4_enhanced_products"] = []
-    else:
-        cached = load_checkpoint("step4")
+    # Step 1: Location Extraction
+    if 1 in steps_to_run:
+        progress.step("Location & Context Extraction")
+        cached = load_checkpoint("location")
         if cached:
-            results["step4_enhanced_products"] = cached
+            location_info = cached
         else:
-            results["step4_enhanced_products"] = step4_integrated_product_analysis(labeled_transcript, products_list)
-            save_checkpoint("step4", results["step4_enhanced_products"])
-        # Update the structured analysis with enhanced products
-        results["step3_structured_analysis"]["products_and_plans"] = results["step4_enhanced_products"]
+            location_info = extract_location_info(labeled_transcript)
+            save_checkpoint("location", location_info)
+        results["location_info"] = location_info
+        print(f"Location: {location_info}")
+    else:
+        location_info = results.get("location_info") or load_checkpoint("location") or extract_location_info(labeled_transcript)
+        if "location_info" not in results:
+            results["location_info"] = location_info
     
-    # Build dynamic customer context for Perplexity
+    # Step 2: Pricing Extraction
+    if 2 in steps_to_run:
+        progress.step("Pricing Extraction")
+        cached = load_checkpoint("pricing")
+        if cached:
+            pricing_info = cached
+        else:
+            pricing_info = extract_pricing_mentions(labeled_transcript)
+            save_checkpoint("pricing", pricing_info)
+        results["pricing_info"] = pricing_info
+        print(f"Found {len(pricing_info.get('structured_pricing', []))} pricing mentions")
+    else:
+        pricing_info = results.get("pricing_info") or load_checkpoint("pricing")
+        if pricing_info and "pricing_info" not in results:
+            results["pricing_info"] = pricing_info
+    
+    # Step 3: Overall Summary
+    if 3 in steps_to_run:
+        progress.step("Overall Summary")
+        cached = load_checkpoint("step1")
+        if cached:
+            results["step1_overall_summary"] = cached
+        else:
+            results["step1_overall_summary"] = step1_overall_summary(labeled_transcript)
+            save_checkpoint("step1", results["step1_overall_summary"])
+    
+    # Step 4: Compliance Questions with Grades
+    if 4 in steps_to_run:
+        progress.step("Compliance Analysis")
+        cached = load_checkpoint("step2")
+        if cached:
+            results["step2_compliance_analysis"] = cached
+        else:
+            results["step2_compliance_analysis"] = step2_compliance_questions(labeled_transcript)
+            save_checkpoint("step2", results["step2_compliance_analysis"])
+    
+    # Step 5: Structured Analysis
+    if 5 in steps_to_run:
+        progress.step("Structured Analysis")
+        cached = load_checkpoint("step3")
+        if cached:
+            results["step3_structured_analysis"] = cached
+        else:
+            results["step3_structured_analysis"] = step3_structured_analysis(labeled_transcript)
+            save_checkpoint("step3", results["step3_structured_analysis"])
+    
+    # Step 6: Customer Objections Analysis
+    if 6 in steps_to_run:
+        progress.step("Customer Objections Analysis")
+        cached = load_checkpoint("objections")
+        if cached:
+            results["customer_objections_analysis"] = cached
+        else:
+            results["customer_objections_analysis"] = analyze_customer_objections(labeled_transcript)
+            save_checkpoint("objections", results["customer_objections_analysis"])
+    
+    # Step 7: Enhanced Product Analysis (interest integrated)
+    if 7 in steps_to_run:
+        progress.step("Product Interest Analysis")
+        products_list = results.get("step3_structured_analysis", {}).get("products_and_plans", [])
+        
+        if not products_list:
+            print("⚠️  No products found in structured analysis. Skipping product-related steps.")
+            results["step4_enhanced_products"] = []
+        else:
+            cached = load_checkpoint("step4")
+            if cached:
+                results["step4_enhanced_products"] = cached
+            else:
+                results["step4_enhanced_products"] = step4_integrated_product_analysis(labeled_transcript, products_list)
+                save_checkpoint("step4", results["step4_enhanced_products"])
+            # Update the structured analysis with enhanced products
+            if "step3_structured_analysis" in results:
+                results["step3_structured_analysis"]["products_and_plans"] = results["step4_enhanced_products"]
+    
+    # Build dynamic customer context for Perplexity (always needed for step 8)
     customer_context = extract_customer_context(
-        results["step3_structured_analysis"].get("client_situation", {}),
+        results.get("step3_structured_analysis", {}).get("client_situation", {}),
         location_info
     )
     
-    # Step 5: Perplexity Enhanced Research (mentioned + alternatives)
-    if results.get("step4_enhanced_products"):
-        progress.step("Perplexity Research")
-        cached = load_checkpoint("step5")
-        if cached:
-            results["step5_perplexity_research"] = cached
-        else:
-            results["step5_perplexity_research"] = step5_perplexity_enhanced_research(
-                labeled_transcript,
-                results["step4_enhanced_products"],
-                customer_context,
-                location_info
-            )
-            save_checkpoint("step5", results["step5_perplexity_research"])
-        
-        # Step 5B: Alternative Product Interest Analysis
-        if results["step5_perplexity_research"].get("alternative_products_info"):
-            cached = load_checkpoint("step5b")
+    # Step 8: Perplexity Enhanced Research (mentioned + alternatives)
+    if 8 in steps_to_run:
+        if results.get("step4_enhanced_products"):
+            progress.step("Perplexity Research")
+            cached = load_checkpoint("step5")
             if cached:
-                results["step5_perplexity_research"]["alternative_interest_analysis"] = cached
+                results["step5_perplexity_research"] = cached
             else:
-                alt_interest = step5b_alternative_product_interest(
+                results["step5_perplexity_research"] = step5_perplexity_enhanced_research(
                     labeled_transcript,
-                    results["step5_perplexity_research"]["alternative_products_info"]
+                    results["step4_enhanced_products"],
+                    customer_context,
+                    location_info
                 )
-                results["step5_perplexity_research"]["alternative_interest_analysis"] = alt_interest
-                save_checkpoint("step5b", alt_interest)
-    else:
-        print("⚠️  Skipping Perplexity research (no products found)")
-        results["step5_perplexity_research"] = {}
-    
-    # Step 6: Calculate Speaking Time Ratio
-    progress.step("Speaking Time Analysis")
-    speaking_ratio = calculate_speaking_time_ratio(transcript_json, speaker_mapping)
-    results["speaking_time_ratio"] = speaking_ratio
-    print(f"  Speaking ratio - Technician: {speaking_ratio['technician_percentage']}%, Customer: {speaking_ratio['customer_percentage']}%")
-    
-    # Step 7: Sales Evaluation
-    if results.get("step4_enhanced_products"):
-        progress.step("Sales Evaluation")
-        cached = load_checkpoint("step8")
-        if cached:
-            results["step8_sales_evaluation"] = cached
+                save_checkpoint("step5", results["step5_perplexity_research"])
+            
+            # Alternative Product Interest Analysis
+            if results["step5_perplexity_research"].get("alternative_products_info"):
+                cached = load_checkpoint("step5b")
+                if cached:
+                    results["step5_perplexity_research"]["alternative_interest_analysis"] = cached
+                else:
+                    alt_interest = step5b_alternative_product_interest(
+                        labeled_transcript,
+                        results["step5_perplexity_research"]["alternative_products_info"]
+                    )
+                    results["step5_perplexity_research"]["alternative_interest_analysis"] = alt_interest
+                    save_checkpoint("step5b", alt_interest)
         else:
-            results["step8_sales_evaluation"] = step8_sales_evaluation(
-                labeled_transcript,
-                results["step4_enhanced_products"],
-                results.get("customer_objections_analysis", {}),
-                speaking_ratio
-            )
-            save_checkpoint("step8", results["step8_sales_evaluation"])
-    else:
-        print("⚠️  Skipping sales evaluation (no products found)")
-        results["step8_sales_evaluation"] = {}
+            print("⚠️  Skipping Perplexity research (no products found)")
+            results["step5_perplexity_research"] = {}
     
-    # Step 8: Overall Technician Critique (now includes sales evaluation)
-    progress.step("Technician Critique")
-    cached = load_checkpoint("step6")
-    if cached and not results.get("step8_sales_evaluation"):
-        # Use cached only if no new sales evaluation
-        results["step6_overall_critique"] = cached
+    # Step 9: Calculate Speaking Time Ratio
+    if 9 in steps_to_run:
+        progress.step("Speaking Time Analysis")
+        speaking_ratio = calculate_speaking_time_ratio(transcript_json, speaker_mapping)
+        results["speaking_time_ratio"] = speaking_ratio
+        print(f"  Speaking ratio - Technician: {speaking_ratio['technician_percentage']}%, Customer: {speaking_ratio['customer_percentage']}%")
     else:
-        results["step6_overall_critique"] = step6_overall_technician_critique(
-            results["step2_compliance_analysis"],
-            results.get("step4_enhanced_products", []),
-            results.get("step8_sales_evaluation", {})
-        )
-        save_checkpoint("step6", results["step6_overall_critique"])
+        speaking_ratio = results.get("speaking_time_ratio") or calculate_speaking_time_ratio(transcript_json, speaker_mapping)
+        if "speaking_time_ratio" not in results:
+            results["speaking_time_ratio"] = speaking_ratio
     
-    # Step 9: Product Comparison and Winner
-    if results.get("step4_enhanced_products"):
-        progress.step("Product Comparison")
-        cached = load_checkpoint("step7")
-        if cached:
-            results["step7_product_comparison"] = cached
+    # Step 10: Sales Evaluation
+    if 10 in steps_to_run:
+        if results.get("step4_enhanced_products"):
+            progress.step("Sales Evaluation")
+            cached = load_checkpoint("step8")
+            if cached:
+                results["step8_sales_evaluation"] = cached
+            else:
+                results["step8_sales_evaluation"] = step8_sales_evaluation(
+                    labeled_transcript,
+                    results["step4_enhanced_products"],
+                    results.get("customer_objections_analysis", {}),
+                    speaking_ratio
+                )
+                save_checkpoint("step8", results["step8_sales_evaluation"])
         else:
-            results["step7_product_comparison"] = step7_product_comparison_and_winner(
-                labeled_transcript,
-                results["step4_enhanced_products"],
-                results.get("step5_perplexity_research", {})
-            )
-            save_checkpoint("step7", results["step7_product_comparison"])
-    else:
-        print("⚠️  Skipping product comparison (no products found)")
-        results["step7_product_comparison"] = {}
+            print("⚠️  Skipping sales evaluation (no products found)")
+            results["step8_sales_evaluation"] = {}
     
-    # Step 10: Executive Summary
-    progress.step("Executive Summary")
-    results["executive_summary"] = generate_executive_summary(results)
+    # Step 11: Overall Technician Critique (now includes sales evaluation)
+    if 11 in steps_to_run:
+        progress.step("Technician Critique")
+        cached = load_checkpoint("step6")
+        if cached and not (10 in steps_to_run):  # Use cache if sales eval wasn't just run
+            results["step6_overall_critique"] = cached
+        else:
+            results["step6_overall_critique"] = step6_overall_technician_critique(
+                results.get("step2_compliance_analysis", {}),
+                results.get("step4_enhanced_products", []),
+                results.get("step8_sales_evaluation", {})
+            )
+            save_checkpoint("step6", results["step6_overall_critique"])
+    
+    # Step 12: Product Comparison and Winner
+    if 12 in steps_to_run:
+        if results.get("step4_enhanced_products"):
+            progress.step("Product Comparison")
+            cached = load_checkpoint("step7")
+            if cached:
+                results["step7_product_comparison"] = cached
+            else:
+                results["step7_product_comparison"] = step7_product_comparison_and_winner(
+                    labeled_transcript,
+                    results["step4_enhanced_products"],
+                    results.get("step5_perplexity_research", {})
+                )
+                save_checkpoint("step7", results["step7_product_comparison"])
+        else:
+            print("⚠️  Skipping product comparison (no products found)")
+            results["step7_product_comparison"] = {}
+    
+    # Step 13: Executive Summary
+    if 13 in steps_to_run:
+        progress.step("Executive Summary")
+        results["executive_summary"] = generate_executive_summary(results)
     
     # Save results
     print("\n" + "="*80)
@@ -1502,29 +1667,42 @@ def main():
     with open(OUTPUT_FILE, 'w') as f:
         json.dump(results, f, indent=2)
     
-    # Clear checkpoints after successful completion
-    clear_checkpoints()
+    # Only clear checkpoints if all steps were run
+    if len(steps_to_run) == 14:
+        clear_checkpoints()
+        print("\n✓ All steps completed - cleared checkpoints")
+    else:
+        print(f"\n✓ Completed {len(steps_to_run)} step(s) - checkpoints preserved")
     
     print(f"\n{'='*80}")
     print(f"✓ ANALYSIS COMPLETE!")
     print(f"{'='*80}")
     print(f"\n📊 Results saved to: {OUTPUT_FILE}")
-    print(f"\n📋 Summary:")
-    print(f"  - Executive Summary: {results['executive_summary'].get('call_outcome', 'N/A')}")
-    print(f"  - Overall Grade: {results['executive_summary'].get('overall_grade', 'N/A')}")
-    print(f"  - Products Analyzed: {len(results.get('step4_enhanced_products', []))}")
-    print(f"  - Customer Readiness: {results['executive_summary'].get('customer_readiness', 'N/A')}")
-    print(f"  - Buying Signals: {results['executive_summary'].get('buying_signals_count', 0)}")
-    print(f"  - Objections: {results['executive_summary'].get('objections_count', 0)}")
-    print(f"  - Recommended Product: {results.get('step7_product_comparison', {}).get('winner_product', 'N/A')}")
     
-    sales_eval_summary = results['executive_summary'].get('sales_evaluation_summary', {})
-    if sales_eval_summary:
-        print(f"\n📊 Sales Evaluation:")
-        print(f"  - Building Rapport: {sales_eval_summary.get('building_rapport_grade', 'N/A')}")
-        print(f"  - Handling Objections: {sales_eval_summary.get('handling_objections_grade', 'N/A')}")
-        print(f"  - Speaking Time (70/30 Rule): {sales_eval_summary.get('speaking_time_grade', 'N/A')}")
-        print(f"  - Upselling Performance: {sales_eval_summary.get('upselling_grade', 'N/A')}")
+    # Print summary if executive summary exists
+    if "executive_summary" in results:
+        print(f"\n📋 Summary:")
+        exec_sum = results['executive_summary']
+        print(f"  - Executive Summary: {exec_sum.get('call_outcome', 'N/A')}")
+        print(f"  - Overall Grade: {exec_sum.get('overall_grade', 'N/A')}")
+        print(f"  - Products Analyzed: {len(results.get('step4_enhanced_products', []))}")
+        print(f"  - Customer Readiness: {exec_sum.get('customer_readiness', 'N/A')}")
+        print(f"  - Buying Signals: {exec_sum.get('buying_signals_count', 0)}")
+        print(f"  - Objections: {exec_sum.get('objections_count', 0)}")
+        print(f"  - Recommended Product: {results.get('step7_product_comparison', {}).get('winner_product', 'N/A')}")
+        
+        sales_eval_summary = exec_sum.get('sales_evaluation_summary', {})
+        if sales_eval_summary:
+            print(f"\n📊 Sales Evaluation:")
+            print(f"  - Building Rapport: {sales_eval_summary.get('building_rapport_grade', 'N/A')}")
+            print(f"  - Handling Objections: {sales_eval_summary.get('handling_objections_grade', 'N/A')}")
+            print(f"  - Speaking Time (70/30 Rule): {sales_eval_summary.get('speaking_time_grade', 'N/A')}")
+            print(f"  - Upselling Performance: {sales_eval_summary.get('upselling_grade', 'N/A')}")
+    else:
+        print(f"\nRun step 13 (Executive Summary) to see full summary")
+    
+    print(f"\n💡 Tip: Use --list to see all available steps")
+    print(f"   Example: python -m analysis2.analyze --steps 10 11 13")
     
     return 0
 
