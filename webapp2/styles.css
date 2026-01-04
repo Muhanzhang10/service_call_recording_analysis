@@ -1481,3 +1481,364 @@ main {
     }
 }
 
+/* Client Information Styles */
+.client-info-card {
+    margin-bottom: 25px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.info-item {
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border-left: 3px solid #667eea;
+}
+
+.info-item strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #374151;
+}
+
+.info-item.full-width {
+    grid-column: 1 / -1;
+}
+
+.info-item ul {
+    margin: 8px 0 0 20px;
+    padding: 0;
+}
+
+.info-item ul li {
+    margin-bottom: 4px;
+}
+
+.level-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    font-weight: 600;
+}
+
+.level-badge.high {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.level-badge.medium {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.level-badge.low {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.pain-motivations-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.pain-point-item,
+.motivation-item {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    border-left: 4px solid;
+}
+
+.pain-point-item {
+    background: #fef2f2;
+    border-left-color: #dc2626;
+}
+
+.motivation-item {
+    background: #f0fdf4;
+    border-left-color: #16a34a;
+}
+
+.pain-point-item.severity-high {
+    border-left-width: 6px;
+    background: #fee2e2;
+}
+
+.motivation-item.priority-high {
+    border-left-width: 6px;
+    background: #dcfce7;
+}
+
+.pain-header,
+.motivation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.severity-badge,
+.priority-badge {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.severity-badge {
+    background: #dc2626;
+    color: white;
+}
+
+.priority-badge {
+    background: #16a34a;
+    color: white;
+}
+
+.pain-quote,
+.motivation-quote {
+    font-style: italic;
+    color: #6b7280;
+    font-size: 0.9em;
+    margin-top: 8px;
+    padding-left: 12px;
+    border-left: 2px solid #d1d5db;
+}
+
+.behavior-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.behavior-section {
+    padding: 15px;
+    background: #f9fafb;
+    border-radius: 8px;
+}
+
+.behavior-section h4 {
+    margin-top: 0;
+    color: #667eea;
+}
+
+.advertising-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.ad-section {
+    padding: 15px;
+    background: #eff6ff;
+    border-radius: 8px;
+    border-left: 3px solid #3b82f6;
+}
+
+.ad-section h4 {
+    margin-top: 0;
+    color: #1e40af;
+    font-size: 0.95em;
+}
+
+.ad-section ul {
+    margin: 10px 0 0 20px;
+    padding: 0;
+}
+
+.strategy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.strategy-section {
+    margin-bottom: 20px;
+}
+
+.strategy-section p {
+    color: #374151;
+    line-height: 1.6;
+}
+
+.strategy-box {
+    padding: 15px;
+    background: #fefce8;
+    border-radius: 8px;
+    border-left: 3px solid #ca8a04;
+}
+
+.strategy-box h4 {
+    margin-top: 0;
+    color: #854d0e;
+    font-size: 0.95em;
+}
+
+.strategy-box ul {
+    margin: 10px 0 0 20px;
+    padding: 0;
+}
+
+/* Client Insights Summary in Overall Summary */
+.client-insights-card {
+    margin-top: 25px;
+}
+
+.insight-section {
+    margin-bottom: 20px;
+}
+
+.archetype-section {
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 10px;
+}
+
+.archetype-section h3 {
+    margin-top: 0;
+    color: white;
+}
+
+.archetype-text {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.quick-wins-list {
+    list-style: none;
+    padding: 0;
+}
+
+.quick-wins-list li {
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    background: #fef3c7;
+    border-left: 4px solid #f59e0b;
+    border-radius: 6px;
+}
+
+.insights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.insight-box {
+    padding: 15px;
+    background: #f9fafb;
+    border-radius: 8px;
+    border-top: 3px solid #667eea;
+}
+
+.insight-box h4 {
+    margin-top: 0;
+    color: #374151;
+    font-size: 0.95em;
+}
+
+.insight-box ul {
+    margin: 10px 0 0 20px;
+    padding: 0;
+}
+
+.insight-box ul li {
+    margin-bottom: 5px;
+}
+
+.sensitivity-high {
+    color: #dc2626;
+    font-weight: 600;
+}
+
+.sensitivity-medium {
+    color: #f59e0b;
+    font-weight: 600;
+}
+
+.sensitivity-low {
+    color: #16a34a;
+    font-weight: 600;
+}
+
+.messaging-list,
+.followup-list {
+    list-style: none;
+    padding: 0;
+}
+
+.messaging-list li,
+.followup-list li {
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    border-radius: 6px;
+}
+
+.advertising-section {
+    background: #f0f9ff;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.followup-section {
+    background: #f0fdf4;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+/* Product Alignment Section in Critique */
+.product-alignment-section {
+    background: #fef3c7;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #f59e0b;
+}
+
+.product-alignment-section h4 {
+    color: #92400e;
+}
+
+.inline-grade {
+    margin-left: 10px;
+    font-size: 0.9em;
+}
+
+.grade-badge-small {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 0.85em;
+    font-weight: 600;
+    border-radius: 6px;
+    width: auto;
+    height: auto;
+    color: white;
+    vertical-align: middle;
+}
+
+/* Responsive Adjustments for Client Information */
+@media (max-width: 768px) {
+    .pain-motivations-grid,
+    .behavior-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+

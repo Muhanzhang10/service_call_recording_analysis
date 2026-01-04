@@ -81,6 +81,7 @@ function renderAllSections() {
     renderComplianceQuestions();
     renderSalesEvaluation();
     renderStructuredAnalysis();
+    renderClientInformation();
     renderTranscript();
 }
 
@@ -99,6 +100,9 @@ function renderOverallSummary() {
     
     // Render Overall Critique
     renderOverallCritique();
+    
+    // Render Client Insights Summary
+    renderClientInsightsSummary();
     
     // Update quick stats
     if (analysisData.step2_compliance_analysis?.call_type) {
@@ -139,15 +143,22 @@ function renderOverallCritique() {
         
         ${critique.compliance_summary ? `
             <div class="critique-section">
-                <h4>Compliance Performance</h4>
+                <h4>Compliance Performance${critique.compliance_grade ? ` <span class="inline-grade grade-badge grade-badge-small grade-${critique.compliance_grade}">${critique.compliance_grade}</span>` : ''}</h4>
                 <p>${escapeHtml(critique.compliance_summary)}</p>
             </div>
         ` : ''}
         
         ${critique.sales_summary ? `
             <div class="critique-section">
-                <h4>Sales & Product Presentation</h4>
+                <h4>Sales & Product Presentation${critique.sales_grade ? ` <span class="inline-grade grade-badge grade-badge-small grade-${critique.sales_grade}">${critique.sales_grade}</span>` : ''}</h4>
                 <p>${escapeHtml(critique.sales_summary)}</p>
+            </div>
+        ` : ''}
+        
+        ${critique.product_alignment_assessment ? `
+            <div class="critique-section">
+                <h4>Product-Client Alignment${critique.product_alignment_grade ? ` <span class="inline-grade grade-badge grade-badge-small grade-${critique.product_alignment_grade}">${critique.product_alignment_grade}</span>` : ''}</h4>
+                <p>${escapeHtml(critique.product_alignment_assessment)}</p>
             </div>
         ` : ''}
         
@@ -185,6 +196,98 @@ function renderOverallCritique() {
             </div>
         ` : ''}
     `;
+    
+    container.innerHTML = html;
+}
+
+function renderClientInsightsSummary() {
+    const container = document.getElementById('client-insights-summary');
+    const clientSummary = analysisData.executive_summary?.client_insights_summary;
+    
+    if (!clientSummary || Object.keys(clientSummary).length === 0) {
+        container.innerHTML = '<p>No client insights available. Run step 14 to generate.</p>';
+        return;
+    }
+    
+    let html = '';
+    
+    if (clientSummary.client_archetype) {
+        html += `
+            <div class="insight-section archetype-section">
+                <h3>Client Archetype</h3>
+                <p class="archetype-text">${escapeHtml(clientSummary.client_archetype)}</p>
+            </div>
+        `;
+    }
+    
+    if (clientSummary.quick_wins && clientSummary.quick_wins.length > 0) {
+        html += `
+            <div class="insight-section">
+                <h3>⚡ Quick Wins</h3>
+                <ul class="quick-wins-list">
+                    ${clientSummary.quick_wins.map(w => `<li>${escapeHtml(w)}</li>`).join('')}
+                </ul>
+            </div>
+        `;
+    }
+    
+    html += `
+        <div class="insights-grid">
+            ${clientSummary.key_pain_points && clientSummary.key_pain_points.length > 0 ? `
+                <div class="insight-box">
+                    <h4>😓 Key Pain Points</h4>
+                    <ul>
+                        ${clientSummary.key_pain_points.map(p => `<li>${escapeHtml(p)}</li>`).join('')}
+                    </ul>
+                </div>
+            ` : ''}
+            
+            ${clientSummary.top_motivations && clientSummary.top_motivations.length > 0 ? `
+                <div class="insight-box">
+                    <h4>💪 Top Motivations</h4>
+                    <ul>
+                        ${clientSummary.top_motivations.map(m => `<li>${escapeHtml(m)}</li>`).join('')}
+                    </ul>
+                </div>
+            ` : ''}
+            
+            ${clientSummary.budget_sensitivity ? `
+                <div class="insight-box">
+                    <h4>💰 Budget Sensitivity</h4>
+                    <p class="sensitivity-${clientSummary.budget_sensitivity}">${escapeHtml(clientSummary.budget_sensitivity).toUpperCase()}</p>
+                </div>
+            ` : ''}
+            
+            ${clientSummary.decision_timeline ? `
+                <div class="insight-box">
+                    <h4>⏰ Decision Timeline</h4>
+                    <p>${escapeHtml(clientSummary.decision_timeline)}</p>
+                </div>
+            ` : ''}
+        </div>
+    `;
+    
+    if (clientSummary.recommended_messaging && clientSummary.recommended_messaging.length > 0) {
+        html += `
+            <div class="insight-section advertising-section">
+                <h3>📢 Recommended Messaging</h3>
+                <ul class="messaging-list">
+                    ${clientSummary.recommended_messaging.map(m => `<li>${escapeHtml(m)}</li>`).join('')}
+                </ul>
+            </div>
+        `;
+    }
+    
+    if (clientSummary.follow_up_strategy && clientSummary.follow_up_strategy.length > 0) {
+        html += `
+            <div class="insight-section followup-section">
+                <h3>📞 Follow-Up Strategy</h3>
+                <ul class="followup-list">
+                    ${clientSummary.follow_up_strategy.map(f => `<li>${escapeHtml(f)}</li>`).join('')}
+                </ul>
+            </div>
+        `;
+    }
     
     container.innerHTML = html;
 }
@@ -1156,7 +1259,219 @@ function renderWinnerAnalysis() {
     container.innerHTML = html;
 }
 
-// Tab 4: Full Transcript
+// Tab 4: Client Information
+function renderClientInformation() {
+    const container = document.getElementById('client-information');
+    const clientInsights = analysisData.step14_client_insights;
+    
+    if (!clientInsights || clientInsights.error) {
+        container.innerHTML = '<p>No client information available. Run step 14 (Client Insights Extraction) to generate this data.</p>';
+        return;
+    }
+    
+    let html = '';
+    
+    // Demographic Profile
+    if (clientInsights.demographic_profile) {
+        const demo = clientInsights.demographic_profile;
+        html += `
+            <div class="card client-info-card">
+                <h3>👥 Demographic Profile</h3>
+                <div class="info-grid">
+                    ${demo.family_status ? `<div class="info-item"><strong>Family Status:</strong> ${escapeHtml(demo.family_status)}</div>` : ''}
+                    ${demo.home_details ? `<div class="info-item"><strong>Home Details:</strong> ${escapeHtml(demo.home_details)}</div>` : ''}
+                    ${demo.work_situation ? `<div class="info-item"><strong>Work Situation:</strong> ${escapeHtml(demo.work_situation)}</div>` : ''}
+                    ${demo.age_indicators ? `<div class="info-item"><strong>Age Indicators:</strong> ${escapeHtml(demo.age_indicators)}</div>` : ''}
+                </div>
+            </div>
+        `;
+    }
+    
+    // Lifestyle & Preferences
+    if (clientInsights.lifestyle_preferences) {
+        const lifestyle = clientInsights.lifestyle_preferences;
+        html += `
+            <div class="card client-info-card">
+                <h3>🏠 Lifestyle & Preferences</h3>
+                <div class="info-grid">
+                    ${lifestyle.comfort_needs && lifestyle.comfort_needs.length > 0 ? `
+                        <div class="info-item full-width">
+                            <strong>Comfort Needs:</strong>
+                            <ul>${lifestyle.comfort_needs.map(n => `<li>${escapeHtml(n)}</li>`).join('')}</ul>
+                        </div>
+                    ` : ''}
+                    <div class="info-item"><strong>Environmental Consciousness:</strong> <span class="level-badge ${lifestyle.environmental_consciousness}">${escapeHtml(lifestyle.environmental_consciousness || 'N/A').toUpperCase()}</span></div>
+                    <div class="info-item"><strong>Tech Savviness:</strong> <span class="level-badge ${lifestyle.tech_savviness}">${escapeHtml(lifestyle.tech_savviness || 'N/A').toUpperCase()}</span></div>
+                    <div class="info-item"><strong>Budget Sensitivity:</strong> <span class="level-badge ${lifestyle.budget_sensitivity}">${escapeHtml(lifestyle.budget_sensitivity || 'N/A').toUpperCase()}</span></div>
+                </div>
+            </div>
+        `;
+    }
+    
+    // Pain Points & Motivations
+    html += `<div class="card client-info-card"><h3>💡 Pain Points & Motivations</h3><div class="pain-motivations-grid">`;
+    
+    if (clientInsights.pain_points && clientInsights.pain_points.length > 0) {
+        html += `
+            <div class="pain-points-section">
+                <h4>😓 Pain Points</h4>
+        `;
+        clientInsights.pain_points.forEach(pp => {
+            html += `
+                <div class="pain-point-item severity-${pp.severity}">
+                    <div class="pain-header">
+                        <span class="pain-text">${escapeHtml(pp.pain_point)}</span>
+                        <span class="severity-badge">${escapeHtml(pp.severity || 'medium')}</span>
+                    </div>
+                    ${pp.supporting_quote ? `<div class="pain-quote">"${escapeHtml(pp.supporting_quote)}"</div>` : ''}
+                </div>
+            `;
+        });
+        html += `</div>`;
+    }
+    
+    if (clientInsights.motivations && clientInsights.motivations.length > 0) {
+        html += `
+            <div class="motivations-section">
+                <h4>💪 Motivations</h4>
+        `;
+        clientInsights.motivations.forEach(mot => {
+            html += `
+                <div class="motivation-item priority-${mot.priority}">
+                    <div class="motivation-header">
+                        <span class="motivation-text">${escapeHtml(mot.motivation)}</span>
+                        <span class="priority-badge">${escapeHtml(mot.priority || 'medium')}</span>
+                    </div>
+                    ${mot.supporting_quote ? `<div class="motivation-quote">"${escapeHtml(mot.supporting_quote)}"</div>` : ''}
+                </div>
+            `;
+        });
+        html += `</div>`;
+    }
+    
+    html += `</div></div>`;
+    
+    // Communication & Purchase Behavior
+    html += `<div class="card client-info-card"><h3>🗣️ Communication & Purchase Behavior</h3><div class="behavior-grid">`;
+    
+    if (clientInsights.communication_profile) {
+        const comm = clientInsights.communication_profile;
+        html += `
+            <div class="behavior-section">
+                <h4>Communication Profile</h4>
+                <div class="info-grid">
+                    ${comm.decision_style ? `<div class="info-item"><strong>Decision Style:</strong> ${escapeHtml(comm.decision_style)}</div>` : ''}
+                    ${comm.information_preference ? `<div class="info-item"><strong>Info Preference:</strong> ${escapeHtml(comm.information_preference)}</div>` : ''}
+                    ${comm.trust_level ? `<div class="info-item"><strong>Trust Level:</strong> <span class="level-badge ${comm.trust_level}">${escapeHtml(comm.trust_level).toUpperCase()}</span></div>` : ''}
+                    ${comm.objection_patterns && comm.objection_patterns.length > 0 ? `
+                        <div class="info-item full-width">
+                            <strong>Objection Patterns:</strong>
+                            <ul>${comm.objection_patterns.map(o => `<li>${escapeHtml(o)}</li>`).join('')}</ul>
+                        </div>
+                    ` : ''}
+                </div>
+            </div>
+        `;
+    }
+    
+    if (clientInsights.purchase_behavior) {
+        const purchase = clientInsights.purchase_behavior;
+        html += `
+            <div class="behavior-section">
+                <h4>Purchase Behavior</h4>
+                <div class="info-grid">
+                    ${purchase.budget_range ? `<div class="info-item"><strong>Budget Range:</strong> ${escapeHtml(purchase.budget_range)}</div>` : ''}
+                    ${purchase.financing_interest ? `<div class="info-item"><strong>Financing Interest:</strong> ${escapeHtml(purchase.financing_interest)}</div>` : ''}
+                    ${purchase.decision_timeline ? `<div class="info-item"><strong>Decision Timeline:</strong> ${escapeHtml(purchase.decision_timeline)}</div>` : ''}
+                    ${purchase.key_influencers && purchase.key_influencers.length > 0 ? `
+                        <div class="info-item full-width">
+                            <strong>Key Influencers:</strong>
+                            <ul>${purchase.key_influencers.map(i => `<li>${escapeHtml(i)}</li>`).join('')}</ul>
+                        </div>
+                    ` : ''}
+                </div>
+            </div>
+        `;
+    }
+    
+    html += `</div></div>`;
+    
+    // Advertising Insights
+    if (clientInsights.advertising_insights) {
+        const ads = clientInsights.advertising_insights;
+        html += `
+            <div class="card client-info-card advertising-card">
+                <h3>📢 Advertising Insights</h3>
+                <div class="advertising-grid">
+                    ${ads.resonant_messaging && ads.resonant_messaging.length > 0 ? `
+                        <div class="ad-section">
+                            <h4>Resonant Messaging</h4>
+                            <ul>${ads.resonant_messaging.map(m => `<li>${escapeHtml(m)}</li>`).join('')}</ul>
+                        </div>
+                    ` : ''}
+                    ${ads.recommended_channels && ads.recommended_channels.length > 0 ? `
+                        <div class="ad-section">
+                            <h4>Recommended Channels</h4>
+                            <ul>${ads.recommended_channels.map(c => `<li>${escapeHtml(c)}</li>`).join('')}</ul>
+                        </div>
+                    ` : ''}
+                    ${ads.key_value_props && ads.key_value_props.length > 0 ? `
+                        <div class="ad-section">
+                            <h4>Key Value Props</h4>
+                            <ul>${ads.key_value_props.map(v => `<li>${escapeHtml(v)}</li>`).join('')}</ul>
+                        </div>
+                    ` : ''}
+                    ${ads.objections_to_address && ads.objections_to_address.length > 0 ? `
+                        <div class="ad-section">
+                            <h4>Objections to Address</h4>
+                            <ul>${ads.objections_to_address.map(o => `<li>${escapeHtml(o)}</li>`).join('')}</ul>
+                        </div>
+                    ` : ''}
+                </div>
+            </div>
+        `;
+    }
+    
+    // Sales Strategy
+    if (clientInsights.sales_strategy) {
+        const strategy = clientInsights.sales_strategy;
+        html += `
+            <div class="card client-info-card sales-strategy-card">
+                <h3>📞 Sales Strategy Recommendations</h3>
+                ${strategy.recommended_approach ? `
+                    <div class="strategy-section">
+                        <h4>Recommended Approach</h4>
+                        <p>${escapeHtml(strategy.recommended_approach)}</p>
+                    </div>
+                ` : ''}
+                <div class="strategy-grid">
+                    ${strategy.follow_up_emphasis && strategy.follow_up_emphasis.length > 0 ? `
+                        <div class="strategy-box">
+                            <h4>✅ Follow-Up Emphasis</h4>
+                            <ul>${strategy.follow_up_emphasis.map(e => `<li>${escapeHtml(e)}</li>`).join('')}</ul>
+                        </div>
+                    ` : ''}
+                    ${strategy.things_to_avoid && strategy.things_to_avoid.length > 0 ? `
+                        <div class="strategy-box">
+                            <h4>❌ Things to Avoid</h4>
+                            <ul>${strategy.things_to_avoid.map(a => `<li>${escapeHtml(a)}</li>`).join('')}</ul>
+                        </div>
+                    ` : ''}
+                    ${strategy.personalization_opportunities && strategy.personalization_opportunities.length > 0 ? `
+                        <div class="strategy-box">
+                            <h4>🎯 Personalization Opportunities</h4>
+                            <ul>${strategy.personalization_opportunities.map(p => `<li>${escapeHtml(p)}</li>`).join('')}</ul>
+                        </div>
+                    ` : ''}
+                </div>
+            </div>
+        `;
+    }
+    
+    container.innerHTML = html;
+}
+
+// Tab 5: Full Transcript
 function renderTranscript() {
     const container = document.getElementById('full-transcript');
     

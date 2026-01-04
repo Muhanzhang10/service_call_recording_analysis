@@ -756,8 +756,25 @@ Provide 1-2 products with current, verifiable information and California-specifi
     }
 
 
+def calculate_average_grade(grades_list: List[str]) -> str:
+    """Calculate average letter grade from a list of grades."""
+    grade_values = {'A': 4, 'B': 3, 'C': 2, 'D': 1, 'F': 0}
+    value_to_grade = {4: 'A', 3: 'B', 2: 'C', 1: 'D', 0: 'F'}
+    
+    numeric_grades = [grade_values.get(g, 0) for g in grades_list if g in grade_values]
+    
+    if not numeric_grades:
+        return 'N/A'
+    
+    average = sum(numeric_grades) / len(numeric_grades)
+    # Round to nearest integer
+    rounded = round(average)
+    return value_to_grade.get(rounded, 'C')
+
+
 def step6_overall_technician_critique(compliance_analysis: Dict, products_analysis: List[Dict], 
-                                      sales_evaluation: Dict = None) -> Dict[str, Any]:
+                                      sales_evaluation: Dict = None, client_insights: Dict = None,
+                                      product_comparison: Dict = None) -> Dict[str, Any]:
     """Generate overall technician performance critique."""
     print("\n" + "="*80)
     print("STEP 6A: Overall Technician Critique")
@@ -772,6 +789,12 @@ def step6_overall_technician_critique(compliance_analysis: Dict, products_analys
                 'question': item.get('question', '')
             }
     
+    # Calculate average compliance grade
+    compliance_grades_list = [item.get('grade', '') for item in compliance_analysis.values() if 'grade' in item]
+    compliance_avg_grade = calculate_average_grade(compliance_grades_list)
+    print(f"  Compliance grades: {compliance_grades_list}")
+    print(f"  Average compliance grade: {compliance_avg_grade}")
+    
     # Extract sales evaluation grades if available
     sales_grades = {}
     if sales_evaluation:
@@ -779,11 +802,36 @@ def step6_overall_technician_critique(compliance_analysis: Dict, products_analys
             if key in sales_evaluation and isinstance(sales_evaluation[key], dict):
                 sales_grades[key] = sales_evaluation[key].get('grade', 'N/A')
     
+    # Calculate average sales grade
+    sales_grades_list = [g for g in sales_grades.values() if g != 'N/A']
+    sales_avg_grade = calculate_average_grade(sales_grades_list)
+    print(f"  Sales grades: {sales_grades_list}")
+    print(f"  Average sales grade: {sales_avg_grade}")
+    
     # Check if products were promoted
     products_promoted = len(products_analysis) > 0
     
     system_prompt = """You are a senior service call quality analyst. Provide a comprehensive 
-critique of technician performance across compliance and sales."""
+critique of technician performance across compliance, sales, and product recommendation alignment."""
+    
+    # Build client insights summary
+    client_summary = ""
+    if client_insights and not client_insights.get('error'):
+        client_summary = f"""
+CLIENT PROFILE:
+Archetype: {client_insights.get('client_archetype', 'N/A')}
+Pain Points: {json.dumps(client_insights.get('pain_points', [])[:3], indent=2)}
+Budget Sensitivity: {client_insights.get('lifestyle_preferences', {}).get('budget_sensitivity', 'N/A')}
+Key Motivations: {json.dumps(client_insights.get('motivations', [])[:3], indent=2)}
+"""
+    
+    # Build product alignment info
+    alignment_info = ""
+    if product_comparison:
+        alignment_info = f"""
+RECOMMENDED PRODUCT: {product_comparison.get('winner_product', 'N/A')}
+REASONING: {product_comparison.get('winner_reasoning', 'N/A')[:300]}...
+"""
     
     prompt = f"""Based on the following analysis, provide an OVERALL CRITIQUE of the technician's performance:
 
@@ -795,27 +843,34 @@ SALES EVALUATION GRADES:
 
 NUMBER OF PRODUCTS PRESENTED: {len(products_analysis)}
 PRODUCTS PROMOTED: {'Yes' if products_promoted else 'No'}
+{client_summary}
+{alignment_info}
 
 Provide a comprehensive critique covering:
 1. Overall compliance performance (summary of grades)
 2. Overall sales performance (rapport, objection handling, upselling)
-3. Strengths demonstrated
-4. Areas needing improvement
-5. Product presentation quality
-6. Sales effectiveness
-7. Customer rapport and professionalism
-8. Key recommendations for improvement
+3. **Product-Client Alignment**: Did the technician recommend products that match the client's needs, budget, preferences, and pain points?
+4. Strengths demonstrated
+5. Areas needing improvement
+6. Product presentation quality
+7. Sales effectiveness
+8. Customer rapport and professionalism
+9. Key recommendations for improvement
+
+**IMPORTANT**: Factor in product-client alignment when determining the overall grade. Misaligned recommendations should lower the grade.
 
 Return JSON format:
 {{
-  "overall_grade": "A/B/C/D/F based on compliance and sales average",
+  "overall_grade": "A/B/C/D/F based on compliance, sales, AND product alignment",
   "compliance_summary": "Summary of compliance performance",
   "sales_summary": "Summary of sales/product presentation including whether products were promoted",
+  "product_alignment_assessment": "Detailed evaluation of whether recommended products align with client needs, preferences, and budget",
+  "product_alignment_grade": "A/B/C/D/F - How well did recommendations match the client?",
   "products_promoted": {str(products_promoted).lower()},
   "strengths": ["strength 1", "strength 2", ...],
   "areas_for_improvement": ["area 1", "area 2", ...],
   "key_recommendations": ["recommendation 1", "recommendation 2", ...],
-  "overall_assessment": "Comprehensive final assessment"
+  "overall_assessment": "Comprehensive final assessment including product alignment"
 }}"""
     
     response = call_llm(prompt, system_prompt, model="gpt-4o")
@@ -832,6 +887,9 @@ Return JSON format:
         
         parsed = json.loads(cleaned_response)
         parsed['products_promoted'] = products_promoted
+        # Add calculated average grades
+        parsed['compliance_grade'] = compliance_avg_grade
+        parsed['sales_grade'] = sales_avg_grade
         return parsed
     except (json.JSONDecodeError, KeyError) as e:
         print(f"  Warning: Could not parse critique: {e}")
@@ -840,10 +898,156 @@ Return JSON format:
             "compliance_summary": response,
             "sales_summary": "",
             "products_promoted": products_promoted,
+            "compliance_grade": compliance_avg_grade,
+            "sales_grade": sales_avg_grade,
             "strengths": [],
             "areas_for_improvement": [],
             "key_recommendations": [],
             "overall_assessment": ""
+        }
+
+
+def step14_extract_client_insights(transcript_text: str, structured_analysis: Dict[str, Any], 
+                                    location_info: Dict[str, Any], objections: Dict[str, Any]) -> Dict[str, Any]:
+    """Step 14: Extract key client information for advertising and sales insights."""
+    print("\n" + "="*80)
+    print("STEP 14: Client Insights Extraction")
+    print("="*80)
+    
+    system_prompt = """You are an expert at extracting actionable client insights from service calls.
+Your goal is to identify information that would be valuable for targeted advertising, personalized sales, 
+and customer relationship management."""
+    
+    prompt = f"""Analyze this service call transcript and extract comprehensive CLIENT INSIGHTS that would 
+be valuable for advertising, sales strategies, and customer relationship management.
+
+TRANSCRIPT:
+{transcript_text}
+
+EXISTING CLIENT DATA:
+Location: {location_info}
+Client Situation: {structured_analysis.get('client_situation', {})}
+Customer Sentiment: {objections.get('overall_sentiment', 'unknown')}
+Readiness to Buy: {objections.get('readiness_to_buy', 'unknown')}
+
+Extract the following categories:
+
+1. DEMOGRAPHIC INFORMATION:
+   - Family status (e.g., married, has kids, pets)
+   - Home ownership details
+   - Work situation (e.g., works from home, schedule)
+   - Age indicators (implicit clues)
+
+2. LIFESTYLE & PREFERENCES:
+   - Comfort preferences (temperature, noise sensitivity)
+   - Environmental concerns (energy efficiency interest)
+   - Technology adoption (smart home interest)
+   - Budget consciousness level
+
+3. PAIN POINTS & MOTIVATIONS:
+   - Primary problems they want solved
+   - Secondary concerns
+   - What triggers their buying decisions
+   - Emotional drivers (comfort, savings, reliability)
+
+4. COMMUNICATION STYLE:
+   - Decision-making process (analytical, emotional, quick, deliberate)
+   - Information preference (technical details vs. simple explanations)
+   - Trust indicators
+   - Objection patterns
+
+5. PURCHASE BEHAVIOR:
+   - Budget constraints mentioned
+   - Financing interest
+   - Timeline for decision
+   - Key decision influencers (spouse, family, etc.)
+
+6. ADVERTISING INSIGHTS:
+   - What messaging would resonate
+   - Which marketing channels would work best
+   - Key value propositions to emphasize
+   - Potential objections to address in ads
+
+7. SALES STRATEGY RECOMMENDATIONS:
+   - Best approach for this client type
+   - What to emphasize in follow-up
+   - Red flags to avoid
+   - Personalization opportunities
+
+Return detailed JSON format:
+{{
+  "demographic_profile": {{
+    "family_status": "...",
+    "home_details": "...",
+    "work_situation": "...",
+    "age_indicators": "..."
+  }},
+  "lifestyle_preferences": {{
+    "comfort_needs": ["..."],
+    "environmental_consciousness": "high/medium/low",
+    "tech_savviness": "high/medium/low",
+    "budget_sensitivity": "high/medium/low"
+  }},
+  "pain_points": [
+    {{
+      "pain_point": "...",
+      "severity": "high/medium/low",
+      "supporting_quote": "..."
+    }}
+  ],
+  "motivations": [
+    {{
+      "motivation": "...",
+      "priority": "high/medium/low",
+      "supporting_quote": "..."
+    }}
+  ],
+  "communication_profile": {{
+    "decision_style": "...",
+    "information_preference": "...",
+    "trust_level": "high/medium/low",
+    "objection_patterns": ["..."]
+  }},
+  "purchase_behavior": {{
+    "budget_range": "...",
+    "financing_interest": "yes/no/maybe",
+    "decision_timeline": "...",
+    "key_influencers": ["..."]
+  }},
+  "advertising_insights": {{
+    "resonant_messaging": ["..."],
+    "recommended_channels": ["..."],
+    "key_value_props": ["..."],
+    "objections_to_address": ["..."]
+  }},
+  "sales_strategy": {{
+    "recommended_approach": "...",
+    "follow_up_emphasis": ["..."],
+    "things_to_avoid": ["..."],
+    "personalization_opportunities": ["..."]
+  }},
+  "client_archetype": "Brief 1-2 sentence summary of client type",
+  "quick_wins": ["Quick actionable insights for immediate use"]
+}}"""
+    
+    response = call_llm(prompt, system_prompt, model="gpt-4o")
+    
+    try:
+        cleaned_response = response.strip()
+        if cleaned_response.startswith("```json"):
+            cleaned_response = cleaned_response[7:]
+        if cleaned_response.startswith("```"):
+            cleaned_response = cleaned_response[3:]
+        if cleaned_response.endswith("```"):
+            cleaned_response = cleaned_response[:-3]
+        cleaned_response = cleaned_response.strip()
+        
+        return json.loads(cleaned_response)
+    except (json.JSONDecodeError, KeyError) as e:
+        print(f"  Warning: Could not parse client insights: {e}")
+        return {
+            "error": "Could not parse response",
+            "raw_response": response
         }
 
 
@@ -860,6 +1064,7 @@ def generate_executive_summary(all_results: Dict[str, Any]) -> Dict[str, Any]:
     objections = all_results.get("customer_objections_analysis", {})
     winner = all_results.get("step7_product_comparison", {})
     sales_eval = all_results.get("step8_sales_evaluation", {})
+    client_insights = all_results.get("step14_client_insights", {})
     
     # Count compliance grades
     grades = {}
@@ -867,7 +1072,7 @@ def generate_executive_summary(all_results: Dict[str, Any]) -> Dict[str, Any]:
         grade = item.get('grade', 'N/A')
         grades[grade] = grades.get(grade, 0) + 1
     
-    # Calculate average grade (letter to number) - including both compliance and sales
+    # Calculate average grade (letter to number) - including compliance, sales, and product alignment
     grade_values = {'A': 90, 'B': 80, 'C': 70, 'D': 60, 'F': 50}
     total_grade = 0
     grade_count = 0
@@ -888,6 +1093,13 @@ def generate_executive_summary(all_results: Dict[str, Any]) -> Dict[str, Any]:
                     total_grade += grade_values[grade]
                     grade_count += 1
     
+    # Add product alignment grade
+    if critique and critique.get('product_alignment_grade'):
+        alignment_grade = critique.get('product_alignment_grade', '')
+        if alignment_grade in grade_values:
+            total_grade += grade_values[alignment_grade]
+            grade_count += 1
+    
     avg_grade_num = total_grade / grade_count if grade_count > 0 else 0
     if avg_grade_num >= 90:
         avg_grade = 'A'
@@ -899,6 +1111,20 @@ def generate_executive_summary(all_results: Dict[str, Any]) -> Dict[str, Any]:
         avg_grade = 'D'
     else:
         avg_grade = 'F'
+    
+    # Build client insights summary for advertising/sales
+    client_summary = {}
+    if client_insights and not client_insights.get('error'):
+        client_summary = {
+            "client_archetype": client_insights.get("client_archetype", ""),
+            "quick_wins": client_insights.get("quick_wins", []),
+            "key_pain_points": [p.get("pain_point") for p in client_insights.get("pain_points", [])[:3]],
+            "top_motivations": [m.get("motivation") for m in client_insights.get("motivations", [])[:3]],
+            "budget_sensitivity": client_insights.get("lifestyle_preferences", {}).get("budget_sensitivity", "N/A"),
+            "decision_timeline": client_insights.get("purchase_behavior", {}).get("decision_timeline", "N/A"),
+            "recommended_messaging": client_insights.get("advertising_insights", {}).get("resonant_messaging", [])[:3],
+            "follow_up_strategy": client_insights.get("sales_strategy", {}).get("follow_up_emphasis", [])[:3]
+        }
     
     # Build executive summary with technician performance critique
     return {
@@ -925,6 +1151,8 @@ def generate_executive_summary(all_results: Dict[str, Any]) -> Dict[str, Any]:
             "overall_grade": critique.get("overall_grade", "N/A"),
             "compliance_summary": critique.get("compliance_summary", ""),
             "sales_summary": critique.get("sales_summary", ""),
+            "product_alignment_assessment": critique.get("product_alignment_assessment", ""),
+            "product_alignment_grade": critique.get("product_alignment_grade", "N/A"),
             "products_promoted": critique.get("products_promoted", False),
             "strengths": critique.get("strengths", []),
             "areas_for_improvement": critique.get("areas_for_improvement", []),
@@ -936,6 +1164,7 @@ def generate_executive_summary(all_results: Dict[str, Any]) -> Dict[str, Any]:
             "speaking_time_grade": sales_eval.get('speaking_time_analysis', {}).get('grade', 'N/A') if sales_eval else 'N/A',
             "upselling_grade": sales_eval.get('upselling_performance', {}).get('grade', 'N/A') if sales_eval else 'N/A'
         },
+        "client_insights_summary": client_summary,
         "generated_at": datetime.now().isoformat()
     }
 
@@ -1305,12 +1534,15 @@ Steps:
   10 - Sales Evaluation
   11 - Technician Critique
   12 - Product Comparison
-  13 - Executive Summary
+  13 - [Reserved]
+  14 - Client Insights Extraction
+  15 - Executive Summary
 
 Examples:
   python -m analysis2.analyze                    # Run all steps
   python -m analysis2.analyze --steps 10         # Run only Sales Evaluation
-  python -m analysis2.analyze --steps 10 11 13   # Run Sales Eval, Critique, Summary
+  python -m analysis2.analyze --steps 10 11 15   # Run Sales Eval, Critique, Summary
+  python -m analysis2.analyze --steps 14 11 15   # Run Client Insights, Critique, Summary
   python -m analysis2.analyze --from 10          # Run from Sales Evaluation onwards
   python -m analysis2.analyze --clear            # Clear cache and run all
         """
@@ -1361,7 +1593,9 @@ def list_steps():
         (10, "Sales Evaluation"),
         (11, "Technician Critique"),
         (12, "Product Comparison"),
-        (13, "Executive Summary")
+        (13, "[Reserved]"),
+        (14, "Client Insights Extraction"),
+        (15, "Executive Summary")
     ]
     
     print("\nAvailable Analysis Steps:")
@@ -1402,10 +1636,10 @@ def main():
         steps_to_run = set(args.steps)
         print(f"\nRunning selected steps: {sorted(steps_to_run)}")
     elif args.from_step is not None:
-        steps_to_run = set(range(args.from_step, 14))
+        steps_to_run = set(range(args.from_step, 16))
         print(f"\nRunning from step {args.from_step} onwards")
     else:
-        steps_to_run = set(range(14))  # All steps 0-13
+        steps_to_run = set(range(16))  # All steps 0-15
         print("\nRunning all steps")
     
     print("\n" + "="*80)
@@ -1415,7 +1649,7 @@ def main():
     print(f"Cache directory: {CACHE_DIR}")
     
     # Load existing results if running specific steps
-    if len(steps_to_run) < 14:
+    if len(steps_to_run) < 16:
         results = load_existing_results()
         print(f"Loaded existing results with {len(results)} top-level keys")
     else:
@@ -1621,19 +1855,8 @@ def main():
             print("⚠️  Skipping sales evaluation (no products found)")
             results["step8_sales_evaluation"] = {}
     
-    # Step 11: Overall Technician Critique (now includes sales evaluation)
-    if 11 in steps_to_run:
-        progress.step("Technician Critique")
-        cached = load_checkpoint("step6")
-        if cached and not (10 in steps_to_run):  # Use cache if sales eval wasn't just run
-            results["step6_overall_critique"] = cached
-        else:
-            results["step6_overall_critique"] = step6_overall_technician_critique(
-                results.get("step2_compliance_analysis", {}),
-                results.get("step4_enhanced_products", []),
-                results.get("step8_sales_evaluation", {})
-            )
-            save_checkpoint("step6", results["step6_overall_critique"])
+    # Step 11: Overall Technician Critique (will be updated after client insights)
+    # Placeholder - will run after step 14
     
     # Step 12: Product Comparison and Winner
     if 12 in steps_to_run:
@@ -1653,8 +1876,41 @@ def main():
             print("⚠️  Skipping product comparison (no products found)")
             results["step7_product_comparison"] = {}
     
-    # Step 13: Executive Summary
-    if 13 in steps_to_run:
+    # Step 13: Reserved for future use
+    
+    # Step 14: Client Insights Extraction
+    if 14 in steps_to_run:
+        progress.step("Client Insights Extraction")
+        cached = load_checkpoint("step14")
+        if cached:
+            results["step14_client_insights"] = cached
+        else:
+            results["step14_client_insights"] = step14_extract_client_insights(
+                labeled_transcript,
+                results.get("step3_structured_analysis", {}),
+                location_info,
+                results.get("customer_objections_analysis", {})
+            )
+            save_checkpoint("step14", results["step14_client_insights"])
+    
+    # Step 11 (Run after client insights are available): Overall Technician Critique
+    if 11 in steps_to_run:
+        progress.step("Technician Critique")
+        cached = load_checkpoint("step6")
+        if cached and not (10 in steps_to_run) and not (14 in steps_to_run):  # Use cache if sales eval and client insights weren't just run
+            results["step6_overall_critique"] = cached
+        else:
+            results["step6_overall_critique"] = step6_overall_technician_critique(
+                results.get("step2_compliance_analysis", {}),
+                results.get("step4_enhanced_products", []),
+                results.get("step8_sales_evaluation", {}),
+                results.get("step14_client_insights", {}),
+                results.get("step7_product_comparison", {})
+            )
+            save_checkpoint("step6", results["step6_overall_critique"])
+    
+    # Step 15: Executive Summary
+    if 15 in steps_to_run:
         progress.step("Executive Summary")
         results["executive_summary"] = generate_executive_summary(results)
     
@@ -1668,7 +1924,7 @@ def main():
         json.dump(results, f, indent=2)
     
     # Only clear checkpoints if all steps were run
-    if len(steps_to_run) == 14:
+    if len(steps_to_run) == 16:
         clear_checkpoints()
         print("\n✓ All steps completed - cleared checkpoints")
     else:
@@ -1699,10 +1955,10 @@ def main():
             print(f"  - Speaking Time (70/30 Rule): {sales_eval_summary.get('speaking_time_grade', 'N/A')}")
             print(f"  - Upselling Performance: {sales_eval_summary.get('upselling_grade', 'N/A')}")
     else:
-        print(f"\nRun step 13 (Executive Summary) to see full summary")
+        print(f"\nRun step 15 (Executive Summary) to see full summary")
     
     print(f"\n💡 Tip: Use --list to see all available steps")
-    print(f"   Example: python -m analysis2.analyze --steps 10 11 13")
+    print(f"   Example: python -m analysis2.analyze --steps 14 11 15")
     
     return 0
 

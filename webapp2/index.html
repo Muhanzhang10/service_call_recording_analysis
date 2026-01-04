@@ -22,6 +22,7 @@
             <button class="tab-button" data-tab="compliance">✓ Compliance Check</button>
             <button class="tab-button" data-tab="sales">💼 Sales Evaluation</button>
             <button class="tab-button" data-tab="structured">📊 Client & Products</button>
+            <button class="tab-button" data-tab="client">👤 Client Information</button>
             <button class="tab-button" data-tab="transcript">📝 Full Transcript</button>
         </div>
     </nav>
@@ -42,6 +43,14 @@
                 <h2>📊 Overall Technician Performance Critique</h2>
                 <div id="overall-critique">
                     <p class="loading">Loading critique...</p>
+                </div>
+            </div>
+
+            <!-- Client Insights Summary -->
+            <div class="card client-insights-card">
+                <h2>👤 Client Insights for Advertising & Sales</h2>
+                <div id="client-insights-summary">
+                    <p class="loading">Loading client insights...</p>
                 </div>
             </div>
 
@@ -140,7 +149,17 @@
             </div>
         </section>
 
-        <!-- Tab 4: Full Transcript -->
+        <!-- Tab 4: Client Information -->
+        <section id="tab-client" class="tab-content">
+            <h2>Client Information & Insights</h2>
+            <p class="subtitle">Detailed client profile for advertising, sales strategies, and customer relationship management</p>
+            
+            <div id="client-information">
+                <p class="loading">Loading client information...</p>
+            </div>
+        </section>
+
+        <!-- Tab 5: Full Transcript -->
         <section id="tab-transcript" class="tab-content">
             <div class="card">
                 <h2>Full Transcript</h2>
