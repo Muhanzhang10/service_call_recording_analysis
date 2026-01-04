@@ -110,3 +110,4 @@ The analysis is performed using OpenAI's GPT-4 model, which provides:
 - Citations link directly to specific moments in the transcript
 - The client response analysis helps identify successful sales techniques and missed opportunities
 
+

@@ -12,7 +12,7 @@ venv/
 ENV/
 
 # Transcription outputs
-transcription*.txt
+# transcription*.txt
 transcription*.json
 
 # Audio files (optional - uncomment if you don't want to commit the audio)
@@ -31,4 +31,5 @@ transcription*.json
 dist/
 build/
 *.egg-info/
+
 
