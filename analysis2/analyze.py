@@ -1053,7 +1053,7 @@ def main():
     if cached:
         results["step1_overall_summary"] = cached
     else:
-        results["step1_overall_summary"] = step1_overall_summary(labeled_transcript)
+    results["step1_overall_summary"] = step1_overall_summary(labeled_transcript)
         save_checkpoint("step1", results["step1_overall_summary"])
     
     # Step 2: Compliance Questions with Grades
@@ -1062,7 +1062,7 @@ def main():
     if cached:
         results["step2_compliance_analysis"] = cached
     else:
-        results["step2_compliance_analysis"] = step2_compliance_questions(labeled_transcript)
+    results["step2_compliance_analysis"] = step2_compliance_questions(labeled_transcript)
         save_checkpoint("step2", results["step2_compliance_analysis"])
     
     # Step 3: Structured Analysis
@@ -1071,7 +1071,7 @@ def main():
     if cached:
         results["step3_structured_analysis"] = cached
     else:
-        results["step3_structured_analysis"] = step3_structured_analysis(labeled_transcript)
+    results["step3_structured_analysis"] = step3_structured_analysis(labeled_transcript)
         save_checkpoint("step3", results["step3_structured_analysis"])
     
     # Step 3.5: Customer Objections Analysis

@@ -683,11 +683,21 @@ main {
 }
 
 .interest-analysis-section {
-    background-color: #fef3c7;
+    background: linear-gradient(to bottom, #fef3c7, #fef9c3);
     border-left: 4px solid var(--warning-color);
-    padding: 1rem;
+    padding: 1.5rem;
     margin-top: 1.5rem;
-    border-radius: 8px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(245, 158, 11, 0.15);
+}
+
+.interest-analysis-section .subsection-header {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    margin-top: 1rem;
+}
+
+.interest-analysis-section .subsection-content {
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .interest-analysis-section h5 {
@@ -738,35 +748,190 @@ main {
     line-height: 1.8;
 }
 
-/* Alternative Products */
-.alternative-products-section {
-    line-height: 1.8;
+.research-content .product-detail-section {
+    margin-bottom: 0.75rem;
+    padding: 0.75rem;
+    background-color: var(--bg-color);
 }
 
-.alternative-products-info {
-    background-color: var(--bg-color);
-    padding: 1.5rem;
-    border-radius: 8px;
+/* Alternative Products */
+.alternative-products-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
     margin-bottom: 1.5rem;
 }
 
+.alternative-product-box {
+    background: linear-gradient(to bottom, #ffffff, #f8fafc);
+    border: 2px solid var(--primary-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.alternative-product-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(37, 99, 235, 0.2);
+}
+
+.alternative-product-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.alternative-product-header h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+    margin: 0;
+    flex: 1;
+}
+
+.alternative-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    white-space: nowrap;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+}
+
+.alternative-product-content {
+    line-height: 1.8;
+    color: var(--text-primary);
+}
+
+.alternative-product-content strong {
+    color: var(--primary-dark);
+    display: block;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Product Detail Sections */
+.product-detail-section {
+    background-color: white;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    border-left: 3px solid var(--primary-color);
+}
+
+.product-detail-section .section-label {
+    font-weight: 600;
+    color: var(--primary-dark);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.product-detail-section .section-content {
+    color: var(--text-primary);
+    line-height: 1.7;
+}
+
 .alternative-interest-section {
-    background-color: #fef3c7;
+    background: linear-gradient(to bottom, #fef3c7, #fef9c3);
     border-left: 4px solid var(--warning-color);
     padding: 1.5rem;
-    border-radius: 8px;
+    border-radius: 12px;
+    margin-top: 1.5rem;
+    box-shadow: 0 2px 6px rgba(245, 158, 11, 0.15);
+    border-top: 2px solid #fbbf24;
+}
+
+.alternative-product-box .alternative-interest-section {
+    margin-top: 1.5rem;
+    margin-bottom: 0;
 }
 
 .alternative-interest-section h4 {
     color: #92400e;
     margin-bottom: 1rem;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .alternative-interest-content {
-    background-color: white;
-    padding: 1rem;
-    border-radius: 6px;
+    background-color: transparent;
+    padding: 0;
+    line-height: 1.8;
 }
+
+.alternative-interest-section .subsection-header {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    margin-top: 1rem;
+    font-size: 0.8rem;
+}
+
+.alternative-interest-section .subsection-content {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.alternative-interest-section .interest-bullet-list li {
+    border-left-color: #f59e0b;
+}
+
+.alternative-interest-content .product-detail-section {
+    margin-bottom: 0.75rem;
+    padding: 0.75rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-left-color: #f59e0b;
+}
+
+/* Subsection Headers and Content */
+.subsection-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: 0.5px;
+    margin: 1.5rem 0 1rem 0;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+}
+
+.subsection-content {
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.interest-bullet-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0;
+}
+
+.interest-bullet-list li {
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    background-color: white;
+    border-radius: 6px;
+    border-left: 3px solid var(--primary-color);
+    line-height: 1.6;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.interest-bullet-list li strong {
+    color: var(--primary-dark);
+}
+
 
 /* Overall Critique Card */
 .critique-card {

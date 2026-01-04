@@ -437,8 +437,165 @@ function renderEnhancedProducts(products) {
 function formatPerplexityContent(content) {
     if (!content) return '';
     
-    // Convert markdown-style formatting
-    let formatted = content.replace(/\n/g, '<br>');
+    // Clean up location issues first
+    content = cleanText(content);
+    
+    // First check for ### headings (subsections like "### Alternative Product 1:")
+    const hasSubsections = content.includes('###');
+    
+    // Parse numbered sections (1. Label: content, 2. Label: content, etc.)
+    const sectionPattern = /(\d+)\.\s*\*?\*?([^:]+?)\*?\*?\s*:\s*([^\n]*(?:\n(?!\d+\.)[^\n]*)*)/g;
+    let formatted = '';
+    
+    // Split by ### headings first (for things like "### Alternative Product 1:")
+    const subsectionPattern = /###\s*(.+?)(?=###|$)/gs;
+    const subsections = [...content.matchAll(subsectionPattern)];
+    
+    if (subsections.length > 0) {
+        subsections.forEach(subsection => {
+            const title = subsection[1].split('\n')[0].trim();
+            const subsectionContent = subsection[1].substring(title.length).trim();
+            
+            formatted += `<h4 style="margin: 1.5rem 0 1rem 0; color: var(--primary-dark); font-size: 1.1rem;">${escapeHtmlSimple(title)}</h4>`;
+            formatted += formatContentWithSections(subsectionContent);
+        });
+    } else {
+        formatted = formatContentWithSections(content);
+    }
+    
+    return formatted;
+}
+
+function formatContentWithSections(content) {
+    if (!content) return '';
+    
+    let formatted = '';
+    
+    // Check for ALL CAPS section headers (like "CUSTOMER NEEDS/CONCERNS ADDRESSED")
+    const capsHeaderPattern = /^([A-Z][A-Z\s\/]+[A-Z])$/gm;
+    const sections = content.split(capsHeaderPattern);
+    
+    if (sections.length > 1) {
+        // Has section headers
+        for (let i = 0; i < sections.length; i++) {
+            const part = sections[i].trim();
+            if (!part) continue;
+            
+            // Check if this is a header (all caps)
+            if (part.match(/^[A-Z][A-Z\s\/]+[A-Z]$/)) {
+                formatted += `
+                    <div class="subsection-header">${escapeHtmlSimple(part)}</div>
+                `;
+            } else {
+                // This is content
+                formatted += `<div class="subsection-content">${formatBulletPoints(part)}</div>`;
+            }
+        }
+    } else {
+        // Try numbered sections
+        const sectionPattern = /(\d+)\.\s*\*?\*?([^:]+?)\*?\*?\s*:\s*([^\n]*(?:\n(?!\d+\.)[^\n]*)*)/g;
+        const matches = [...content.matchAll(sectionPattern)];
+        
+        if (matches.length > 0) {
+            let lastIndex = 0;
+            
+            matches.forEach((match) => {
+                // Add any text before this match
+                if (match.index > lastIndex) {
+                    const beforeText = content.substring(lastIndex, match.index).trim();
+                    if (beforeText) {
+                        formatted += `<div style="margin-bottom: 1rem;">${formatSimpleText(beforeText)}</div>`;
+                    }
+                }
+                
+                const label = match[2].trim();
+                const sectionContent = match[3].trim();
+                
+                formatted += `
+                    <div class="product-detail-section">
+                        <span class="section-label">${escapeHtmlSimple(label)}</span>
+                        <div class="section-content">${formatSimpleText(sectionContent)}</div>
+                    </div>
+                `;
+                
+                lastIndex = match.index + match[0].length;
+            });
+            
+            // Add any remaining text
+            if (lastIndex < content.length) {
+                const afterText = content.substring(lastIndex).trim();
+                if (afterText) {
+                    formatted += `<div style="margin-top: 1rem;">${formatSimpleText(afterText)}</div>`;
+                }
+            }
+        } else {
+            // No special formatting needed
+            formatted = formatSimpleText(content);
+        }
+    }
+    
+    return formatted;
+}
+
+function formatBulletPoints(text) {
+    if (!text) return '';
+    
+    // Escape HTML first
+    const div = document.createElement('div');
+    div.textContent = text;
+    let formatted = div.innerHTML;
+    
+    // Split by bullet points (• or lines starting with •)
+    const lines = formatted.split('\n');
+    let result = '';
+    let inList = false;
+    
+    lines.forEach(line => {
+        line = line.trim();
+        if (!line) return;
+        
+        // Check if line starts with bullet (• or -)
+        if (line.match(/^[•\-]\s*/)) {
+            if (!inList) {
+                result += '<ul class="interest-bullet-list">';
+                inList = true;
+            }
+            // Remove the bullet and trim
+            const content = line.replace(/^[•\-]\s*/, '').trim();
+            // Make text after colons or ** bold
+            let formattedContent = content.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+            // Bold text after colons in bullet points
+            formattedContent = formattedContent.replace(/^([^:]+:)/, '<strong>$1</strong>');
+            
+            result += `<li>${formattedContent}</li>`;
+        } else {
+            if (inList) {
+                result += '</ul>';
+                inList = false;
+            }
+            // Regular paragraph
+            let formattedLine = line.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+            result += `<p style="margin: 0.5rem 0;">${formattedLine}</p>`;
+        }
+    });
+    
+    if (inList) {
+        result += '</ul>';
+    }
+    
+    return result;
+}
+
+function formatSimpleText(text) {
+    if (!text) return '';
+    
+    // First escape HTML to prevent XSS
+    const div = document.createElement('div');
+    div.textContent = text;
+    let formatted = div.innerHTML;
+    
+    // Then apply our safe formatting
+    formatted = formatted.replace(/\n/g, '<br>');
     formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     formatted = formatted.replace(/- /g, '• ');
     
@@ -454,29 +611,110 @@ function renderAlternativeProducts() {
         return;
     }
     
-    let html = '<div class="alternative-products-section">';
+    // Parse the alternative products info into individual products
+    const products = parseAlternativeProducts(research.alternative_products_info);
     
-    // Display alternative products info
-    html += `
-        <div class="alternative-products-info">
-            ${formatPerplexityContent(research.alternative_products_info)}
-        </div>
-    `;
+    // Parse the interest analysis for each product
+    const interestAnalyses = parseInterestAnalysis(research.alternative_interest_analysis);
     
-    // Display interest analysis for alternatives
-    if (research.alternative_interest_analysis) {
+    let html = '<div class="alternative-products-grid">';
+    
+    // Render each product in its own box
+    products.forEach((product, index) => {
         html += `
-            <div class="alternative-interest-section">
-                <h4>💡 Why the Client Might Be Interested</h4>
-                <div class="alternative-interest-content">
-                    ${formatPerplexityContent(research.alternative_interest_analysis)}
+            <div class="alternative-product-box">
+                <div class="alternative-product-header">
+                    <h4>${escapeHtml(product.name)}</h4>
+                    <span class="alternative-badge">Alternative ${index + 1}</span>
                 </div>
-            </div>
+                <div class="alternative-product-content">
+                    ${formatPerplexityContent(product.content)}
+                </div>
         `;
-    }
+        
+        // Add interest analysis if available for this product
+        if (interestAnalyses[index]) {
+            html += `
+                <div class="alternative-interest-section">
+                    <h4>💡 Why the Client Might Be Interested</h4>
+                    <div class="alternative-interest-content">
+                        ${formatPerplexityContent(interestAnalyses[index])}
+                    </div>
+                </div>
+            `;
+        }
+        
+        html += `</div>`;
+    });
     
     html += '</div>';
+    
     container.innerHTML = html;
+}
+
+function parseInterestAnalysis(interestAnalysisText) {
+    if (!interestAnalysisText) return [];
+    
+    // Split by "### Alternative Product X:" markers
+    const productPattern = /### Alternative Product \d+:[^\n]*/g;
+    const matches = interestAnalysisText.match(productPattern);
+    
+    if (!matches) return [];
+    
+    const analyses = [];
+    
+    // Split the text by these markers
+    const parts = interestAnalysisText.split(/### Alternative Product \d+:[^\n]*/);
+    
+    // Skip the first part (text before first product)
+    for (let i = 1; i < parts.length; i++) {
+        analyses.push(parts[i].trim());
+    }
+    
+    return analyses;
+}
+
+function parseAlternativeProducts(alternativeProductsInfo) {
+    if (!alternativeProductsInfo) return [];
+    
+    // Split by "### Alternative Product" markers
+    const productSections = alternativeProductsInfo.split(/### Alternative Product \d+:/);
+    
+    const products = [];
+    
+    for (let i = 1; i < productSections.length; i++) {
+        const section = productSections[i].trim();
+        
+        // Try to extract product name from first numbered section or first line
+        const firstLineMatch = section.match(/^(.+?)(?:\n|$)/);
+        let name = 'Alternative Product ' + i;
+        let content = section;
+        
+        // Check if first line contains "Product name" or is a numbered section
+        if (section.match(/^1\.\s*\*?\*?[Pp]roduct name/)) {
+            // Extract name from first numbered section
+            const nameMatch = section.match(/1\.\s*\*?\*?[Pp]roduct name[^:]*:\s*([^\n]+)/);
+            if (nameMatch) {
+                name = nameMatch[1].trim();
+                // Remove markdown formatting
+                name = name.replace(/\*\*/g, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
+            }
+        } else if (firstLineMatch) {
+            // Use first line as name if it's not a numbered section
+            const firstLine = firstLineMatch[1].trim();
+            if (!firstLine.match(/^\d+\./)) {
+                name = firstLine;
+                content = section.substring(firstLine.length).trim();
+            }
+        }
+        
+        products.push({
+            name: name,
+            content: content
+        });
+    }
+    
+    return products;
 }
 
 function renderWinnerAnalysis() {
@@ -585,7 +823,28 @@ function renderTranscript() {
 }
 
 // Utility Functions
+function cleanText(text) {
+    if (!text) return '';
+    
+    // Clean up "None None" location issues
+    text = text.replace(/\bNone None,?\s*/g, '');
+    text = text.replace(/\s+,/g, ','); // Clean up extra spaces before commas
+    text = text.replace(/,\s+,/g, ','); // Clean up double commas
+    text = text.replace(/\bin None None\b/gi, 'in California'); // Specific case
+    
+    return text;
+}
+
 function escapeHtml(text) {
+    if (!text) return '';
+    text = cleanText(text); // Clean before escaping
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function escapeHtmlSimple(text) {
+    // Escape HTML without cleaning text (for use in formatPerplexityContent)
     if (!text) return '';
     const div = document.createElement('div');
     div.textContent = text;

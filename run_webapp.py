@@ -18,7 +18,7 @@ PORT = 8000
 
 # Determine which webapp to serve
 if len(sys.argv) > 1 and sys.argv[1] == "1":
-     WEBAPP_PATH = "/webapp/"
+    WEBAPP_PATH = "/webapp/"
     WEBAPP_NAME = "Stage Analysis (webapp)"
 else:
     WEBAPP_PATH = "/webapp2/"
